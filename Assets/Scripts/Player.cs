@@ -9,7 +9,7 @@ public class Player : MovingObject{
 
 
     // Use this for initialization
-    void Start () {
+    protected override void Start () {
         animator = GetComponent<Animator>();
         base.Start();
 	}
@@ -25,7 +25,7 @@ public class Player : MovingObject{
 
         if (horizontal != 0) vertical = 0;
         if (horizontal != 0 || vertical != 0)
-            base.Move(horizontal, vertical, out hit );
+            base.AttemptMove<Enemy>(horizontal, vertical);
 	}
 
     protected override void OnCantMove<T>(T component)
