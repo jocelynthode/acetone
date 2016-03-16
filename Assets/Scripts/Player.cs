@@ -15,10 +15,15 @@ public class Player : MovingObject{
         base.Start();
 	}
 
-    public override void AttemptMove<T>(int xDir, int yDir)
+    private void Update()
     {
+        if (!GameManager.instance.playerTurn) return;
+        int horizontal = 0;
+        int vertical = 0;
         int fire1 = 0;
 
+        horizontal = (int)Input.GetAxisRaw("Horizontal");
+        vertical = (int)Input.GetAxisRaw("Vertical");
         fire1 = (int)Input.GetAxisRaw("Fire1");
 
         if (fire1 > 0)
@@ -28,17 +33,24 @@ public class Player : MovingObject{
         }
 
 
-        if (xDir != 0)
+        if (horizontal != 0)
         {
-            yDir = 0;
-            if (xDir != dir)
+            vertical = 0;
+            if (horizontal != dir)
             {
                 Flip();
-                dir = xDir;
+                dir = horizontal;
             }
         }
-        if (xDir != 0 || yDir != 0)
-            base.AttemptMove<T>(xDir, yDir);
+        if (horizontal != 0 || vertical != 0)
+            AttemptMove<Enemy>(horizontal, vertical);
+    }
+
+
+    public override void AttemptMove<T>(int xDir, int yDir)
+    {
+        base.AttemptMove<T>(xDir, yDir);
+        GameManager.instance.playerTurn = false;
     }
 
     protected override void OnCantMove<T>(T component)

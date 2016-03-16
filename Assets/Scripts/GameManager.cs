@@ -5,6 +5,7 @@ using System;
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public bool playerTurn = true;
+    private bool enemiesMoving = false;
 
     public BoardManager boardScript;
 
@@ -30,37 +31,21 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerTurn)
-        {
-            int horizontal = 0;
-            int vertical = 0;
+        if (playerTurn || enemiesMoving) return;
 
-            horizontal = (int)Input.GetAxisRaw("Horizontal");
-            vertical = (int)Input.GetAxisRaw("Vertical");
-            if (horizontal == 0 && vertical == 0) return;
-            boardScript.player.AttemptMove<Enemy>(horizontal, vertical);
-            playerTurn = false;
-        }
-        else
-        {
-            boardScript.enemies.ForEach(moveEnemies);
-            playerTurn = true;
-        }
+        StartCoroutine(MoveEnemies());
 	}
 
-    private void moveEnemies(Enemy enemy)
+    private IEnumerator MoveEnemies()
     {
-        int xDir = 0;
-        int yDir = 0;
-        float randomValue = UnityEngine.Random.value;
-        if (randomValue < 0.5f)
+        enemiesMoving = true;
+        yield return new WaitForSeconds(0.1f);
+        foreach(Enemy enemy in boardScript.enemies)
         {
-            xDir = UnityEngine.Random.value < 0.5f ? -1 : 1;
+            enemy.Move();
+            yield return new WaitForSeconds(enemy.moveTime);
         }
-        else
-        {
-            yDir = UnityEngine.Random.value < 0.5f ? -1 : 1;
-        }
-        enemy.AttemptMove<Player>(xDir, yDir);
+        playerTurn = true;
+        enemiesMoving = false;
     }
 }
