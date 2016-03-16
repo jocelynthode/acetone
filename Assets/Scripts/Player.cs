@@ -8,6 +8,19 @@ public class Player : MovingObject{
     private Animator animator;
     private int dir = 1;
 
+    public int Dir
+    {
+        get
+        {
+            return dir;
+        }
+
+        set
+        {
+            dir = value;
+        }
+    }
+
 
     // Use this for initialization
     protected override void Start () {
