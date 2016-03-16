@@ -8,19 +8,6 @@ public class Player : MovingObject{
     private Animator animator;
     private int dir = 1;
 
-    public int Dir
-    {
-        get
-        {
-            return dir;
-        }
-
-        set
-        {
-            dir = value;
-        }
-    }
-
 
     // Use this for initialization
     protected override void Start () {
@@ -28,9 +15,30 @@ public class Player : MovingObject{
         base.Start();
 	}
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    public override void AttemptMove<T>(int xDir, int yDir)
     {
-        base.AttemptMove<T>(xDir, yDir);
+        int fire1 = 0;
+
+        fire1 = (int)Input.GetAxisRaw("Fire1");
+
+        if (fire1 > 0)
+        {
+            animator.SetTrigger("PlayerAtt");
+            return;
+        }
+
+
+        if (xDir != 0)
+        {
+            yDir = 0;
+            if (xDir != dir)
+            {
+                Flip();
+                dir = xDir;
+            }
+        }
+        if (xDir != 0 || yDir != 0)
+            base.AttemptMove<T>(xDir, yDir);
     }
 
     protected override void OnCantMove<T>(T component)

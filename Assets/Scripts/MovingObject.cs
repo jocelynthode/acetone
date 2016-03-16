@@ -89,7 +89,7 @@ namespace Completed
 
         //The virtual keyword means AttemptMove can be overridden by inheriting classes using the override keyword.
         //AttemptMove takes a generic parameter T to specify the type of component we expect our unit to interact with if blocked (Player for Enemies, Wall for Player).
-        protected virtual void AttemptMove<T>(int xDir, int yDir)
+        public virtual void AttemptMove<T>(int xDir, int yDir)
             where T : Component
         {
             //Hit will store whatever our linecast hits when Move is called.
