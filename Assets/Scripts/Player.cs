@@ -38,6 +38,6 @@ public class Player : MovingObject{
 
     protected override void OnCantMove<T>(T component)
     {
-        throw new NotImplementedException();
+        base.turn = true;
     }
 }
