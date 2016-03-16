@@ -6,6 +6,7 @@ using System;
 public class Player : MovingObject{
 
     private Animator animator;
+    private int dir = 1;
 
 
     // Use this for initialization
@@ -19,11 +20,28 @@ public class Player : MovingObject{
         if (!base.turn) return;
         int horizontal = 0;
         int vertical = 0;
+        int fire1 = 0;
 
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
+        fire1 = (int)Input.GetAxisRaw("Fire1");
 
-        if (horizontal != 0) vertical = 0;
+        if (fire1 > 0)
+        {
+            animator.SetTrigger("PlayerAtt");
+            return;
+        }
+
+
+        if (horizontal != 0)
+        {
+            vertical = 0;
+            if (horizontal != dir)
+            {
+                Flip();
+                dir = horizontal;
+            }
+        }
         if (horizontal != 0 || vertical != 0)
             AttemptMove<Enemy>(horizontal, vertical);
 	}
@@ -38,5 +56,9 @@ public class Player : MovingObject{
     protected override void OnCantMove<T>(T component)
     {
         base.turn = true;
+    }
+    void Flip()
+    {
+        animator.transform.Rotate(0, 180, 0);
     }
 }
