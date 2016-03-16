@@ -133,7 +133,8 @@ MonoBehaviour:
   foodCount:
     minimum: 1
     maximum: 5
-  exit: {fileID: 185856, guid: 7d7c7a12b082381489701dddbab5e3e0, type: 2}
+  playerTile: {fileID: 176462, guid: 821f82b662798f14bba2707bd54346da, type: 2}
+  exitTile: {fileID: 185856, guid: 7d7c7a12b082381489701dddbab5e3e0, type: 2}
   floorTiles:
   - {fileID: 110206, guid: 637692995d08f7e4d8bfb162ac2e4452, type: 2}
   - {fileID: 113926, guid: 070e9daab742c3c47b626f1ff1bedc54, type: 2}
@@ -145,6 +146,8 @@ MonoBehaviour:
   - {fileID: 143676, guid: 09b1e5e0441e27c49aec353e1d6a3532, type: 2}
   outerWallTiles:
   - {fileID: 156592, guid: a337095991a795547a2f818db9c073f9, type: 2}
+  player: {fileID: 0}
+  enemies: []
 --- !u!4 &94969921
 Transform:
   m_ObjectHideFlags: 0

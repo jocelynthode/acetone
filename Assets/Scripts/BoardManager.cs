@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;       //Allows us to use Lists.
 using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
+using UnityObject = UnityEngine.Object;
 
 public class BoardManager : MonoBehaviour
 {
@@ -26,13 +27,16 @@ public class BoardManager : MonoBehaviour
     public int rows = 8;                                            //Number of rows in our game board.
     public Range wallCount = new Range(5, 9);                      //Lower and upper limit for our random number of walls per level.
     public Range foodCount = new Range(1, 5);                      //Lower and upper limit for our random number of food items per level.
-    public GameObject player;
-    public GameObject exit;                                         //Prefab to spawn for exit.
+    public GameObject playerTile;
+    public GameObject exitTile;                                     //Prefab to spawn for exit.
     public GameObject[] floorTiles;                                 //Array of floor prefabs.
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
     public GameObject[] foodTiles;                                  //Array of food prefabs.
     public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
     public GameObject[] outerWallTiles;                             //Array of outer tile prefabs.
+
+    public UnityObject player;
+    public List<UnityObject> enemies;
 
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();   //A list of possible locations to place tiles.
@@ -105,12 +109,13 @@ public class BoardManager : MonoBehaviour
 
 
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    List<UnityObject> LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
         int objectCount = Random.Range(minimum, maximum + 1);
 
         //Instantiate objects until the randomly chosen limit objectCount is reached
+        List<UnityObject> objects = new List<UnityObject>();
         for (int i = 0; i < objectCount; i++)
         {
             //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
@@ -120,8 +125,9 @@ public class BoardManager : MonoBehaviour
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
 
             //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity));
         }
+        return objects;
     }
 
 
@@ -144,12 +150,12 @@ public class BoardManager : MonoBehaviour
         int enemyCount = (int)Mathf.Log(level, 2f);
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        enemies = LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
 
         //Instantiate the exit tile in the upper right hand corner of our game board
-        Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+        Instantiate(exitTile, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 
         //Instantiate the player tile in the bottom left hand corner
-        Instantiate(player, new Vector3(0, 0, 0f), Quaternion.identity);
+        player = Instantiate(playerTile, new Vector3(0, 0, 0f), Quaternion.identity);
     }
 }
