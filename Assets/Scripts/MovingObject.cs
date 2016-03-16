@@ -83,7 +83,6 @@ namespace Completed
                 //Return and loop until sqrRemainingDistance is close enough to zero to end the function
                 yield return null;
             }
-            GameManager.instance.playerTurn = false;
         }
 
 

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
             horizontal = (int)Input.GetAxisRaw("Horizontal");
             vertical = (int)Input.GetAxisRaw("Vertical");
-
+            if (horizontal == 0 && vertical == 0) return;
             boardScript.player.AttemptMove<Enemy>(horizontal, vertical);
             playerTurn = false;
         }
@@ -48,9 +48,8 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    private void moveEnemies(UnityEngine.Object obj)
+    private void moveEnemies(Enemy enemy)
     {
-        Enemy enemy = (Enemy)obj;
         int xDir = 0;
         int yDir = 0;
         float randomValue = UnityEngine.Random.value;
