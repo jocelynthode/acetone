@@ -91,11 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91dcc189c5d8f642a789842d6fdd134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.5
+  moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  turn: 0
 --- !u!212 &21227170
 SpriteRenderer:
   m_ObjectHideFlags: 1
