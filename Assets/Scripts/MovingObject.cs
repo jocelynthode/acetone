@@ -13,6 +13,7 @@ namespace Completed
         private Rigidbody2D rb2D;               //The Rigidbody2D component attached to this object.
         private float inverseMoveTime;          //Used to make movement more efficient.
 
+        public bool turn;
 
         //Protected, virtual functions can be overridden by inheriting classes.
         protected virtual void Start()
@@ -25,6 +26,8 @@ namespace Completed
 
             //By storing the reciprocal of the move time we can use it by multiplying instead of dividing, this is more efficient.
             inverseMoveTime = 1f / moveTime;
+
+            turn = true;
         }
 
 
@@ -84,6 +87,7 @@ namespace Completed
                 //Return and loop until sqrRemainingDistance is close enough to zero to end the function
                 yield return null;
             }
+            turn = true;
         }
 
 
@@ -118,5 +122,9 @@ namespace Completed
         //OnCantMove will be overriden by functions in the inheriting classes.
         protected abstract void OnCantMove<T>(T component)
             where T : Component;
+    }
+
+    public class boolean
+    {
     }
 }

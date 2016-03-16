@@ -16,17 +16,25 @@ public class Player : MovingObject{
 	
 	// Update is called once per frame
 	void Update () {
+        if (!base.turn) return;
         int horizontal = 0;
         int vertical = 0;
-        RaycastHit2D hit;
 
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
         if (horizontal != 0) vertical = 0;
         if (horizontal != 0 || vertical != 0)
-            base.AttemptMove<Enemy>(horizontal, vertical);
+            AttemptMove<Enemy>(horizontal, vertical);
 	}
+
+
+    protected override void AttemptMove<T>(int xDir, int yDir)
+    {
+        base.AttemptMove<T>(xDir, yDir);
+        base.turn = false;
+
+    }
 
     protected override void OnCantMove<T>(T component)
     {
