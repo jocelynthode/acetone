@@ -31,9 +31,8 @@ public class Player : MovingObject{
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        base.AttemptMove<T>(xDir, yDir);
         base.turn = false;
-
+        base.AttemptMove<T>(xDir, yDir);
     }
 
     protected override void OnCantMove<T>(T component)
