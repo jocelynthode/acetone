@@ -23,21 +23,29 @@ public class Enemy : MovingObject {
 
     public void Move()
     {
+        Transform player = GameManager.instance.boardScript.player.transform;
         int xDir = 0;
         int yDir = 0;
-        float randomValue = UnityEngine.Random.value;
-        if (randomValue < 0.5f)
+        float value = UnityEngine.Random.value;
+        //TODO make the enemy choose something else if there is obstacle (RayCast)
+        if (value > 0.1f)
         {
-            xDir = UnityEngine.Random.value < 0.5f ? -1 : 1;
+            if (Math.Abs(player.position.x - this.transform.position.x) < float.Epsilon)
+            {
+                yDir = player.position.y > this.transform.position.y ? 1 : -1;
+            }
+            else
+            {
+                xDir = player.position.x > this.transform.position.x ? 1 : -1;
+            }
         }
-        else
-        {
-            yDir = UnityEngine.Random.value < 0.5f ? -1 : 1;
-        }
+
+        
         AttemptMove<Player>(xDir, yDir);
     }
 
     protected override void OnCantMove<T>(T component)
     {
+        //TODO ATTACK
     }
 }
