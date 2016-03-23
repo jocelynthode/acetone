@@ -13,6 +13,8 @@ public class Player : MovingObject{
     protected override void Start () {
         animator = GetComponent<Animator>();
         base.Start();
+        hp = 100;
+        att = 10;
 	}
 
     private void Update()
@@ -46,11 +48,16 @@ public class Player : MovingObject{
     protected override void OnCantMove<T>(T component)
     {
         Enemy enemy = component as Enemy;
-        enemy.takeDamage(1);
+        enemy.takeDamage(att);
         animator.SetTrigger("PlayerAtt");
     }
     void Flip()
     {
         animator.transform.Rotate(0, 180, 0);
+    }
+
+    protected override void Die()
+    {
+        throw new NotImplementedException();
     }
 }

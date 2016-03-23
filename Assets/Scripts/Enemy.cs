@@ -13,13 +13,16 @@ public class Enemy : MovingObject {
     protected override void Start ()
     {
         animator = GetComponent<Animator>();
-        base.Start();  
+        base.Start();
+        hp = 100;
+        def = 1;
 	}
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
         base.AttemptMove<T>(xDir, yDir);
     }
+
 
     public void Move()
     {
@@ -48,4 +51,10 @@ public class Enemy : MovingObject {
     {
         //TODO ATTACK
     }
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
+    }
+
 }
