@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Completed;
 using System;
 
 public class Enemy : MovingObject {
