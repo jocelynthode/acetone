@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
-    public bool playerTurn = true;
-    private bool enemiesMoving = false;
+    public bool playerTurn;
+    private bool enemiesMoving;
+    public int level;
+    public bool levelSetup = true;  // Probably useless
+
+    private IEnumerator enemiesCoroutine;
 
     public BoardManager boardScript;
 
@@ -21,20 +26,34 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         boardScript = GetComponent<BoardManager>();
-        InitGame();
+        GameManager.instance.InitGame();
     }
 
     void InitGame()
     {
-        boardScript.SetupScene(3);
+        playerTurn = true;
+        enemiesMoving = false;
+        boardScript.SetupScene(level);
+        levelSetup = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerTurn || enemiesMoving) return;
-
-        StartCoroutine(MoveEnemies());
+        if (playerTurn || enemiesMoving || levelSetup) return;
+        enemiesCoroutine = MoveEnemies();
+        StartCoroutine(enemiesCoroutine);
 	}
+
+    public void OnLevelCompletion()
+    {
+        levelSetup = true;
+        StopCoroutine(enemiesCoroutine);
+        // Show upgrade screen
+        level++;
+        // InitGame();
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     private IEnumerator MoveEnemies()
     {
