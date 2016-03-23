@@ -18,7 +18,8 @@ public class Player : MovingObject{
         hp = 100;
         att = 10;
         def = 1;
-        afficherVie.text = "lol";
+        afficherVie = GetComponent<Text>();
+        afficherVie.text = "asdf";
 	}   
 
     private void Update()
@@ -59,6 +60,7 @@ public class Player : MovingObject{
 
     public override void TakeDamage(int att)
     {
+        afficherVie.text = hp.ToString();
         base.TakeDamage(att);
         animator.SetTrigger("PlayerHit");
     }
