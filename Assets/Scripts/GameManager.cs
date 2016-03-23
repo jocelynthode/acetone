@@ -25,12 +25,12 @@ public class GameManager : MonoBehaviour {
         }
         DontDestroyOnLoad(gameObject);
 
+        boardScript = GetComponent<BoardManager>();
         GameManager.instance.InitGame();
     }
 
     void InitGame()
     {
-        boardScript = GetComponent<BoardManager>();
         playerTurn = true;
         enemiesMoving = false;
         boardScript.SetupScene(level);
