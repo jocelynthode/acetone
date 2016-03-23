@@ -15,7 +15,7 @@ public class Enemy : MovingObject {
         animator = GetComponent<Animator>();
         base.Start();
         hp = 100;
-        att = 10;
+        att = 1;
         def = 1;
 
     }
@@ -52,8 +52,9 @@ public class Enemy : MovingObject {
     protected override void OnCantMove<T>(T component)
     {
         Player player = component as Player;
-        player.takeDamage(att);
+        player.TakeDamage(att);
         animator.SetTrigger("EnemyAttack");
+        
     }
 
     protected override void Die()

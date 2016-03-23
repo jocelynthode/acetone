@@ -49,9 +49,15 @@ public class Player : MovingObject{
     protected override void OnCantMove<T>(T component)
     {
         Enemy enemy = component as Enemy;
-        enemy.takeDamage(att);
+        enemy.TakeDamage(att);
         animator.SetTrigger("PlayerAtt");
     }
+
+    public override void TakeDamage(int att)
+    {
+        animator.SetTrigger("PlayerHit");
+    }
+
     void Flip()
     {
         animator.transform.Rotate(0, 180, 0);

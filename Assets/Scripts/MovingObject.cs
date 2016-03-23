@@ -122,7 +122,7 @@ namespace Completed
         protected abstract void OnCantMove<T>(T component)
             where T : Component;
 
-        public void takeDamage(int attackPower)
+        public virtual void TakeDamage(int attackPower)
         {
             hp = hp - attackPower * def;
             if (hp <= 0) Die();
