@@ -8,7 +8,7 @@ public class Player : MovingObject{
 
     private Animator animator;
     private int dir = 1;
-    public Text healthPoint;
+    public Text afficherVie;
 
 
     // Use this for initialization
@@ -18,8 +18,8 @@ public class Player : MovingObject{
         hp = 100;
         att = 10;
         def = 1;
-       // healthPoint.text ="HP: "+hp.ToString();
-	}
+        afficherVie.text = "lol";
+	}   
 
     private void Update()
     {
@@ -59,6 +59,7 @@ public class Player : MovingObject{
 
     public override void TakeDamage(int att)
     {
+        base.TakeDamage(att);
         animator.SetTrigger("PlayerHit");
     }
 
