@@ -81,8 +81,8 @@ public class Player : MovingObject{
     public override void TakeDamage(int att)
     {
 
-        healthPoint.text = "HP: " + hp.ToString();
         base.TakeDamage(att);
+        healthPoint.text = "HP: " + hp.ToString();
         animator.SetTrigger("PlayerHit");
 
     }
