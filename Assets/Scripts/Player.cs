@@ -65,4 +65,11 @@ public class Player : MovingObject{
     {
         animator.transform.Rotate(0, 180, 0);
     }
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "Exit")
+        {
+            GameManager.instance.OnLevelCompletion();
+        }
+    }
 }

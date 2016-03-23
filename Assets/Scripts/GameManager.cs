@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public bool playerTurn = true;
     private bool enemiesMoving = false;
+    public int level;
 
     public BoardManager boardScript;
 
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
-        boardScript.SetupScene(3);
+        boardScript.SetupScene(level);
     }
 	
 	// Update is called once per frame
@@ -35,6 +37,15 @@ public class GameManager : MonoBehaviour {
 
         StartCoroutine(MoveEnemies());
 	}
+
+    public void OnLevelCompletion()
+    {
+        // Show upgrade screen
+        level++;
+        // InitGame();
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     private IEnumerator MoveEnemies()
     {
