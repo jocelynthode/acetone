@@ -20,19 +20,9 @@ public class Player : MovingObject{
         if (!GameManager.instance.playerTurn) return;
         int horizontal = 0;
         int vertical = 0;
-        int fire1 = 0;
 
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
-        fire1 = (int)Input.GetAxisRaw("Fire1");
-
-        if (fire1 > 0)
-        {
-            animator.SetTrigger("PlayerAtt");
-            attack();
-            return;
-        }
-
 
         if (horizontal != 0)
         {
@@ -47,11 +37,6 @@ public class Player : MovingObject{
             AttemptMove<Enemy>(horizontal, vertical);
     }
 
-    private void attack()
-    {
-
-    }
-
     public override void AttemptMove<T>(int xDir, int yDir)
     {
         base.AttemptMove<T>(xDir, yDir);
@@ -60,6 +45,9 @@ public class Player : MovingObject{
 
     protected override void OnCantMove<T>(T component)
     {
+        Enemy enemy = component as Enemy;
+        enemy.takeDamage();
+        animator.SetTrigger("playerAtt");
     }
     void Flip()
     {
