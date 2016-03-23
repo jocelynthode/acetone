@@ -122,9 +122,9 @@ namespace Completed
         protected abstract void OnCantMove<T>(T component)
             where T : Component;
 
-        public  void takeDamage(int ennemy_att)
+        public void takeDamage(int attackPower)
         {
-            hp = hp - ennemy_att * def;
+            hp = hp - attackPower * def;
         }
     }
 }
