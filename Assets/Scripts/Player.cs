@@ -72,7 +72,7 @@ public class Player : MovingObject{
 
     protected override void Die()
     {
-        throw new NotImplementedException();
+        GameManager.instance.OnGameOver();
     }
 
     public int getHP()
