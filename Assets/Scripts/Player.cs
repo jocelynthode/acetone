@@ -23,6 +23,7 @@ public class Player : MovingObject{
 
     private void Update()
     {
+
         if (!GameManager.instance.playerTurn) return;
         int horizontal = 0;
         int vertical = 0;
