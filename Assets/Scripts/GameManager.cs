@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     private bool enemiesMoving = false;
     public int level;
 
+    private IEnumerator enemiesCoroutine;
+
     public BoardManager boardScript;
 
 	// Use this for initialization
@@ -28,18 +30,21 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
+        playerTurn = true;
+        enemiesMoving = false;
         boardScript.SetupScene(level);
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (playerTurn || enemiesMoving) return;
-
-        StartCoroutine(MoveEnemies());
+        enemiesCoroutine = MoveEnemies();
+        StartCoroutine(enemiesCoroutine);
 	}
 
     public void OnLevelCompletion()
     {
+        StopCoroutine(enemiesCoroutine);
         // Show upgrade screen
         level++;
         // InitGame();

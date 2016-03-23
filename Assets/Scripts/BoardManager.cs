@@ -86,6 +86,7 @@ public class BoardManager : MonoBehaviour
                 instance.transform.SetParent(boardHolder);
             }
         }
+
     }
 
 
@@ -158,7 +159,8 @@ public class BoardManager : MonoBehaviour
         Instantiate(exitTile, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 
         //Instantiate the player tile in the bottom left hand corner
-        GameObject playerObject = Instantiate(playerTile, new Vector3(0, 0, 0f), Quaternion.identity) as GameObject;
-        player = playerObject.GetComponent<Player>();
+        //GameObject playerObject = Instantiate(playerTile, new Vector3(0, 0, 0f), Quaternion.identity) as GameObject;
+        //player = playerObject.GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 }
