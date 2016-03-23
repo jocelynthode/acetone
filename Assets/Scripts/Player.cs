@@ -15,6 +15,7 @@ public class Player : MovingObject{
         base.Start();
         hp = 100;
         att = 10;
+        def = 1;
 	}
 
     private void Update()

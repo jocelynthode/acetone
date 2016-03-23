@@ -15,8 +15,10 @@ public class Enemy : MovingObject {
         animator = GetComponent<Animator>();
         base.Start();
         hp = 100;
+        att = 10;
         def = 1;
-	}
+
+    }
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
@@ -50,7 +52,7 @@ public class Enemy : MovingObject {
     protected override void OnCantMove<T>(T component)
     {
         Player player = component as Player;
-        player.takeDamage(1);
+        player.takeDamage(att);
         animator.SetTrigger("EnemyAttack");
     }
 
