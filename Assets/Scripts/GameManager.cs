@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
-    public bool playerTurn = true;
-    private bool enemiesMoving = false;
+    public bool playerTurn;
+    private bool enemiesMoving;
     public int level;
+    public bool levelSetup = true;  // Probably useless
 
     private IEnumerator enemiesCoroutine;
 
@@ -24,26 +25,28 @@ public class GameManager : MonoBehaviour {
         }
         DontDestroyOnLoad(gameObject);
 
-        boardScript = GetComponent<BoardManager>();
-        InitGame();
+        GameManager.instance.InitGame();
     }
 
     void InitGame()
     {
+        boardScript = GetComponent<BoardManager>();
         playerTurn = true;
         enemiesMoving = false;
         boardScript.SetupScene(level);
+        levelSetup = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerTurn || enemiesMoving) return;
+        if (playerTurn || enemiesMoving || levelSetup) return;
         enemiesCoroutine = MoveEnemies();
         StartCoroutine(enemiesCoroutine);
 	}
 
     public void OnLevelCompletion()
     {
+        levelSetup = true;
         StopCoroutine(enemiesCoroutine);
         // Show upgrade screen
         level++;

@@ -149,7 +149,7 @@ public class BoardManager : MonoBehaviour
         int enemyCount = (int)Mathf.Log(level, 2f);
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-        // enemies.Clear();
+        enemies.Clear();
         var enemiesObjects = LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         enemiesObjects.ForEach(obj => {
             enemies.Add(obj.GetComponent<Enemy>());
