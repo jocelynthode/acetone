@@ -13,6 +13,7 @@ namespace Completed
         private Rigidbody2D rb2D;               //The Rigidbody2D component attached to this object.
         private float inverseMoveTime;          //Used to make movement more efficient.
 
+        public int Hp;
         //Protected, virtual functions can be overridden by inheriting classes.
         protected virtual void Start()
         {
@@ -118,5 +119,10 @@ namespace Completed
         //OnCantMove will be overriden by functions in the inheriting classes.
         protected abstract void OnCantMove<T>(T component)
             where T : Component;
+
+        protected void takeDamage(int att, int def)
+        {
+            Hp = Hp - att * def;
+        }
     }
 }
