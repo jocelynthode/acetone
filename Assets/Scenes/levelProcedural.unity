@@ -264,7 +264,8 @@ MonoBehaviour:
   hp: 0
   att: 0
   def: 0
-  healthPoint: {fileID: 1708687113}
+  healthPoint: {fileID: 0}
+  haha: 1
 --- !u!50 &744919827
 Rigidbody2D:
   serializedVersion: 2

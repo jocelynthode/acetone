@@ -9,22 +9,41 @@ public class Player : MovingObject{
     private Animator animator;
     private int dir = 1;
     public Text healthPoint;
+    public int haha = 1;
+    public static Player instance;
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            animator = GetComponent<Animator>();
+        } else if (instance != this)
+        {   
+            Destroy(gameObject);
+            instance.InitLevel();
+        }
+    }
 
     // Use this for initialization
     protected override void Start () {
-        animator = GetComponent<Animator>();
         base.Start();
         hp = 100;
         att = 10;
         def = 1;
-        healthPoint.text ="HP: "+hp.ToString();
+        InitLevel();
 	}
 
+    private void InitLevel()
+    {
+        healthPoint = GameObject.Find("hpText").GetComponent<Text>();
+        healthPoint.text = "HP: " + hp.ToString();
+        transform.position = new Vector2(0, 0);
+    }
 
     private void Update()
     {
-
         if (!GameManager.instance.playerTurn) return;
         int horizontal = 0;
         int vertical = 0;
@@ -47,6 +66,7 @@ public class Player : MovingObject{
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
+        haha++;
         base.AttemptMove<T>(xDir, yDir);
         GameManager.instance.playerTurn = false;
     }
