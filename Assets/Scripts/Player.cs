@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using Completed;
 using System;
 
 public class Player : MovingObject{
