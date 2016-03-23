@@ -13,6 +13,9 @@ namespace Completed
         private Rigidbody2D rb2D;               //The Rigidbody2D component attached to this object.
         private float inverseMoveTime;          //Used to make movement more efficient.
 
+        public int hp;
+        public int att;
+        public int def;
         //Protected, virtual functions can be overridden by inheriting classes.
         protected virtual void Start()
         {
@@ -108,7 +111,7 @@ namespace Completed
             T hitComponent = hit.transform.GetComponent<T>();
 
             //If canMove is false and hitComponent is not equal to null, meaning MovingObject is blocked and has hit something it can interact with.
-            if (!canMove && hitComponent != null) 
+            if (!canMove && hitComponent != null)
                 //Call the OnCantMove function and pass it hitComponent as a parameter.
                 OnCantMove(hitComponent);
         }
@@ -118,5 +121,13 @@ namespace Completed
         //OnCantMove will be overriden by functions in the inheriting classes.
         protected abstract void OnCantMove<T>(T component)
             where T : Component;
+
+        public virtual void TakeDamage(int attackPower)
+        {
+            hp = hp - attackPower * def;
+            if (hp <= 0) Die();
+        }
+
+        protected abstract void Die();
     }
 }

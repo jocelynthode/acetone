@@ -13,13 +13,18 @@ public class Enemy : MovingObject {
     protected override void Start ()
     {
         animator = GetComponent<Animator>();
-        base.Start();  
-	}
+        base.Start();
+        hp = 100;
+        att = 1;
+        def = 1;
+
+    }
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
         base.AttemptMove<T>(xDir, yDir);
     }
+
 
     public void Move()
     {
@@ -46,6 +51,16 @@ public class Enemy : MovingObject {
 
     protected override void OnCantMove<T>(T component)
     {
-        //TODO ATTACK
+        Player player = component as Player;
+        player.TakeDamage(att);
+        animator.SetTrigger("EnemyAttack");
+        
     }
+
+    protected override void Die()
+    {
+        GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
+        Destroy(gameObject);
+    }
+
 }
