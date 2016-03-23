@@ -49,7 +49,9 @@ public class Enemy : MovingObject {
 
     protected override void OnCantMove<T>(T component)
     {
-        //TODO ATTACK
+        Player player = component as Player;
+        player.takeDamage(1);
+        animator.SetTrigger("EnemyAttack");
     }
 
     protected override void Die()
