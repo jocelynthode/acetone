@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Exit
   - Food
+  - Enemy
+  - Health
   layers:
   - Default
   - TransparentFX

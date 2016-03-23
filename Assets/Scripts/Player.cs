@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Completed;
 using System;
@@ -7,6 +8,7 @@ public class Player : MovingObject{
 
     private Animator animator;
     private int dir = 1;
+    public Text healthPoint;
 
 
     // Use this for initialization
@@ -16,6 +18,7 @@ public class Player : MovingObject{
         hp = 100;
         att = 10;
         def = 1;
+        healthPoint.text ="HP: "+hp.ToString();
 	}
 
     private void Update()
@@ -66,5 +69,10 @@ public class Player : MovingObject{
     protected override void Die()
     {
         throw new NotImplementedException();
+    }
+
+    public int getHP()
+    {
+        return base.hp;
     }
 }
