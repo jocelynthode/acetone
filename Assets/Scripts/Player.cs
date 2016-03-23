@@ -46,8 +46,8 @@ public class Player : MovingObject{
     protected override void OnCantMove<T>(T component)
     {
         Enemy enemy = component as Enemy;
-        enemy.takeDamage();
-        animator.SetTrigger("playerAtt");
+        enemy.takeDamage(1,1);
+        animator.SetTrigger("PlayerAtt");
     }
     void Flip()
     {
