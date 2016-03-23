@@ -29,6 +29,7 @@ public class Player : MovingObject{
         if (fire1 > 0)
         {
             animator.SetTrigger("PlayerAtt");
+            attack();
             return;
         }
 
@@ -46,6 +47,10 @@ public class Player : MovingObject{
             AttemptMove<Enemy>(horizontal, vertical);
     }
 
+    private void attack()
+    {
+
+    }
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
