@@ -18,7 +18,7 @@ public class Player : MovingObject{
         hp = 100;
         att = 10;
         def = 1;
-        healthPoint.text ="HP: "+hp.ToString();
+       // healthPoint.text ="HP: "+hp.ToString();
 	}
 
     private void Update()
