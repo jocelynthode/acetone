@@ -58,6 +58,7 @@ public class Enemy : MovingObject {
 
     protected override void Die()
     {
+        GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
         Destroy(gameObject);
     }
 
