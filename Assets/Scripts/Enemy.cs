@@ -44,8 +44,6 @@ public class Enemy : MovingObject {
                 xDir = player.position.x > this.transform.position.x ? 1 : -1;
             }
         }
-
-        
         AttemptMove<Player>(xDir, yDir);
     }
 
@@ -54,7 +52,6 @@ public class Enemy : MovingObject {
         Player player = component as Player;
         player.TakeDamage(att);
         animator.SetTrigger("EnemyAttack");
-        
     }
 
     protected override void Die()

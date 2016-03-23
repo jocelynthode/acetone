@@ -75,4 +75,11 @@ public class Player : MovingObject{
     {
         return base.hp;
     }
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "Exit")
+        {
+            GameManager.instance.OnLevelCompletion();
+        }
+    }
 }
