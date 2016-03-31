@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using Completed;
 using System;
 
 public class Player : MovingObject{
@@ -81,8 +79,8 @@ public class Player : MovingObject{
     public override void TakeDamage(int att)
     {
 
-        healthPoint.text = "HP: " + hp.ToString();
         base.TakeDamage(att);
+        healthPoint.text = "HP: " + hp.ToString();
         animator.SetTrigger("PlayerHit");
 
     }
@@ -94,7 +92,7 @@ public class Player : MovingObject{
 
     protected override void Die()
     {
-        throw new NotImplementedException();
+        GameManager.instance.OnGameOver();
     }
 
     public int getHP()

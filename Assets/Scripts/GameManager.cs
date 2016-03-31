@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -53,6 +52,12 @@ public class GameManager : MonoBehaviour {
         // InitGame();
         //Application.LoadLevel(Application.loadedLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnGameOver()
+    {
+        StopCoroutine(enemiesCoroutine);
+        SceneManager.LoadScene("UpgradeMenu");
     }
 
     private IEnumerator MoveEnemies()
