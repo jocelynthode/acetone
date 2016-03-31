@@ -68,12 +68,14 @@ public class GameManager : MonoBehaviour {
 
     public void OnTurnEnd()
     {
-        float prob = Random.Range(1, 25);
-        if (prob >= 3.5f) return;
-        int money = PlayerPrefs.GetInt("money");
+        float prob = Random.Range(1, 100);
         int viewers = PlayerPrefs.GetInt("viewers");
-
-        int newMoney = (int) (viewers / 1000.0 * SkewedRandomRange(1,50,2f));
+        float viewersProb = viewers / 250.0f;
+        if (viewersProb > 30.0f) viewersProb = 30;
+        if (prob > (10.0f + viewersProb)) return;
+        int money = PlayerPrefs.GetInt("money");
+        
+        int newMoney = (int) (0.1 * SkewedRandomRange(10,1500,5f));
         PlayerPrefs.SetInt("money", money + newMoney);
         donationText.text = string.Format("New Donation: {0:C2}", newMoney);
         Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
