@@ -31,6 +31,8 @@ public class Player : MovingObject{
         att = 10;
         def = 1;
         InitLevel();
+        PlayerPrefs.SetInt("money", 100);
+        PlayerPrefs.SetInt("viewers", 1000);
 	}
 
     private void InitLevel()
@@ -67,6 +69,7 @@ public class Player : MovingObject{
         haha++;
         base.AttemptMove<T>(xDir, yDir);
         GameManager.instance.playerTurn = false;
+        GameManager.instance.OnTurnEnd();
     }
 
     protected override void OnCantMove<T>(T component)
