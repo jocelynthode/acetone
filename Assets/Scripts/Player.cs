@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using GameState = GameManager.GameState;
 
 public class Player : MovingObject{
 
@@ -44,7 +45,7 @@ public class Player : MovingObject{
 
     private void Update()
     {
-        if (!GameManager.instance.playerTurn) return;
+        if (GameManager.instance.state != GameState.PLAYERTURN) return;
         int horizontal = 0;
         int vertical = 0;
 
@@ -67,7 +68,6 @@ public class Player : MovingObject{
     public override void AttemptMove<T>(int xDir, int yDir)
     {
         base.AttemptMove<T>(xDir, yDir);
-        GameManager.instance.playerTurn = false;
         GameManager.instance.OnTurnEnd();
     }
 

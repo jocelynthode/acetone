@@ -5,16 +5,24 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
-    public bool playerTurn;
-    private bool enemiesMoving;
     public int level;
-    public bool levelSetup = true;  // Probably useless
     public Text donationText;
     public AudioSource cashMoneyBiatch;
 
     private IEnumerator enemiesCoroutine;
 
     public BoardManager boardScript;
+
+    public enum GameState
+    {
+        MENU,
+        LEVELSETUP,
+        PLAYERTURN,
+        ENEMIESTURN,
+        ENEMIESMOVING,
+        UPGRADEMENU
+    }
+    public GameState state = GameState.MENU;
 
 	// Use this for initialization
     void Awake () {
@@ -39,26 +47,29 @@ public class GameManager : MonoBehaviour {
     void InitLevel()
     {
         boardScript = GetComponent<BoardManager>();
-
-        playerTurn = true;
-        enemiesMoving = false;
         boardScript.SetupScene(level);
-        levelSetup = false;
         donationText = GameObject.Find("donationText").GetComponent<Text>();
+        state = GameState.PLAYERTURN;
     }
 
 	// Update is called once per frame
 	void Update () {
-        if (playerTurn || enemiesMoving || levelSetup) return;
-        enemiesCoroutine = MoveEnemies();
-        StartCoroutine(enemiesCoroutine);
+        switch (state)
+        {
+            case GameState.ENEMIESTURN:
+                state = GameState.ENEMIESMOVING;
+                enemiesCoroutine = MoveEnemies();
+                StartCoroutine(enemiesCoroutine);
+                break;
+            default:
+                break;
+        }
 	}
 
     public void OnLevelCompletion()
     {
-        levelSetup = true;
+        state = GameState.LEVELSETUP;
         StopCoroutine(enemiesCoroutine);
-        // Show upgrade screen
         level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -72,6 +83,7 @@ public class GameManager : MonoBehaviour {
 
     public void OnTurnEnd()
     {
+        state = GameState.ENEMIESTURN;
         float prob = Random.Range(1, 100);
         int viewers = PlayerPrefs.GetInt("viewers");
         float viewersProb = viewers / 250.0f;
@@ -95,22 +107,22 @@ public class GameManager : MonoBehaviour {
 
     public void OnGameOver()
     {
+        state = GameState.LEVELSETUP;
         StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
         SceneManager.LoadScene("UpgradeMenu");
+        state = GameState.UPGRADEMENU;
     }
 
     private IEnumerator MoveEnemies()
     {
-        enemiesMoving = true;
         yield return new WaitForSeconds(0.1f);
         foreach(Enemy enemy in boardScript.enemies)
         {
             enemy.Move();
             yield return new WaitForSeconds(enemy.moveTime);
         }
-        playerTurn = true;
-        enemiesMoving = false;
+        state = GameState.PLAYERTURN;
     }
     
     public static void CheckPlayerPrefs(bool force = false)
