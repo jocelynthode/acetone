@@ -7,6 +7,7 @@ public class Player : MovingObject{
     private Animator animator;
     private int dir = 1;
     public Text healthPoint;
+    public Text money;
     public static Player instance;
 
     void Awake()
@@ -38,6 +39,8 @@ public class Player : MovingObject{
     {
         healthPoint = GameObject.Find("hpText").GetComponent<Text>();
         healthPoint.text = "HP: " + hp.ToString();
+        money = GameObject.Find("moneyText").GetComponent<Text>();
+        money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
         transform.position = new Vector2(0, 0);
     }
 
@@ -79,11 +82,9 @@ public class Player : MovingObject{
 
     public override void TakeDamage(int att)
     {
-
         base.TakeDamage(att);
         healthPoint.text = "HP: " + hp.ToString();
         animator.SetTrigger("PlayerHit");
-
     }
 
     void Flip()

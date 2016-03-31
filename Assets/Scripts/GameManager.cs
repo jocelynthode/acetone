@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour {
         int newMoney = (int) (viewers / 1000.0 * SkewedRandomRange(1,50,2f));
         PlayerPrefs.SetInt("money", money + newMoney);
         donationText.text = string.Format("New Donation: {0:C2}", newMoney);
+        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
         Invoke("RemoveDonation", 2);
     }
 
