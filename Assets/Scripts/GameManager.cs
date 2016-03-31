@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour {
     
     public static void CheckPlayerPrefs(bool force = false)
     {
-        if (!force || PlayerPrefs.HasKey("maxHealth")) return;
+        if (!force && PlayerPrefs.HasKey("maxHealth")) return;
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
         PlayerPrefs.SetInt("maxHealth", 50);
