@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UpgradeMenu : MonoBehaviour {
 
@@ -11,4 +12,15 @@ public class UpgradeMenu : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("levelProcedural");
+    }
+
+    public void UpdatePrefs(string PrefName, int update)
+    {
+        PlayerPrefs.SetInt(PrefName, update);
+    }
 }
+
