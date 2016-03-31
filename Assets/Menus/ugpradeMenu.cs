@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ugpradeMenu : MonoBehaviour {
+public class UgpradeMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
