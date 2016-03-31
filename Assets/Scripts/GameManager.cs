@@ -80,7 +80,8 @@ public class GameManager : MonoBehaviour {
 
     internal void RemoveDonation()
     {
-        donationText.text = "";
+        if(donationText)
+            donationText.text = "";
     }
 
     public void OnGameOver()
