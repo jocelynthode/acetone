@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public int level;
     public bool levelSetup = true;  // Probably useless
     public Text donationText;
+    public AudioSource cashMoneyBiatch;
 
     private IEnumerator enemiesCoroutine;
 
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("money", money + newMoney);
         donationText.text = string.Format("New Donation: {0:C2}", newMoney);
         Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
+        cashMoneyBiatch.Play();
         Invoke("RemoveDonation", 2);
     }
 
