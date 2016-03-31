@@ -27,7 +27,7 @@ public class Player : MovingObject{
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        hp = PlayerPrefs.GetInt("maxhealth");
+        hp = PlayerPrefs.GetInt("maxHealth");
         att = PlayerPrefs.GetInt("attack");
         def = PlayerPrefs.GetInt("defense");
         InitLevel();

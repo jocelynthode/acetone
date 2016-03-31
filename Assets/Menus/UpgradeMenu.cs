@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UpgradeMenu : MonoBehaviour {
-    // string[] upgrades = new string[] { "maxhealth", "attack", "defense", "viewers" };
-    string[] upgrades = new string[] { "maxhealth", "attack" };
+    // string[] upgrades = new string[] { "maxHealth", "attack", "defense", "viewers" };
+    string[] upgrades = new string[] { "maxHealth", "attack" };
     // Use this for initialization
     void Awake () {
         foreach (string up in upgrades)
@@ -21,7 +21,7 @@ public class UpgradeMenu : MonoBehaviour {
 
     public void Restart()
     {
-        SceneManager.LoadScene("levelProcedural");
+        SceneManager.LoadScene("LevelProcedural");
     }
 
     public void Reset()

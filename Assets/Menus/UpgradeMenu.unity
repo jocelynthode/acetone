@@ -435,7 +435,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: maxhealth
+          m_StringArgument: maxHealth
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -897,7 +897,7 @@ GameObject:
   - 222: {fileID: 1146186426}
   - 114: {fileID: 1146186425}
   m_Layer: 5
-  m_Name: maxhealth
+  m_Name: maxHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
