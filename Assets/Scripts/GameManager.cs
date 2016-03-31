@@ -109,13 +109,13 @@ public class GameManager : MonoBehaviour {
         enemiesMoving = false;
     }
     
-    public void CheckPlayerPrefs()
+    public static void CheckPlayerPrefs(bool force = false)
     {
-        if (!PlayerPrefs.HasKey("maxHealth")) return;
+        if (!force || PlayerPrefs.HasKey("maxHealth")) return;
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
         PlayerPrefs.SetInt("maxHealth", 50);
-        PlayerPrefs.SetInt("money", 0);
+        PlayerPrefs.SetInt("money", 100);
         PlayerPrefs.SetInt("viewers", 20);
         PlayerPrefs.SetInt("moneyGain", 0);
         PlayerPrefs.SetInt("attackLevel", 0);

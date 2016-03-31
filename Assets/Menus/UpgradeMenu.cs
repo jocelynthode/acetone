@@ -27,6 +27,7 @@ public class UpgradeMenu : MonoBehaviour {
     public void Reset()
     {
         PlayerPrefs.DeleteAll();
+        GameManager.CheckPlayerPrefs(true);
         foreach (string up in upgrades)
             GameObject.Find(up).GetComponent<Text>().text = PlayerPrefs.GetInt(up).ToString();
     }
