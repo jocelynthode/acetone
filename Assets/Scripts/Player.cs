@@ -7,7 +7,6 @@ public class Player : MovingObject{
     private Animator animator;
     private int dir = 1;
     public Text healthPoint;
-    public int haha = 1;
     public static Player instance;
 
     void Awake()
@@ -66,7 +65,6 @@ public class Player : MovingObject{
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
-        haha++;
         base.AttemptMove<T>(xDir, yDir);
         GameManager.instance.playerTurn = false;
         GameManager.instance.OnTurnEnd();

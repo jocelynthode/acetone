@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         StopCoroutine(enemiesCoroutine);
+        Destroy(boardScript.player.gameObject);
         SceneManager.LoadScene("UpgradeMenu");
     }
 
