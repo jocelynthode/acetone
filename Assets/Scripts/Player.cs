@@ -16,6 +16,8 @@ public class Player : MovingObject{
         hp = 100;
         att = 10;
         def = 1;
+        PlayerPrefs.SetInt("money", 100);
+        PlayerPrefs.SetInt("viewers", 1000);
         healthPoint.text ="HP: "+hp.ToString();
 	}
 
@@ -47,6 +49,7 @@ public class Player : MovingObject{
     {
         base.AttemptMove<T>(xDir, yDir);
         GameManager.instance.playerTurn = false;
+        GameManager.instance.OnTurnEnd();
     }
 
     protected override void OnCantMove<T>(T component)
