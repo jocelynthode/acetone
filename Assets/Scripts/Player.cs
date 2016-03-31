@@ -27,12 +27,10 @@ public class Player : MovingObject{
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        hp = 100;
-        att = 10;
-        def = 1;
+        hp = PlayerPrefs.GetInt("maxhealth");
+        att = PlayerPrefs.GetInt("attack");
+        def = PlayerPrefs.GetInt("defense");
         InitLevel();
-        PlayerPrefs.SetInt("money", 100);
-        PlayerPrefs.SetInt("viewers", 1000);
 	}
 
     private void InitLevel()
