@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         StopCoroutine(enemiesCoroutine);
-        SceneManager.LoadScene("upgradeMenu");
+        SceneManager.LoadScene("UpgradeMenu");
     }
 
     private IEnumerator MoveEnemies()
