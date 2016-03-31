@@ -22,25 +22,31 @@ public class GameManager : MonoBehaviour {
         {
             instance = this;
             CheckPlayerPrefs();
+            DontDestroyOnLoad(gameObject);
+            GameManager.instance.InitGame();
         } else if (instance != this)
         {
             Destroy(gameObject);
+            GameManager.instance.InitLevel();
         }
-        DontDestroyOnLoad(gameObject);
-
-        boardScript = GetComponent<BoardManager>();
-        GameManager.instance.InitGame();
     }
 
     void InitGame()
     {
+        InitLevel();
+    }
+
+    void InitLevel()
+    {
+        boardScript = GetComponent<BoardManager>();
+
         playerTurn = true;
         enemiesMoving = false;
         boardScript.SetupScene(level);
         levelSetup = false;
         donationText = GameObject.Find("donationText").GetComponent<Text>();
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         if (playerTurn || enemiesMoving || levelSetup) return;
@@ -54,8 +60,6 @@ public class GameManager : MonoBehaviour {
         StopCoroutine(enemiesCoroutine);
         // Show upgrade screen
         level++;
-        // InitGame();
-        //Application.LoadLevel(Application.loadedLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
