@@ -7,8 +7,11 @@ public class UpgradeMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         foreach (string up in upgrades)
-        GameObject.Find(up).GetComponent<Text>().text = PlayerPrefs.GetInt(up).ToString();
-
+        {
+            GameObject.Find(up).GetComponent<Text>().text = PlayerPrefs.GetInt(up).ToString();
+        } 
+        //TODO display money after death
+        GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
     }
 	
 	// Update is called once per frame

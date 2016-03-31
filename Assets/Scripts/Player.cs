@@ -27,7 +27,7 @@ public class Player : MovingObject{
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        hp = 100;
+        hp = 10;
         att = 10;
         def = 1;
         InitLevel();
