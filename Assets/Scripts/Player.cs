@@ -42,7 +42,7 @@ public class Player : MovingObject{
 
     private void Update()
     {
-        if (!GameManager.instance.playerTurn) return;
+        if (!GameManager.Instance.playerTurn) return;
         int horizontal = 0;
         int vertical = 0;
 
@@ -66,7 +66,7 @@ public class Player : MovingObject{
     {
         haha++;
         base.AttemptMove<T>(xDir, yDir);
-        GameManager.instance.playerTurn = false;
+        GameManager.Instance.playerTurn = false;
     }
 
     protected override void OnCantMove<T>(T component)
@@ -92,7 +92,7 @@ public class Player : MovingObject{
 
     protected override void Die()
     {
-        GameManager.instance.OnGameOver();
+        GameManager.Instance.OnGameOver();
     }
 
     public int getHP()
@@ -103,7 +103,7 @@ public class Player : MovingObject{
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == "Exit")
         {
-            GameManager.instance.OnLevelCompletion();
+            GameManager.Instance.OnLevelCompletion();
         }
     }
 }

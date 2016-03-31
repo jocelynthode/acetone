@@ -2,37 +2,38 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
-    public static GameManager instance = null;
+public class GameManager {
+    private static GameManager instance = new GameManager();
+    public static GameManager Instance
+    {
+        get { return instance; }
+    }
+
     public bool playerTurn;
     private bool enemiesMoving;
     public int level;
     public bool levelSetup = true;  // Probably useless
+    private GameObject scene;
 
     private IEnumerator enemiesCoroutine;
 
     public BoardManager boardScript;
 
-	// Use this for initialization
-    void Awake () {
-        if (instance == null)
-        {
-            instance = this;
-        } else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
-
-        boardScript = GetComponent<BoardManager>();
-        GameManager.instance.InitGame();
+    private GameManager()
+    {
+        SceneManager.LoadScene("LevelProcedural");
+        //SceneManager.LoadScene("UpgradeMenu");
+        scene = GameObject.Find("Scenee");
+        boardScript = scene.GetComponent<BoardManager>();
+        InitGame();
     }
 
     void InitGame()
     {
+        //boardScript = GameObject.GetComponent<BoardManager>();
         playerTurn = true;
         enemiesMoving = false;
-        boardScript.SetupScene(level);
+        boardScript.SetupScene(3);
         levelSetup = false;
     }
 	
@@ -40,13 +41,13 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (playerTurn || enemiesMoving || levelSetup) return;
         enemiesCoroutine = MoveEnemies();
-        StartCoroutine(enemiesCoroutine);
+        boardScript.StartCoroutine(enemiesCoroutine);
 	}
 
     public void OnLevelCompletion()
     {
         levelSetup = true;
-        StopCoroutine(enemiesCoroutine);
+        boardScript.StopCoroutine(enemiesCoroutine);
         // Show upgrade screen
         level++;
         // InitGame();
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
     public void OnGameOver()
     {
-        StopCoroutine(enemiesCoroutine);
+        boardScript.StopCoroutine(enemiesCoroutine);
         SceneManager.LoadScene("UpgradeMenu");
     }
 

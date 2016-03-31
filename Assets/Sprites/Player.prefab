@@ -95,6 +95,11 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  hp: 0
+  att: 0
+  def: 0
+  healthPoint: {fileID: 0}
+  haha: 1
 --- !u!212 &21222960
 SpriteRenderer:
   m_ObjectHideFlags: 1

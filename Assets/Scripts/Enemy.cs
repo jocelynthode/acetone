@@ -26,7 +26,7 @@ public class Enemy : MovingObject {
 
     public void Move()
     {
-        Transform player = GameManager.instance.boardScript.player.transform;
+        Transform player = GameManager.Instance.boardScript.player.transform;
         int xDir = 0;
         int yDir = 0;
         float value = UnityEngine.Random.value;
@@ -54,7 +54,7 @@ public class Enemy : MovingObject {
 
     protected override void Die()
     {
-        GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
+        GameManager.Instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
         Destroy(gameObject);
     }
 

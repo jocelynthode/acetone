@@ -94,29 +94,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 94969921}
   - 114: {fileID: 94969920}
-  - 114: {fileID: 94969919}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Scenee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &94969919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 94969918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c776ed64b99b1f4bbf826af00b9ee8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTurn: 1
-  level: 3
-  levelSetup: 1
-  boardScript: {fileID: 0}
 --- !u!114 &94969920
 MonoBehaviour:
   m_ObjectHideFlags: 0
