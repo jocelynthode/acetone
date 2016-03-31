@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            CheckPlayerPrefs();
         } else if (instance != this)
         {
             Destroy(gameObject);
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour {
         boardScript.SetupScene(level);
         levelSetup = false;
         donationText = GameObject.Find("donationText").GetComponent<Text>();
-        CheckPlayerPrefs();
     }
 	
 	// Update is called once per frame
@@ -112,9 +112,10 @@ public class GameManager : MonoBehaviour {
     public void CheckPlayerPrefs()
     {
         if (!PlayerPrefs.HasKey("maxhealth")) return;
-        PlayerPrefs.SetInt("maxhealth", 100);
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
+        PlayerPrefs.SetInt("maxhealth", 50);
+        PlayerPrefs.SetInt("money", 0);
         PlayerPrefs.SetInt("viewers", 20);
         PlayerPrefs.SetInt("moneyGain", 0);
         PlayerPrefs.SetInt("attackLevel", 0);

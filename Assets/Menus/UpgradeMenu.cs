@@ -3,14 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UpgradeMenu : MonoBehaviour {
-    string[] upgrades = new string[] { "maxhealth", "attack", "defense", "viewers" };
-	// Use this for initialization
-	void Start () {
+    // string[] upgrades = new string[] { "maxhealth", "attack", "defense", "viewers" };
+    string[] upgrades = new string[] { "maxhealth", "attack" };
+    // Use this for initialization
+    void Awake () {
         foreach (string up in upgrades)
         {
             GameObject.Find(up).GetComponent<Text>().text = PlayerPrefs.GetInt(up).ToString();
         } 
-        //TODO display money after death
         GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
     }
 	
