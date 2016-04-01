@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
+		level = PlayerPrefs.GetInt ("level",1);
         InitLevel();
     }
 

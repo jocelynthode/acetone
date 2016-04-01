@@ -86,6 +86,15 @@ public class UpgradeMenu : MonoBehaviour {
             upgradeFunctions.Add("attack", (baseLevel, baseStat) =>
                 new Upgrade((baseLevel + 1) * 10, baseStat + 10)
             );
+			upgradeFunctions.Add("viewers", (baseLevel, baseStat) =>
+				new Upgrade((baseLevel + 1) * 10, baseStat + 100)
+			);
+			upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
+				new Upgrade((baseLevel + 1) * 10, baseStat + 10)
+			);
+			upgradeFunctions.Add("level", (baseLevel, baseStat) =>
+				new Upgrade((baseLevel + 1) * 10, baseStat + 10)
+			);
         }
     }
 }
