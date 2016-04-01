@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         state = GameState.LEVELSETUP;
-		moneyGain = 0; // reset moneyGain
         StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
         SceneManager.LoadScene("UpgradeMenu");
