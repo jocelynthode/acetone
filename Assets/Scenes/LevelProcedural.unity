@@ -113,7 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c776ed64b99b1f4bbf826af00b9ee8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTurn: 1
   level: 3
+  levelSetup: 1
   donationText: {fileID: 0}
   cashMoneyBiatch: {fileID: 1306217871}
   boardScript: {fileID: 0}
