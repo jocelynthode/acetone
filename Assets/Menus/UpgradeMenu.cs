@@ -29,6 +29,7 @@ public class UpgradeMenu : MonoBehaviour {
         button.name = name + "Button";
         button.GetComponent<Button>().onClick.AddListener(() => UpdatePref(name));
         button.GetComponentInChildren<Text>().text = prettyName;
+        button.transform.Find("nameText").GetComponent<Text>().text = prettyName;
         button.transform.SetParent(upgradesPanel);
 
         GameObject text = Instantiate(upgradeText) as GameObject;
@@ -48,11 +49,14 @@ public class UpgradeMenu : MonoBehaviour {
             Upgrade upgrade = item.Value(level, stat);
             upgrades.Add(item.Key, upgrade);
 
-            GameObject.Find(item.Key).GetComponent<Text>().text = PlayerPrefs.GetInt(item.Key).ToString();
+            string statText = string.Format("Current: {0}        \nNext: {1}        ", stat, upgrade.Stat);
+            GameObject.Find(item.Key).GetComponent<Text>().text = statText;
+            var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
+            costText.text = string.Format("Cost: {0:C0}", upgrade.Cost);
             // TODO: Display cost
         }
 
-        GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
+        GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C0}", PlayerPrefs.GetInt("money"));
     }
 	
 	// Update is called once per frame
