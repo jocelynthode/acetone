@@ -35,7 +35,10 @@ public class GameManager : MonoBehaviour {
         } else if (instance != this)
         {
             Destroy(gameObject);
-            GameManager.instance.InitLevel();
+            if (instance.state == GameState.LEVELSETUP)
+                instance.InitLevel();
+            else
+                instance.InitGame();
         }
     }
 
