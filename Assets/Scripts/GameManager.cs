@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public int level;
     public Text donationText;
 	public Text moneyGainText;
+	public Text levelText;
     public AudioSource cashMoneyBiatch;
 	public int moneyGain;
 
@@ -53,11 +54,13 @@ public class GameManager : MonoBehaviour {
 
     void InitLevel()
     {
-		moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text> ();
+		levelText = GameObject.Find ("levelText").GetComponent<Text>();
+		moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text>();
+		levelText.text = string.Format ("Level: {0}", level);
 
 		if (level % 10 == 0) {
 			moneyGain += 3 * level; //TODO indicate this bonus
-			moneyGain *= PlayerPrefs.GetInt ("moneyGainLevel", 1);
+			moneyGain *= PlayerPrefs.GetInt ("moneyGain", 0);
 			int money = PlayerPrefs.GetInt ("money");
 			PlayerPrefs.SetInt ("money", money + moneyGain);
 			moneyGain = 0;
@@ -159,7 +162,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("defenseLevel", 0);
         PlayerPrefs.SetInt("maxHealthLevel", 0);
         PlayerPrefs.SetInt("startGameLevelLevel", 0);
-        PlayerPrefs.SetInt("moneyGainLevel", 1);
+        PlayerPrefs.SetInt("moneyGainLevel", 0);
         PlayerPrefs.SetInt("viewersLevel", 0);
     }
 }
