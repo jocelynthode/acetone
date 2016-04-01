@@ -9,6 +9,7 @@ public class Player : MovingObject{
     private int dir = 1;
     public Text healthPoint;
     public Text money;
+	public Text viewers;
     public static Player instance;
 
     void Awake()
@@ -40,6 +41,9 @@ public class Player : MovingObject{
         healthPoint.text = "HP: " + hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
         money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
+		viewers = GameObject.Find ("viewersText").GetComponent<Text>();
+		viewers.supportRichText = true;
+		viewers.text = string.Format("<color=red><size=16> • </size></color> {0}", PlayerPrefs.GetInt("viewers", 0));
         transform.position = new Vector2(0, 0);
     }
 
