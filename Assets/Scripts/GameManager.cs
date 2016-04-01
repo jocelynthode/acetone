@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
-		level = PlayerPrefs.GetInt ("level",1);
+		level = PlayerPrefs.GetInt("startGameLevel");
         InitLevel();
     }
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour {
         int newMoney = (int) (0.1 * SkewedRandomRange(10,1500,5f));
         PlayerPrefs.SetInt("money", money + newMoney);
         donationText.text = string.Format("New Donation: {0:C2}", newMoney);
-        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
+        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
         cashMoneyBiatch.Play();
         Invoke("RemoveDonation", 2);
     }
@@ -131,16 +131,21 @@ public class GameManager : MonoBehaviour {
     
     public static void CheckPlayerPrefs(bool force = false)
     {
-        if (!force && PlayerPrefs.HasKey("maxHealth")) return;
+        if (!force && PlayerPrefs.HasKey("money")) return;
+        PlayerPrefs.SetInt("money", 100);
+
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
         PlayerPrefs.SetInt("maxHealth", 50);
-        PlayerPrefs.SetInt("money", 100);
-        PlayerPrefs.SetInt("viewers", 20);
         PlayerPrefs.SetInt("moneyGain", 0);
+        PlayerPrefs.SetInt("startGameLevel", 1);
+        PlayerPrefs.SetInt("viewers", 20);
+
         PlayerPrefs.SetInt("attackLevel", 0);
         PlayerPrefs.SetInt("defenseLevel", 0);
+        PlayerPrefs.SetInt("maxHealthLevel", 0);
         PlayerPrefs.SetInt("moneyGainLevel", 0);
+        PlayerPrefs.SetInt("startGameLevelLevel", 0);
         PlayerPrefs.SetInt("viewersLevel", 0);
     }
 }

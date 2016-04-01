@@ -17,7 +17,7 @@ public class UpgradeMenu : MonoBehaviour {
         CreateUpgradeButton("attack", "Attack");
         CreateUpgradeButton("viewers", "Daily Giveaways");
         CreateUpgradeButton("moneyGain", "Sign Sponsor");
-        CreateUpgradeButton("level", "Starting Level");
+        CreateUpgradeButton("startGameLevel", "Starting Level");
 
         RefreshMenu();
     }
@@ -121,8 +121,8 @@ public class UpgradeMenu : MonoBehaviour {
 			upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, baseStat + 10)
 			);
-			upgradeFunctions.Add("level", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 10)
+			upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
+				new Upgrade((baseLevel + 1) * 10, (baseStat/10)*10 + 10)
 			);
         }
     }
