@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Enemy : MovingObject {
 
@@ -61,6 +62,9 @@ public class Enemy : MovingObject {
     protected override void Die()
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
+		GameManager.instance.moneyGain += 15;
+		GameManager.instance.moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text> ();
+		GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: {0:C0}", GameManager.instance.moneyGain);
         Destroy(gameObject);
     }
 

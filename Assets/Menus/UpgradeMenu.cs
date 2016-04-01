@@ -119,7 +119,7 @@ public class UpgradeMenu : MonoBehaviour {
 				new Upgrade((baseLevel + 1) * 10, baseStat + 100)
 			);
 			upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 10)
+				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
 			);
 			upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, (baseStat/10)*10 + 10)

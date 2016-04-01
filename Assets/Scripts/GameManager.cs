@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public int level;
     public Text donationText;
+	public Text moneyGainText;
     public AudioSource cashMoneyBiatch;
+	public int moneyGain;
 
     private IEnumerator enemiesCoroutine;
 
@@ -45,11 +47,22 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
 		level = PlayerPrefs.GetInt("startGameLevel");
+		moneyGain = 0;
         InitLevel();
     }
 
     void InitLevel()
     {
+		moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text> ();
+
+		if (level % 10 == 0) {
+			moneyGain += 3 * level; //TODO indicate this bonus
+			moneyGain *= PlayerPrefs.GetInt ("moneyGainLevel", 1);
+			int money = PlayerPrefs.GetInt ("money");
+			PlayerPrefs.SetInt ("money", money + moneyGain);
+			moneyGain = 0;
+		}
+		moneyGainText.text = string.Format("SKILL MONEY: {0:C0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         donationText = GameObject.Find("donationText").GetComponent<Text>();
@@ -112,6 +125,7 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         state = GameState.LEVELSETUP;
+		moneyGain = 0; // reset moneyGain
         StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
         SceneManager.LoadScene("UpgradeMenu");
@@ -144,8 +158,8 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("attackLevel", 0);
         PlayerPrefs.SetInt("defenseLevel", 0);
         PlayerPrefs.SetInt("maxHealthLevel", 0);
-        PlayerPrefs.SetInt("moneyGainLevel", 0);
         PlayerPrefs.SetInt("startGameLevelLevel", 0);
+        PlayerPrefs.SetInt("moneyGainLevel", 1);
         PlayerPrefs.SetInt("viewersLevel", 0);
     }
 }
