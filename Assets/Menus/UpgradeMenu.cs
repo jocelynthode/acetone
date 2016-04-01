@@ -5,11 +5,36 @@ using System.Collections.Generic;
 
 public class UpgradeMenu : MonoBehaviour {
 
+    public GameObject upgradeButton;
+    public GameObject upgradeText;
+
     Dictionary<string, Upgrade> upgrades;
 
     // Use this for initialization
-    void Awake () {
+    void Start () {
+        // TODO: Maybe put this into the Upgrade class ?
+        CreateUpgradeButton("maxHealth", "Maximum Health");
+        CreateUpgradeButton("attack", "Attack");
+        CreateUpgradeButton("viewers", "Daily Giveaways");
+        CreateUpgradeButton("moneyGain", "Sign Sponsor");
+        CreateUpgradeButton("level", "Starting Level");
+
         RefreshMenu();
+    }
+
+    void CreateUpgradeButton(string name, string prettyName)
+    {
+        var upgradesPanel = GameObject.Find("UpgradesPanel").transform;
+        GameObject button = Instantiate(upgradeButton) as GameObject;
+        button.name = name + "Button";
+        button.GetComponent<Button>().onClick.AddListener(() => UpdatePref(name));
+        button.GetComponentInChildren<Text>().text = prettyName;
+        button.transform.SetParent(upgradesPanel);
+
+        GameObject text = Instantiate(upgradeText) as GameObject;
+        text.name = name;
+        text.GetComponent<Text>().text = "#" + name;
+        text.transform.SetParent(upgradesPanel);
     }
 
     void RefreshMenu()
@@ -24,7 +49,7 @@ public class UpgradeMenu : MonoBehaviour {
             upgrades.Add(item.Key, upgrade);
 
             GameObject.Find(item.Key).GetComponent<Text>().text = PlayerPrefs.GetInt(item.Key).ToString();
-            // TODO: Set cost
+            // TODO: Display cost
         }
 
         GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
@@ -47,7 +72,7 @@ public class UpgradeMenu : MonoBehaviour {
         RefreshMenu();
     }
 
-    public void UpdatePrefs(string name)
+    public void UpdatePref(string name)
     {
         int level = PlayerPrefs.GetInt(name + "Level");
         Upgrade upgrade = upgrades[name];
