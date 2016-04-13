@@ -106,23 +106,30 @@ public class GameManager : MonoBehaviour {
         state = GameState.ENEMIESTURN;
         float prob = Random.Range(1, 100);
         int viewers = PlayerPrefs.GetInt("viewers");
+
         float viewersProb = viewers / 250.0f;
         if (viewersProb > 30.0f) viewersProb = 30;
-        if (prob > (10.0f + viewersProb)) return;
-        int money = PlayerPrefs.GetInt("money");
-        
-        int newMoney = (int) (0.1 * SkewedRandomRange(10,1500,5f));
-        PlayerPrefs.SetInt("money", money + newMoney);
-        donationText.text = string.Format("New Donation: {0:C2}", newMoney);
-        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
-        cashMoneyBiatch.Play();
-        Invoke("RemoveDonation", 2);
+
+        if (prob <= (10.0f + viewersProb))
+        {
+            int money = PlayerPrefs.GetInt("money");
+            int newMoney = (int)(0.1 * SkewedRandomRange(10, 1500, 5f));
+            GainMoney("New Donation: ", money, newMoney);
+        }
     }
 
     internal void RemoveDonation()
     {
         if(donationText)
             donationText.text = "";
+    }
+
+    public void GainMoney(string text, int oldMoney, int newMoney) {
+        PlayerPrefs.SetInt("money", oldMoney + newMoney);
+        donationText.text = string.Format(text + "{0:C2}", newMoney);
+        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
+        cashMoneyBiatch.Play();
+        Invoke("RemoveDonation", 2);
     }
 
     public void OnGameOver()

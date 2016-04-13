@@ -29,7 +29,9 @@ public static class Items {
 
     static void useAd()
     {
-        throw new System.NotImplementedException();
+        int money = PlayerPrefs.GetInt("money");
+        int newMoney = PlayerPrefs.GetInt("itemsPowerLevel") * 25;
+        GameManager.instance.GainMoney("Endorsement earned: ", money, newMoney);
     }
 
     static void useBomb()
