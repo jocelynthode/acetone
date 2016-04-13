@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GameObject
+  m_Name: CustomPlayer
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -301,19 +301,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 110254450}
-    m_Position: {x: 200, y: 0, z: 0}
+    m_Position: {x: 216, y: -12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110218502}
     m_Position: {x: 456, y: -12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110220312}
-    m_Position: {x: 564, y: 108, z: 0}
+    m_Position: {x: 504, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110264326}
-    m_Position: {x: 636, y: 192, z: 0}
+    m_Position: {x: 552, y: 192, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110287958}
-    m_Position: {x: 660, y: 288, z: 0}
+    m_Position: {x: 540, y: 312, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110294106}
     m_Position: {x: 252, y: 312, z: 0}

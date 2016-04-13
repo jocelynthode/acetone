@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 176462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ Animator:
   m_GameObject: {fileID: 176462}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3b1ad45a757b756409bab01631337e25, type: 2}
+  m_Controller: {fileID: 9100000, guid: b6be8575fe8bde145886c2e4146b79ab, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -95,6 +95,12 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  hp: 0
+  att: 0
+  def: 0
+  healthPoint: {fileID: 0}
+  money: {fileID: 0}
+  viewers: {fileID: 0}
 --- !u!212 &21222960
 SpriteRenderer:
   m_ObjectHideFlags: 1
