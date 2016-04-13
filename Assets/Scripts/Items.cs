@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public static class Items : MonoBehaviour {
+public static class Items {
     public enum ItemType
     {
         AD,
