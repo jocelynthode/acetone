@@ -130,7 +130,12 @@ public class GameManager : MonoBehaviour {
         state = GameState.LEVELSETUP;
         StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
-        SceneManager.LoadScene("UpgradeMenu");
+		//Set highestlevel attained ever
+		if (PlayerPrefs.GetInt("highestLevel") < level)
+		{
+			PlayerPrefs.SetInt("highestLevel", level);
+		}
+        SceneManager.LoadScene("UpgradeMenu");	
         state = GameState.UPGRADEMENU;
     }
 

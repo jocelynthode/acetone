@@ -16,7 +16,10 @@ public class UpgradeMenu : MonoBehaviour {
         CreateUpgradeButton("maxHealth", "Maximum Health");
         CreateUpgradeButton("attack", "Attack");
         CreateUpgradeButton("viewers", "Daily Giveaways");
-        CreateUpgradeButton("moneyGain", "Sign Sponsor");
+		//if (PlayerPrefs.GetInt("highestLevel") >= 100) 
+		{
+       		CreateUpgradeButton("moneyGain", "Sign Sponsor");
+		}
         CreateUpgradeButton("startGameLevel", "Starting Level");
 
         RefreshMenu();
@@ -119,9 +122,12 @@ public class UpgradeMenu : MonoBehaviour {
 			upgradeFunctions.Add("viewers", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, baseStat + 100)
 			);
-			upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
-			);
+			if (PlayerPrefs.GetInt("highestLevel") >= 100) 
+			{
+				upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
+					new Upgrade((baseLevel + 1) * 10, baseStat + 1)
+				);
+			}
 			upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, (baseStat/10)*10 + 10)
 			);
