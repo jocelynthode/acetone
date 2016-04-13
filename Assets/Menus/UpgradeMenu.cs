@@ -54,10 +54,14 @@ public class UpgradeMenu : MonoBehaviour {
             Upgrade upgrade = item.Value(level, stat);
             upgrades.Add(item.Key, upgrade);
 
-            string statText = string.Format("Current: {0}        \nNext: {1}        ", stat, upgrade.Stat);
-            GameObject.Find(item.Key).GetComponent<Text>().text = statText;
-            var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
-            costText.text = string.Format("Cost: {0:C0}", upgrade.Cost);
+            GameObject upgradeButton = GameObject.Find(item.Key);
+            if (upgradeButton)
+            {
+                string statText = string.Format("Current: {0}        \nNext: {1}        ", stat, upgrade.Stat);
+                upgradeButton.GetComponent<Text>().text = statText;
+                var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
+                costText.text = string.Format("Cost: {0:C0}", upgrade.Cost);
+            }
 
             // TODO: Disable button when not enough money
         }
