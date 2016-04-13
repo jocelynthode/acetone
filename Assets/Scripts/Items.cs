@@ -47,7 +47,6 @@ public static class Items {
     static void useViewbot()
     {
         Player.instance.ViewerBots += 50 + (Player.instance.TotalViewers / 2);
-        cashMoneyBiatch.Play();
     }
 
 }
