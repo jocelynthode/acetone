@@ -55,8 +55,13 @@ public class Player : MovingObject{
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Alpha1)){
+        if (Input.GetKey(KeyCode.Alpha4)){
             instance.Die();
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Alpha1)){
+            Items.useItem(Items.ItemType.AD);
             return;
         }
 

@@ -30,7 +30,7 @@ public static class Items {
     static void useAd()
     {
         int money = PlayerPrefs.GetInt("money");
-        int newMoney = PlayerPrefs.GetInt("itemsPowerLevel") * 25;
+        int newMoney = (PlayerPrefs.GetInt("itemsPowerLevel") + 1) * 25;
         GameManager.instance.GainMoney("Endorsement earned: ", money, newMoney);
     }
 
