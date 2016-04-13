@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
     public static void CheckPlayerPrefs(bool force = false)
     {
         if (!force && PlayerPrefs.HasKey("money")) return;
-        PlayerPrefs.SetInt("money", 100);
+        PlayerPrefs.SetInt("money", 1000);
 
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
