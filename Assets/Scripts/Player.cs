@@ -61,9 +61,9 @@ public class Player : MovingObject{
         }
 
         if (Input.GetKey(KeyCode.Alpha2)){
-            if (GameManager.instance.state != GameState.PLAYERTURN) return;
             GameManager.instance.OnTurnEnd();
             Items.useItem(Items.ItemType.BOMB);
+            return;
             
         }
 

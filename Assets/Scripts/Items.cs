@@ -40,9 +40,8 @@ public static class Items {
         while (i > 0 && GameManager.instance.boardScript.enemies.Count > 0)
         {
             GameManager.instance.boardScript.enemies[0].Die();
-            i = i - 1 ;
+            i = i - 1;
         }
-        throw new System.NotImplementedException();
     }
 
     static void useViewbot()
