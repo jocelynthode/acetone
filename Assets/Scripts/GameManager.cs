@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour {
     public void OnLevelCompletion()
     {
         state = GameState.LEVELSETUP;
-        StopCoroutine(enemiesCoroutine);
+        if (enemiesCoroutine != null) StopCoroutine(enemiesCoroutine);
         level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         state = GameState.LEVELSETUP;
-        StopCoroutine(enemiesCoroutine);
+        if (enemiesCoroutine != null) StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
 		//Set highestlevel attained ever
 		if (PlayerPrefs.GetInt("highestLevel") < level)
