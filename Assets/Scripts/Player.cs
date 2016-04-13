@@ -52,9 +52,20 @@ public class Player : MovingObject{
         if (GameManager.instance.state != GameState.PLAYERTURN) return;
         int horizontal = 0;
         int vertical = 0;
-
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKey(KeyCode.Alpha1)){
+            instance.Die();
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Alpha2)){
+            if (GameManager.instance.state != GameState.PLAYERTURN) return;
+            GameManager.instance.OnTurnEnd();
+            Items.useItem(Items.ItemType.BOMB);
+            
+        }
 
         if (horizontal != 0)
         {
@@ -94,7 +105,7 @@ public class Player : MovingObject{
         animator.transform.Rotate(0, 180, 0);
     }
 
-    protected override void Die()
+    public override void Die()
     {
         GameManager.instance.OnGameOver();
     }

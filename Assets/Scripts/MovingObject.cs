@@ -126,5 +126,5 @@ public abstract class MovingObject : MonoBehaviour
         if (hp <= 0) Die();
     }
 
-    protected abstract void Die();
+    public abstract void Die();
 }

@@ -59,7 +59,7 @@ public class Enemy : MovingObject {
         animator.SetTrigger("EnemyAttack");
     }
 
-    protected override void Die()
+    public override void Die()
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
 		GameManager.instance.moneyGain += 15;

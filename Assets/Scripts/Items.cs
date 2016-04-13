@@ -34,6 +34,12 @@ public static class Items {
 
     static void useBomb()
     {
+        int i = 3;
+        while (i > 0 && GameManager.instance.boardScript.enemies.Count > 0)
+        {
+            GameManager.instance.boardScript.enemies[0].Die();
+            i = i - 1 ;
+        }
         throw new System.NotImplementedException();
     }
 
