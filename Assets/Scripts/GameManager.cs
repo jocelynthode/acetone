@@ -105,9 +105,8 @@ public class GameManager : MonoBehaviour {
     {
         state = GameState.ENEMIESTURN;
         float prob = Random.Range(1, 100);
-        int viewers = PlayerPrefs.GetInt("viewers");
 
-        float viewersProb = viewers / 250.0f;
+        float viewersProb = Player.instance.TotalViewers / 250.0f;
         if (viewersProb > 30.0f) viewersProb = 30;
 
         if (prob <= (10.0f + viewersProb))

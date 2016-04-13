@@ -7,6 +7,7 @@ public class Player : MovingObject{
 
     private Animator animator;
     private int dir = 1;
+    private int viewerBots = 0;
     public Text healthPoint;
     public Text money;
 	public Text viewers;
@@ -37,14 +38,18 @@ public class Player : MovingObject{
 
     private void InitLevel()
     {
+        RefreshUI();
+        transform.position = new Vector2(0, 0);
+    }
+
+    private void RefreshUI() {
         healthPoint = GameObject.Find("hpText").GetComponent<Text>();
         healthPoint.text = "HP: " + hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
         money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
-		viewers = GameObject.Find ("viewersText").GetComponent<Text>();
-		viewers.supportRichText = true;
-		viewers.text = string.Format("<color=red><size=16> • </size></color> {0}", PlayerPrefs.GetInt("viewers", 0));
-        transform.position = new Vector2(0, 0);
+        viewers = GameObject.Find("viewersText").GetComponent<Text>();
+        viewers.supportRichText = true;
+        viewers.text = string.Format("<color=red><size=16> • </size></color> {0}", TotalViewers);
     }
 
     private void Update()
@@ -69,7 +74,11 @@ public class Player : MovingObject{
             GameManager.instance.OnTurnEnd();
             Items.useItem(Items.ItemType.BOMB);
             return;
-            
+        }
+
+        if (Input.GetKey(KeyCode.Alpha3)){
+            Items.useItem(Items.ItemType.VIEWBOT);
+            return;
         }
 
         if (horizontal != 0)
@@ -118,6 +127,15 @@ public class Player : MovingObject{
     public int getHP()
     {
         return base.hp;
+    }
+
+    public int ViewerBots {
+        get { return viewerBots; }
+        set { viewerBots = value; RefreshUI(); }
+    }
+
+    public int TotalViewers {
+        get {return ViewerBots + PlayerPrefs.GetInt("viewers");}
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
