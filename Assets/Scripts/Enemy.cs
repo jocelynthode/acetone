@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Enemy : MovingObject {
 
-    private Animator animator;
+    protected Animator animator;
     private Transform target;
     private bool skipMove;
 
