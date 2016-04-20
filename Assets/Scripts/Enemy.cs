@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Enemy : MovingObject {
 
-    private Animator animator;
+    protected Animator animator;
     private Transform target;
     private bool skipMove;
 
@@ -25,7 +25,7 @@ public class Enemy : MovingObject {
     }
 
 
-    public void Move()
+    public virtual void Move()
     {
         Transform player = GameManager.instance.boardScript.player.transform;
         int xDir = 0;
