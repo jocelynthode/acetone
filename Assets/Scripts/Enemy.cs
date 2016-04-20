@@ -25,7 +25,7 @@ public class Enemy : MovingObject {
     }
 
 
-    public void Move()
+    public virtual void Move()
     {
         Transform player = GameManager.instance.boardScript.player.transform;
         int xDir = 0;

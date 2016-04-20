@@ -3,11 +3,14 @@ using System;
 using UnityEngine.UI;
 
 public class EnemyDist : Enemy {
+    private LineRenderer lineRenderer;
 
-    private Transform target;
-    private bool skipMove;
-    public GameObject laser;
-
+    protected override void Start () {
+        base.Start();
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
+        lineRenderer.useWorldSpace = true;
+    }
 
     public override void AttemptMove<T>(int xDir, int yDir)
     {
@@ -26,14 +29,14 @@ public class EnemyDist : Enemy {
     }
 
 
-    public void Move()
+    public override void Move()
     {
         Transform player = GameManager.instance.boardScript.player.transform;
         int xDir = 0;
         int yDir = 0;
         RaycastHit2D hit;
         bool willAttack = false;
-        Attack(Player);
+        Attack(player);
         /*
         if (Math.Abs(player.position.x - transform.position.x) < float.Epsilon)
         {
@@ -77,10 +80,14 @@ public class EnemyDist : Enemy {
     private void Attack<T>(T component)
     {
         Player player = component as Player;
-
-        Laser laser = Instantiate(laser, transform.position, Quaternion.identity);
-        laser.DisplayLaser(this.transform, player.transform);
+        DisplayLaser(transform.position, player.transform.position);
         player.TakeDamage(att);
         animator.SetTrigger("EnemyAttack"); //TODO review Triggers
+    }
+
+    private void DisplayLaser(Vector3 own, Vector3 player) {
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, own);
+        lineRenderer.SetPosition(1, player);
     }
 }
