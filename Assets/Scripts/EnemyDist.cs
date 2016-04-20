@@ -3,13 +3,13 @@ using System;
 using UnityEngine.UI;
 
 public class EnemyDist : Enemy {
-    private LineRenderer lineRenderer;
+    private LineRenderer line;
 
     protected override void Start () {
         base.Start();
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
-        lineRenderer.useWorldSpace = true;
+        line = GetComponent<LineRenderer>();
+        line.enabled = false;
+        line.useWorldSpace = true;
     }
 
     public override void AttemptMove<T>(int xDir, int yDir)
@@ -83,13 +83,13 @@ public class EnemyDist : Enemy {
     }
 
     private void DisplayLaser(Vector3 own, Vector3 player) {
-        lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, own - new Vector3(0,0.2f,1));
-        lineRenderer.SetPosition(1, player - new Vector3(0,0,1));
+        line.enabled = true;
+        line.SetPosition(0, own - new Vector3(0,0.2f,1));
+        line.SetPosition(1, player - new Vector3(0,0,1));
         Invoke("DisableLaser", 0.5f);
     }
 
     private void DisableLaser() {
-        lineRenderer.enabled = false;
+        line.enabled = false;
     }
 }

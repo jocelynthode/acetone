@@ -11,6 +11,7 @@ TagManager:
   - ItemAd
   - ItemBomb
   - ItemViewbot
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -45,9 +46,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Floor
     uniqueID: 596726287
     locked: 0
@@ -59,4 +57,7 @@ TagManager:
     locked: 0
   - name: Gui
     uniqueID: 4150671411
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
