@@ -21,15 +21,22 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public int columns = 8;                                         //Number of columns in our game board.
-    public int rows = 8;                                            //Number of rows in our game board.
-    public Range wallCount = new Range(5, 9);                      //Lower and upper limit for our random number of walls per level.
-    public Range foodCount = new Range(1, 5);                      //Lower and upper limit for our random number of food items per level.
+    private int columns = 10;                                         //Number of columns in our game board.
+    private int rows = 10;                                            //Number of rows in our game board.
+
+
+    //Lower and upper limit for our random number of inner walls and items
+    private Range wallCount = new Range(20, 20);
+    private Range itemAdCount = new Range(0, 2);
+    private Range itemBombCount = new Range(0, 2);
+    private Range itemViewbotCount = new Range(0, 2);
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
-    public GameObject[] floorTiles;                                 //Array of floor prefabs.
+    public GameObject itemAdTile;
+    public GameObject itemBombTile;
+    public GameObject itemViewbotTile;
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
-    public GameObject[] foodTiles;                                  //Array of food prefabs.
+    public GameObject[] floorTiles;                                  //Array of floor prefabs.
     public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
     public GameObject[] outerWallTiles;                             //Array of outer tile prefabs.
 
@@ -38,25 +45,51 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();   //A list of possible locations to place tiles.
-
+    private List<Vector3> path = new List<Vector3>();
 
     //Clears our list gridPositions and prepares it to generate a new board.
+
+    void initalisePath()
+    {
+        path.Clear();
+        List<Vector3> vectors = new List<Vector3>();
+        for (int i = 0; i < columns-1; i++)
+            vectors.Add(new Vector3(1, 0, 0f));
+        for (int i = 0; i < rows-1; i++)
+            vectors.Add(new Vector3(0, 1, 0f));
+
+        Vector3 origine = new Vector3(0, 0, 0f);
+        path.Add(origine);
+        while (vectors.Count > 0)
+        {
+            int i = Random.Range(0,vectors.Count);
+            origine = origine + vectors[i];
+            vectors.Remove(vectors[i]);
+            path.Add(origine);
+
+        }
+
+    }
     void InitialiseList()
     {
+        initalisePath();
         //Clear our list gridPositions.
         gridPositions.Clear();
-
         //Loop through x axis (columns).
-        for (int x = 1; x < columns - 1; x++)
+        for (int x = 0; x < columns; x++)
         {
             //Within each column, loop through y axis (rows).
-            for (int y = 1; y < rows - 1; y++)
+            for (int y = 0; y < rows; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x, y, 0f));
+                Vector3 temp = new Vector3(x, y, 0f);
+                if (!path.Contains(temp))
+                    gridPositions.Add(temp);
             }
         }
     }
+
+
 
 
     //Sets up the outer walls and floor (background) of the game board.
@@ -108,10 +141,14 @@ public class BoardManager : MonoBehaviour
 
 
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    List<GameObject> LayoutObjectAtRandom(GameObject tile, Range range) {
+        return LayoutObjectAtRandom(new GameObject[] {tile}, range);
+    }
+
+    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = Random.Range(minimum, maximum + 1);
+        int objectCount = Random.Range(range.minimum, range.maximum + 1);
 
         //Instantiate objects until the randomly chosen limit objectCount is reached
         List<GameObject> objects = new List<GameObject>();
@@ -140,17 +177,19 @@ public class BoardManager : MonoBehaviour
         InitialiseList();
 
         //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+        LayoutObjectAtRandom(wallTiles, wallCount);
 
-        //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+        //Instantiate a random number of items based on minimum and maximum, at randomized positions.
+        LayoutObjectAtRandom(itemAdTile, itemAdCount);
+        LayoutObjectAtRandom(itemBombTile, itemBombCount);
+        LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
 
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
         enemies.Clear();
-        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, new Range(enemyCount, enemyCount));
         enemiesObjects.ForEach(obj => {
             enemies.Add(obj.GetComponent<Enemy>());
         });

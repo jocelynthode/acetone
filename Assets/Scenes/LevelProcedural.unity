@@ -132,23 +132,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999f0c1cf62b50d4e802f85273564090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 8
-  rows: 8
-  wallCount:
-    minimum: 5
-    maximum: 9
-  foodCount:
-    minimum: 1
-    maximum: 5
   playerTile: {fileID: 176462, guid: 821f82b662798f14bba2707bd54346da, type: 2}
   exitTile: {fileID: 185856, guid: 7d7c7a12b082381489701dddbab5e3e0, type: 2}
+  itemAdTile: {fileID: 183814, guid: d0a331e11dafb7d4993a7538db6a1d89, type: 2}
+  itemBombTile: {fileID: 189916, guid: 87a0588c15a23344d96aa8e203eb9438, type: 2}
+  itemViewbotTile: {fileID: 135524, guid: fdfe529fc5bc55645bb8a7faea670a42, type: 2}
+  wallTiles:
+  - {fileID: 119690, guid: 5ec9dada93cbd66489dda136428d6998, type: 2}
   floorTiles:
   - {fileID: 110206, guid: 637692995d08f7e4d8bfb162ac2e4452, type: 2}
   - {fileID: 113926, guid: 070e9daab742c3c47b626f1ff1bedc54, type: 2}
-  wallTiles:
-  - {fileID: 119690, guid: 5ec9dada93cbd66489dda136428d6998, type: 2}
-  foodTiles:
-  - {fileID: 167436, guid: 0d1bd370bfce4244ba28a90b66f3706e, type: 2}
   enemyTiles:
   - {fileID: 143676, guid: 09b1e5e0441e27c49aec353e1d6a3532, type: 2}
   outerWallTiles:
@@ -683,7 +676,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.534166
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -819,7 +812,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 434726, guid: 821f82b662798f14bba2707bd54346da, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 821f82b662798f14bba2707bd54346da, type: 2}
@@ -967,6 +960,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: -144295885
   m_SortingOrder: 0
   m_TargetDisplay: 0
