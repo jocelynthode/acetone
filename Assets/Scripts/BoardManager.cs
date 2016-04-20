@@ -44,19 +44,30 @@ public class BoardManager : MonoBehaviour
 
     void initalisePath()
     {
+        path.Clear();
+        List<Vector3> vectors = new List<Vector3>();
         for (int i = 0; i < columns; i++)
-            path.Add(new Vector3(1, 0, 0f));
+            vectors.Add(new Vector3(1, 0, 0f));
         for (int i = 0; i < rows; i++)
-            path.Add(new Vector3(0, 1, 0f));
-        path.Sort((a, b) => 1 - 2 * Random.Range(0, 1));
-        print(path);
+            vectors.Add(new Vector3(0, 1, 0f));
+
+        Vector3 origine = new Vector3(0, 0, 0f);
+        path.Add(origine);
+        while (vectors.Count > 0)
+        {
+            int i = Random.Range(0,vectors.Count);
+            origine = origine + vectors[i];
+            vectors.Remove(vectors[i]);
+            path.Add(origine);
+
+        }
 
     }
     void InitialiseList()
     {
+        initalisePath();
         //Clear our list gridPositions.
         gridPositions.Clear();
-        Vector3 temp = new Vector3();
         //Loop through x axis (columns).
         for (int x = 0; x < columns; x++)
         {
@@ -64,9 +75,9 @@ public class BoardManager : MonoBehaviour
             for (int y = 0; y < rows; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                temp.Set(x, y, 0f);
-                if (!path.Contains(temp))
-                    gridPositions.Add(new Vector3(x, y, 0f));
+                Vector3 temp = new Vector3(x, y, 0f);
+                if (path.Contains(temp))
+                    gridPositions.Add(temp);
             }
         }
     }

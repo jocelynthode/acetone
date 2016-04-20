@@ -132,11 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999f0c1cf62b50d4e802f85273564090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 8
-  rows: 8
-  wallCount:
-    minimum: 5
-    maximum: 9
   foodCount:
     minimum: 1
     maximum: 5
@@ -683,7 +678,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.534166
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
