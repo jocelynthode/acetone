@@ -2,24 +2,10 @@
 using System;
 using System.Collections.Generic;       //Allows us to use Lists.
 using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
+using Range = Utils.Range;
 
 public class BoardManager : MonoBehaviour
 {
-    // Using Serializable allows us to embed a class with sub properties in the inspector.
-    [Serializable]
-    public class Range
-    {
-        public int minimum;
-        public int maximum;
-
-        //Assignment constructor.
-        public Range(int min, int max)
-        {
-            minimum = min;
-            maximum = max;
-        }
-    }
-
 
     private int columns = 10;                                         //Number of columns in our game board.
     private int rows = 10;                                            //Number of rows in our game board.
@@ -27,9 +13,9 @@ public class BoardManager : MonoBehaviour
 
     //Lower and upper limit for our random number of inner walls and items
     private Range wallCount = new Range(20, 20);
-    private Range itemAdCount = new Range(0, 2);
-    private Range itemBombCount = new Range(0, 2);
-    private Range itemViewbotCount = new Range(0, 2);
+    private Range itemAdCount = new Range(0, 1, 8);
+    private Range itemBombCount = new Range(0, 1, 4);
+    private Range itemViewbotCount = new Range(0, 1, 8);
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
     public GameObject itemAdTile;
@@ -148,7 +134,8 @@ public class BoardManager : MonoBehaviour
     List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = Random.Range(range.minimum, range.maximum + 1);
+        int objectCount = range.RandomInt();
+
 
         //Instantiate objects until the randomly chosen limit objectCount is reached
         List<GameObject> objects = new List<GameObject>();

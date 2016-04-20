@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Range = Utils.Range;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
@@ -94,13 +95,6 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // http://forum.unity3d.com/threads/random-range-with-decreasing-probability.50596/
-    float SkewedRandomRange(float start, float end, float p)
-    {
-        return Mathf.Pow(Random.value, p) * (end - start) + start;
-    }
-
-
     public void OnTurnEnd()
     {
         state = GameState.ENEMIESTURN;
@@ -112,7 +106,7 @@ public class GameManager : MonoBehaviour {
         if (prob <= (10.0f + viewersProb))
         {
             int money = PlayerPrefs.GetInt("money");
-            int newMoney = (int)(0.1 * SkewedRandomRange(10, 1500, 5f));
+            int newMoney = (int)(0.1 * (new Range(10, 1500, 5f)).RandomInt());
             GainMoney("New Donation: ", money, newMoney);
         }
     }
