@@ -32,11 +32,41 @@ public class EnemyDist : Enemy {
     public override void Move()
     {
         Player player = GameManager.instance.boardScript.player;
-        int xDir = 0;
-        int yDir = 0;
         RaycastHit2D hit;
-        Attack(player);
-        //TODO Either move or attack depending if we have line of sight or not
+
+        if ((Math.Abs(player.transform.position.x - transform.position.x) > float.Epsilon) &&
+            (Math.Abs(player.transform.position.y - transform.position.y) > float.Epsilon))
+        {
+            base.Move();
+        }
+        else
+        {
+            boxCollider.enabled = false;
+            if (Math.Abs(player.transform.position.x - transform.position.x) < float.Epsilon)
+            {
+                if (player.transform.position.y > transform.position.y)
+                    hit = Physics2D.Raycast(transform.position, transform.up, Mathf.Infinity, blockingLayer);
+                else
+                    hit = Physics2D.Raycast(transform.position, -transform.up, Mathf.Infinity, blockingLayer);
+                if (hit.collider.gameObject.tag == "Player")
+                    Attack(player);
+                else
+                    base.Move();
+            }
+            else
+            {
+                if (player.transform.position.x > transform.position.x)
+                    hit = Physics2D.Raycast(transform.position, transform.right, blockingLayer);
+                else
+                    hit = Physics2D.Raycast(transform.position, -transform.right, blockingLayer);
+                print(hit.collider.gameObject.tag);
+                if (hit.collider.gameObject.tag == "Player")
+                    Attack(player);
+                else
+                    base.Move();       
+            }
+            boxCollider.enabled = true;
+        }
     }
 
 	public override void TakeDamage(int att)
@@ -49,7 +79,7 @@ public class EnemyDist : Enemy {
     {
         DisplayLaser(transform.position, player.transform.position);
         player.TakeDamage(att);
-        animator.SetTrigger("EnemyAttack"); //TODO review Triggers
+        animator.SetTrigger("EnemyAttack");
     }
 
     private void DisplayLaser(Vector3 own, Vector3 player) {
