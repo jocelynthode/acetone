@@ -35,40 +35,8 @@ public class EnemyDist : Enemy {
         int xDir = 0;
         int yDir = 0;
         RaycastHit2D hit;
-        bool willAttack = false;
         Attack(player);
-        /*
-        if (Math.Abs(player.position.x - transform.position.x) < float.Epsilon)
-        {
-            hit = Physics2D.Linecast(transform.position, player.position, blockingLayer);
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                willAttack = true;
-            }
-            yDir = player.position.y > this.transform.position.y ? 1 : -1;
-        }
-        else if (Math.Abs(player.position.y - transform.position.y) < float.Epsilon)
-        {
-            hit = Physics2D.Linecast(transform.position, player.position, blockingLayer);
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                willAttack = true;
-            }
-            xDir = player.position.x > this.transform.position.x ? 1 : -1;
-        }
-        else
-        {
-            yDir = player.position.y > this.transform.position.y ? 1 : -1; 
-        }
-        if (willAttack)
-        {
-            Attack(player);
-        }
-        else
-        {
-            AttemptMove<Player>(xDir, yDir);
-        }
-        */
+        //TODO Either move or attack depending if we have line of sight or not
     }
 
 	public override void TakeDamage(int att)
