@@ -21,9 +21,9 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public int columns = 8;                                         //Number of columns in our game board.
-    public int rows = 8;                                            //Number of rows in our game board.
-    public Range wallCount = new Range(5, 9);                      //Lower and upper limit for our random number of walls per level.
+    private int columns = 10;                                         //Number of columns in our game board.
+    private int rows = 10;                                            //Number of rows in our game board.
+    private Range wallCount = new Range(20, 20);                      //Lower and upper limit for our random number of walls per level.
     public Range foodCount = new Range(1, 5);                      //Lower and upper limit for our random number of food items per level.
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
@@ -38,25 +38,40 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();   //A list of possible locations to place tiles.
-
+    private List<Vector3> path = new List<Vector3>();
 
     //Clears our list gridPositions and prepares it to generate a new board.
+
+    void initalisePath()
+    {
+        for (int i = 0; i < columns; i++)
+            path.Add(new Vector3(1, 0, 0f));
+        for (int i = 0; i < rows; i++)
+            path.Add(new Vector3(0, 1, 0f));
+        path.Sort((a, b) => 1 - 2 * Random.Range(0, 1));
+        print(path);
+
+    }
     void InitialiseList()
     {
         //Clear our list gridPositions.
         gridPositions.Clear();
-
+        Vector3 temp = new Vector3();
         //Loop through x axis (columns).
-        for (int x = 1; x < columns - 1; x++)
+        for (int x = 0; x < columns; x++)
         {
             //Within each column, loop through y axis (rows).
-            for (int y = 1; y < rows - 1; y++)
+            for (int y = 0; y < rows; y++)
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
-                gridPositions.Add(new Vector3(x, y, 0f));
+                temp.Set(x, y, 0f);
+                if (!path.Contains(temp))
+                    gridPositions.Add(new Vector3(x, y, 0f));
             }
         }
     }
+
+
 
 
     //Sets up the outer walls and floor (background) of the game board.
