@@ -23,7 +23,7 @@ public class BoardManager : MonoBehaviour
 
     private int columns = 10;                                         //Number of columns in our game board.
     private int rows = 10;                                            //Number of rows in our game board.
-    private Range wallCount = new Range(20, 20);                      //Lower and upper limit for our random number of walls per level.
+    private Range wallCount = new Range(19, 19);                      //Lower and upper limit for our random number of walls per level.
     public Range foodCount = new Range(1, 5);                      //Lower and upper limit for our random number of food items per level.
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
@@ -46,9 +46,9 @@ public class BoardManager : MonoBehaviour
     {
         path.Clear();
         List<Vector3> vectors = new List<Vector3>();
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < columns-1; i++)
             vectors.Add(new Vector3(1, 0, 0f));
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < rows-1; i++)
             vectors.Add(new Vector3(0, 1, 0f));
 
         Vector3 origine = new Vector3(0, 0, 0f);
@@ -76,7 +76,7 @@ public class BoardManager : MonoBehaviour
             {
                 //At each index add a new Vector3 to our list with the x and y coordinates of that position.
                 Vector3 temp = new Vector3(x, y, 0f);
-                if (path.Contains(temp))
+                if (!path.Contains(temp))
                     gridPositions.Add(temp);
             }
         }
