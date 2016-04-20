@@ -84,7 +84,12 @@ public class EnemyDist : Enemy {
 
     private void DisplayLaser(Vector3 own, Vector3 player) {
         lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, own);
-        lineRenderer.SetPosition(1, player);
+        lineRenderer.SetPosition(0, own - new Vector3(0,0.2f,1));
+        lineRenderer.SetPosition(1, player - new Vector3(0,0,1));
+        Invoke("DisableLaser", 0.5f);
+    }
+
+    private void DisableLaser() {
+        lineRenderer.enabled = false;
     }
 }

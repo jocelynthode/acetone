@@ -109,7 +109,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -126,18 +126,18 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 3, z: -1}
+  - {x: 0, y: 0, z: -1}
   m_Parameters:
-    startWidth: 5
-    endWidth: 5
+    startWidth: 1
+    endWidth: 1
     m_StartColor:
       serializedVersion: 2
       rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4278190335
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
 --- !u!212 &21286614
 SpriteRenderer:
   m_ObjectHideFlags: 1
