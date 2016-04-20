@@ -23,13 +23,20 @@ public class BoardManager : MonoBehaviour
 
     private int columns = 10;                                         //Number of columns in our game board.
     private int rows = 10;                                            //Number of rows in our game board.
-    private Range wallCount = new Range(20, 20);                      //Lower and upper limit for our random number of walls per level.
-    public Range foodCount = new Range(1, 5);                      //Lower and upper limit for our random number of food items per level.
+
+    //Lower and upper limit for our random number of inner walls and items
+    private Range wallCount = new Range(20, 20);
+    private Range itemAdCount = new Range(0, 2);
+    private Range itemBombCount = new Range(0, 2);
+    private Range itemViewbotCount = new Range(0, 2);
+
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
-    public GameObject[] floorTiles;                                 //Array of floor prefabs.
+    public GameObject itemAdTile;
+    public GameObject itemBombTile;
+    public GameObject itemViewbotTile;
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
-    public GameObject[] foodTiles;                                  //Array of food prefabs.
+    public GameObject[] floorTiles;                                  //Array of floor prefabs.
     public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
     public GameObject[] outerWallTiles;                             //Array of outer tile prefabs.
 
@@ -134,10 +141,14 @@ public class BoardManager : MonoBehaviour
 
 
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    List<GameObject> LayoutObjectAtRandom(GameObject tile, Range range) {
+        return LayoutObjectAtRandom(new GameObject[] {tile}, range);
+    }
+
+    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
-        int objectCount = Random.Range(minimum, maximum + 1);
+        int objectCount = Random.Range(range.minimum, range.maximum + 1);
 
         //Instantiate objects until the randomly chosen limit objectCount is reached
         List<GameObject> objects = new List<GameObject>();
@@ -166,17 +177,19 @@ public class BoardManager : MonoBehaviour
         InitialiseList();
 
         //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+        LayoutObjectAtRandom(wallTiles, wallCount);
 
-        //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+        //Instantiate a random number of items based on minimum and maximum, at randomized positions.
+        LayoutObjectAtRandom(itemAdTile, itemAdCount);
+        LayoutObjectAtRandom(itemBombTile, itemBombCount);
+        LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
 
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
         enemies.Clear();
-        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, new Range(enemyCount, enemyCount));
         enemiesObjects.ForEach(obj => {
             enemies.Add(obj.GetComponent<Enemy>());
         });
