@@ -31,7 +31,7 @@ public class EnemyDist : Enemy {
 
     public override void Move()
     {
-        Transform player = GameManager.instance.boardScript.player.transform;
+        Player player = GameManager.instance.boardScript.player;
         int xDir = 0;
         int yDir = 0;
         RaycastHit2D hit;
@@ -77,9 +77,8 @@ public class EnemyDist : Enemy {
 		animator.SetTrigger("EnemyHit");
 	}
 
-    private void Attack<T>(T component)
+    private void Attack(Player player)
     {
-        Player player = component as Player;
         DisplayLaser(transform.position, player.transform.position);
         player.TakeDamage(att);
         animator.SetTrigger("EnemyAttack"); //TODO review Triggers
