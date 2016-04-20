@@ -5,10 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Exit
-  - Item
   - Enemy
   - Health
   - Food
+  - ItemAd
+  - ItemBomb
+  - ItemViewbot
   layers:
   - Default
   - TransparentFX
