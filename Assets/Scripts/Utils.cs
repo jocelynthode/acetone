@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
+using Random = UnityEngine.Random;  // Use Unity's RNG
 
 
 public static class Utils
@@ -21,9 +21,13 @@ public static class Utils
         }
 
         // http://forum.unity3d.com/threads/random-range-with-decreasing-probability.50596/
+        // skew < 1: bigger numbers are favored
+        // skew = 1: uniform distribution
+        // skew > 1: smaller numbers are favored
         public int RandomInt()
         {
             int rand = Mathf.FloorToInt(Mathf.Pow(Random.value, distributionSkew) * (maximum - minimum + 1) + minimum);
+            // In some rare cases rand could be bigger than max
             return (rand > maximum) ? rand - 1 : rand;
         }
 
