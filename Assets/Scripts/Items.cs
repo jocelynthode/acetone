@@ -9,7 +9,7 @@ public static class Items {
         VIEWBOT
     }
 
-    public static void useItem(ItemType item) 
+    public static void useItem(ItemType item, Collider2D collider = null)
     {
         switch (item)
         {
@@ -25,6 +25,7 @@ public static class Items {
             default:
                 throw new System.ArgumentException();
         }
+        if (collider != null) GameObject.Destroy(collider);
     }
 
     static void useAd()

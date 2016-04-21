@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using GameState = GameManager.GameState;
+using ItemType = Items.ItemType;
 
 public class Player : MovingObject{
 
@@ -138,10 +139,22 @@ public class Player : MovingObject{
         get {return ViewerBots + PlayerPrefs.GetInt("viewers");}
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.tag == "Exit")
-        {
-            GameManager.instance.OnLevelCompletion();
-        }
-    }
+	private void OnTriggerEnter2D(Collider2D collider)
+	{
+		switch (collider.tag)
+		{
+		case "Exit":
+			GameManager.instance.OnLevelCompletion();
+			break;
+		case "ItemAd":
+			Items.useItem(ItemType.AD, collider);
+			break;
+		case "ItemBomb":
+			Items.useItem(ItemType.BOMB, collider);
+			break;
+		case "ItemViewbot":
+			Items.useItem(ItemType.VIEWBOT, collider);
+			break;
+		}
+	}
 }
