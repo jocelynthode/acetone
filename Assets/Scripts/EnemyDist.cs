@@ -59,7 +59,7 @@ public class EnemyDist : Enemy {
                     hit = Physics2D.Raycast(transform.position, transform.right, blockingLayer);
                 else
                     hit = Physics2D.Raycast(transform.position, -transform.right, blockingLayer);
-                print(hit.collider.gameObject.tag);
+
                 if (hit.collider.gameObject.tag == "Player")
                     Attack(player);
                 else
