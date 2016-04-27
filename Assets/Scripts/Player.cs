@@ -45,7 +45,7 @@ public class Player : MovingObject{
 
     private void RefreshUI() {
         healthPoint = GameObject.Find("hpText").GetComponent<Text>();
-        healthPoint.text = "HP: " + hp.ToString();
+        healthPoint.text = hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
         money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
         viewers = GameObject.Find("viewersText").GetComponent<Text>();
@@ -111,7 +111,7 @@ public class Player : MovingObject{
     public override void TakeDamage(int att)
     {
         base.TakeDamage(att);
-        healthPoint.text = "HP: " + hp.ToString();
+        healthPoint.text = hp.ToString();
         animator.SetTrigger("PlayerHit");
     }
 
