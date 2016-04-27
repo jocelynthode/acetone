@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
 		level = PlayerPrefs.GetInt("startGameLevel");
 		moneyGain = 0;
         InitLevel();
+		//TODO Check if highest level otherwise Tutorial
     }
 
     void InitLevel()
@@ -66,7 +67,10 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("money", money + moneyGain);
 			moneyGain = 0;
 		}
-		moneyGainText.text = string.Format("SKILL MONEY: {0:C0}", moneyGain);
+
+		//TODO if level == 2 Show enemies Tutorial
+
+		moneyGainText.text = string.Format("SKILL MONEY: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         donationText = GameObject.Find("donationText").GetComponent<Text>();
@@ -103,7 +107,7 @@ public class GameManager : MonoBehaviour {
         float viewersProb = Player.instance.TotalViewers / 250.0f;
         if (viewersProb > 30.0f) viewersProb = 30;
 
-        if (prob <= (10.0f + viewersProb))
+        if (prob <= (1.0f + viewersProb))
         {
             int money = PlayerPrefs.GetInt("money");
             int newMoney = (int)(0.1 * (new Range(10, 1500, 5f)).RandomInt());
@@ -120,7 +124,7 @@ public class GameManager : MonoBehaviour {
     public void GainMoney(string text, int oldMoney, int newMoney) {
         PlayerPrefs.SetInt("money", oldMoney + newMoney);
         donationText.text = string.Format(text + "{0:C2}", newMoney);
-        Player.instance.money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money"));
+        Player.instance.money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
         cashMoneyBiatch.Play();
         Invoke("RemoveDonation", 2);
     }
@@ -153,7 +157,7 @@ public class GameManager : MonoBehaviour {
     public static void CheckPlayerPrefs(bool force = false)
     {
         if (!force && PlayerPrefs.HasKey("money")) return;
-        PlayerPrefs.SetInt("money", 1000);
+        PlayerPrefs.SetInt("money", 100);
 
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);

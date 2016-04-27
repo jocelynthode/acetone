@@ -60,13 +60,13 @@ public class UpgradeMenu : MonoBehaviour {
                 string statText = string.Format("Current: {0}        \nNext: {1}        ", stat, upgrade.Stat);
                 upgradeButton.GetComponent<Text>().text = statText;
                 var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
-                costText.text = string.Format("Cost: {0:C0}", upgrade.Cost);
+                costText.text = string.Format("Cost: ${0}", upgrade.Cost);
             }
 
             // TODO: Disable button when not enough money
         }
 
-        GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: {0:C0}", PlayerPrefs.GetInt("money"));
+        GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
     }
 	
 	// Update is called once per frame

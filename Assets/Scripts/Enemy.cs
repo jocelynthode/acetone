@@ -64,7 +64,7 @@ public class Enemy : MovingObject {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
 		GameManager.instance.moneyGain += 15;
 		GameManager.instance.moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text> ();
-		GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: {0:C0}", GameManager.instance.moneyGain);
+		GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: ${0}", GameManager.instance.moneyGain);
         Destroy(gameObject);
     }
 

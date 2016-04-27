@@ -47,7 +47,7 @@ public class Player : MovingObject{
         healthPoint = GameObject.Find("hpText").GetComponent<Text>();
         healthPoint.text = hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
-        money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
+        money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money", 0));
         viewers = GameObject.Find("viewersText").GetComponent<Text>();
         viewers.supportRichText = true;
         viewers.text = string.Format("<color=red><size=16>•</size></color> {0}", TotalViewers);
@@ -141,6 +141,8 @@ public class Player : MovingObject{
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
+		//if first Time and we have collider.tag != Exit
+		//TODO Display Object tutorial
 		switch (collider.tag)
 		{
 		case "Exit":
