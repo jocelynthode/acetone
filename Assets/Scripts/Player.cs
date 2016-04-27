@@ -50,7 +50,7 @@ public class Player : MovingObject{
         money.text = string.Format("Money: {0:C2}", PlayerPrefs.GetInt("money", 0));
         viewers = GameObject.Find("viewersText").GetComponent<Text>();
         viewers.supportRichText = true;
-        viewers.text = string.Format("<color=red><size=16> • </size></color> {0}", TotalViewers);
+        viewers.text = string.Format("<color=red><size=16>•</size></color> {0}", TotalViewers);
     }
 
     private void Update()
