@@ -11,8 +11,6 @@ public abstract class MovingObject : MonoBehaviour
     protected Rigidbody2D rb2D;               //The Rigidbody2D component attached to this object.
     private float inverseMoveTime;          //Used to make movement more efficient.
 
-    private bool profile = true;
-    private bool face = false;
     int currentDir = 0; // 0 = horizontal 1 = vertical 
     private Animator animator;
 
@@ -38,7 +36,7 @@ public abstract class MovingObject : MonoBehaviour
     //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
-        animator = GetComponent<Animator>();
+        animator = this.GetComponent<Animator>();
         if (currentDir == 0 && yDir != 0)
         {
             animator.SetTrigger("ProfileToFace");
