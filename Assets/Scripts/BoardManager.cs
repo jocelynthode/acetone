@@ -39,16 +39,16 @@ public class BoardManager : MonoBehaviour
     {
         path.Clear();
         List<Vector3> vectors = new List<Vector3>();
-        for (int i = 0; i < columns-1; i++)
+        for (int i = 0; i < columns - 1; i++)
             vectors.Add(new Vector3(1, 0, 0f));
-        for (int i = 0; i < rows-1; i++)
+        for (int i = 0; i < rows - 1; i++)
             vectors.Add(new Vector3(0, 1, 0f));
 
         Vector3 origine = new Vector3(0, 0, 0f);
         path.Add(origine);
         while (vectors.Count > 0)
         {
-            int i = Random.Range(0,vectors.Count);
+            int i = Random.Range(0, vectors.Count);
             origine = origine + vectors[i];
             vectors.Remove(vectors[i]);
             path.Add(origine);
@@ -56,6 +56,7 @@ public class BoardManager : MonoBehaviour
         }
 
     }
+
     void InitialiseList()
     {
         initalisePath();
@@ -127,8 +128,9 @@ public class BoardManager : MonoBehaviour
 
 
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-    List<GameObject> LayoutObjectAtRandom(GameObject tile, Range range) {
-        return LayoutObjectAtRandom(new GameObject[] {tile}, range);
+    List<GameObject> LayoutObjectAtRandom(GameObject tile, Range range)
+    {
+        return LayoutObjectAtRandom(new GameObject[] { tile }, range);
     }
 
     List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range)

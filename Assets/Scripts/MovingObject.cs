@@ -32,7 +32,7 @@ public abstract class MovingObject : MonoBehaviour
     }
 
 
-    //Move returns true if it is able to move and false if not. 
+    //Move returns true if it is able to move and false if not.
     //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
@@ -130,7 +130,8 @@ public abstract class MovingObject : MonoBehaviour
     public virtual void TakeDamage(int attackPower)
     {
         hp = hp - attackPower * def;
-        if (hp <= 0) Die();
+        if (hp <= 0)
+            Die();
     }
 
     public void checkAnim(int xDir, int yDir)
@@ -148,5 +149,6 @@ public abstract class MovingObject : MonoBehaviour
             currentDir = 0;
         }
     }
+
     public abstract void Die();
 }

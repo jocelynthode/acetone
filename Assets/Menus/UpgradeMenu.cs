@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class UpgradeMenu : MonoBehaviour {
+public class UpgradeMenu : MonoBehaviour
+{
 
     public GameObject upgradeButton;
     public GameObject upgradeText;
@@ -11,18 +12,19 @@ public class UpgradeMenu : MonoBehaviour {
     Dictionary<string, Upgrade> upgrades;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         // TODO: Maybe put this into the Upgrade class ?
         CreateUpgradeButton("maxHealth", "Maximum Health");
         CreateUpgradeButton("attack", "Attack");
         CreateUpgradeButton("viewers", "Daily Giveaways");
-		CreateUpgradeButton("itemsPower", "Item Specialist");
+        CreateUpgradeButton("itemsPower", "Item Specialist");
         CreateUpgradeButton("startGameLevel", "Starting Level");
 
-		if (PlayerPrefs.GetInt("highestLevel") >= 100) 
-		{
-			CreateUpgradeButton("moneyGain", "Sign Sponsor");
-		}
+        if (PlayerPrefs.GetInt("highestLevel") >= 100)
+        {
+            CreateUpgradeButton("moneyGain", "Sign Sponsor");
+        }
 
         RefreshMenu();
     }
@@ -69,10 +71,11 @@ public class UpgradeMenu : MonoBehaviour {
         GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
     }
 	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
 	
-	}
+    }
 
     public void Restart()
     {
@@ -107,17 +110,21 @@ public class UpgradeMenu : MonoBehaviour {
     public class Upgrade
     {
         public int Cost { get; private set; }
+
         public int Stat { get; private set; }
+
         public Upgrade(int cost, int stat)
         {
             Cost = cost;
             Stat = stat;
         }
 
-        public delegate Upgrade UpgradeFunc(int baseLevel, int baseStat);
+        public delegate Upgrade UpgradeFunc(int baseLevel,int baseStat);
+
         public static Dictionary<string, UpgradeFunc> upgradeFunctions;
 
-        static Upgrade() {
+        static Upgrade()
+        {
             upgradeFunctions = new Dictionary<string, UpgradeFunc>();
             upgradeFunctions.Add("maxHealth", (baseLevel, baseStat) =>
                 new Upgrade((baseLevel + 1) * 10, baseStat + 10)
@@ -125,19 +132,19 @@ public class UpgradeMenu : MonoBehaviour {
             upgradeFunctions.Add("attack", (baseLevel, baseStat) =>
                 new Upgrade((baseLevel + 1) * 10, baseStat + 10)
             );
-			upgradeFunctions.Add("viewers", (baseLevel, baseStat) =>
+            upgradeFunctions.Add("viewers", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, baseStat + 100)
-			);
-			upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) =>
+            );
+            upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
-			);
-			upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, (baseStat/10)*10 + 10)
-			);
+            );
+            upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
+				new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10)
+            );
 				
-			upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
+            upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
 				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
-			);
+            );
         }
     }
 }

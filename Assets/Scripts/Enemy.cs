@@ -2,7 +2,8 @@
 using System;
 using UnityEngine.UI;
 
-public class Enemy : MovingObject {
+public class Enemy : MovingObject
+{
 
     protected Animator animator;
     private Transform target;
@@ -10,7 +11,7 @@ public class Enemy : MovingObject {
     private int dir = 1;
 
     // Use this for initialization
-    protected override void Start ()
+    protected override void Start()
     {
         animator = GetComponent<Animator>();
         base.Start();
@@ -52,17 +53,17 @@ public class Enemy : MovingObject {
         AttemptMove<Player>(xDir, yDir);
     }
 
-	public override void TakeDamage(int att)
-	{
-		base.TakeDamage(att);
-		animator.SetTrigger("EnemyHit");
-	}
+    public override void TakeDamage(int att)
+    {
+        base.TakeDamage(att);
+        animator.SetTrigger("EnemyHit");
+    }
 
     void Flip()
     {
         this.animator.transform.Rotate(0, 180, 0);
     }
-        
+
     protected override void OnCantMove<T>(T component)
     {
         Player player = component as Player;
@@ -73,9 +74,9 @@ public class Enemy : MovingObject {
     public override void Die()
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
-		GameManager.instance.moneyGain += 15;
-		GameManager.instance.moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text> ();
-		GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: ${0}", GameManager.instance.moneyGain);
+        GameManager.instance.moneyGain += 15;
+        GameManager.instance.moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
+        GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: ${0}", GameManager.instance.moneyGain);
         Destroy(gameObject);
     }
 

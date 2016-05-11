@@ -2,10 +2,12 @@
 using System;
 using UnityEngine.UI;
 
-public class EnemyDist : Enemy {
+public class EnemyDist : Enemy
+{
     private LineRenderer line;
 
-    protected override void Start () {
+    protected override void Start()
+    {
         base.Start();
         line = GetComponent<LineRenderer>();
         line.enabled = false;
@@ -70,11 +72,11 @@ public class EnemyDist : Enemy {
         }
     }
 
-	public override void TakeDamage(int att)
-	{
-		base.TakeDamage(att);
-		animator.SetTrigger("EnemyHit");
-	}
+    public override void TakeDamage(int att)
+    {
+        base.TakeDamage(att);
+        animator.SetTrigger("EnemyHit");
+    }
 
     private void Attack(Player player)
     {
@@ -83,14 +85,16 @@ public class EnemyDist : Enemy {
         animator.SetTrigger("EnemyAttack");
     }
 
-    private void DisplayLaser(Vector3 own, Vector3 player) {
+    private void DisplayLaser(Vector3 own, Vector3 player)
+    {
         line.enabled = true;
-        line.SetPosition(0, own - new Vector3(0,0.2f,1));
-        line.SetPosition(1, player - new Vector3(0,0,1));
+        line.SetPosition(0, own - new Vector3(0, 0.2f, 1));
+        line.SetPosition(1, player - new Vector3(0, 0, 1));
         Invoke("DisableLaser", 0.5f);
     }
 
-    private void DisableLaser() {
+    private void DisableLaser()
+    {
         line.enabled = false;
     }
 }

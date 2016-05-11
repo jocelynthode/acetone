@@ -4,14 +4,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Range = Utils.Range;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     public static GameManager instance = null;
     public int level;
     public Text donationText;
-	public Text moneyGainText;
-	public Text levelText;
+    public Text moneyGainText;
+    public Text levelText;
     public AudioSource cashMoneyBiatch;
-	public int moneyGain;
+    public int moneyGain;
 
     private IEnumerator enemiesCoroutine;
 
@@ -26,17 +27,20 @@ public class GameManager : MonoBehaviour {
         ENEMIESMOVING,
         UPGRADEMENU
     }
+
     public GameState state = GameState.MENU;
 
-	// Use this for initialization
-    void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         if (instance == null)
         {
             instance = this;
             CheckPlayerPrefs();
             DontDestroyOnLoad(gameObject);
             GameManager.instance.InitGame();
-        } else if (instance != this)
+        }
+        else if (instance != this)
         {
             Destroy(gameObject);
             if (instance.state == GameState.LEVELSETUP)
@@ -48,34 +52,36 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
-		level = PlayerPrefs.GetInt("startGameLevel");
-		moneyGain = 0;
+        level = PlayerPrefs.GetInt("startGameLevel");
+        moneyGain = 0;
         InitLevel();
     }
 
     void InitLevel()
     {
-		levelText = GameObject.Find ("levelText").GetComponent<Text>();
-		moneyGainText = GameObject.Find ("moneyGainText").GetComponent<Text>();
-		levelText.text = string.Format ("Level: {0}", level);
+        levelText = GameObject.Find("levelText").GetComponent<Text>();
+        moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
+        levelText.text = string.Format("Level: {0}", level);
 
-		if (level % 10 == 0) {
-			moneyGain += 3 * level; //TODO indicate this bonus
-			moneyGain *= PlayerPrefs.GetInt ("moneyGain", 0);
-			int money = PlayerPrefs.GetInt ("money");
-			PlayerPrefs.SetInt ("money", money + moneyGain);
-			moneyGain = 0;
-		}
+        if (level % 10 == 0)
+        {
+            moneyGain += 3 * level; //TODO indicate this bonus
+            moneyGain *= PlayerPrefs.GetInt("moneyGain", 0);
+            int money = PlayerPrefs.GetInt("money");
+            PlayerPrefs.SetInt("money", money + moneyGain);
+            moneyGain = 0;
+        }
 
-		moneyGainText.text = string.Format("SKILL MONEY: ${0}", moneyGain);
+        moneyGainText.text = string.Format("SKILL MONEY: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         donationText = GameObject.Find("donationText").GetComponent<Text>();
         state = GameState.PLAYERTURN;
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         switch (state)
         {
             case GameState.ENEMIESTURN:
@@ -86,12 +92,13 @@ public class GameManager : MonoBehaviour {
             default:
                 break;
         }
-	}
+    }
 
     public void OnLevelCompletion()
     {
         state = GameState.LEVELSETUP;
-        if (enemiesCoroutine != null) StopCoroutine(enemiesCoroutine);
+        if (enemiesCoroutine != null)
+            StopCoroutine(enemiesCoroutine);
         level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -102,7 +109,8 @@ public class GameManager : MonoBehaviour {
         float prob = Random.Range(1, 100);
 
         float viewersProb = Player.instance.TotalViewers / 250.0f;
-        if (viewersProb > 30.0f) viewersProb = 30;
+        if (viewersProb > 30.0f)
+            viewersProb = 30;
 
         if (prob <= (1.0f + viewersProb))
         {
@@ -114,11 +122,12 @@ public class GameManager : MonoBehaviour {
 
     internal void RemoveDonation()
     {
-        if(donationText)
+        if (donationText)
             donationText.text = "";
     }
 
-    public void GainMoney(string text, int oldMoney, int newMoney) {
+    public void GainMoney(string text, int oldMoney, int newMoney)
+    {
         PlayerPrefs.SetInt("money", oldMoney + newMoney);
         donationText.text = string.Format(text + "{0:C2}", newMoney);
         Player.instance.money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
@@ -129,13 +138,14 @@ public class GameManager : MonoBehaviour {
     public void OnGameOver()
     {
         state = GameState.LEVELSETUP;
-        if (enemiesCoroutine != null) StopCoroutine(enemiesCoroutine);
+        if (enemiesCoroutine != null)
+            StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
-		//Set highestlevel attained ever
-		if (PlayerPrefs.GetInt("highestLevel") < level)
-		{
-			PlayerPrefs.SetInt("highestLevel", level);
-		}
+        //Set highestlevel attained ever
+        if (PlayerPrefs.GetInt("highestLevel") < level)
+        {
+            PlayerPrefs.SetInt("highestLevel", level);
+        }
         SceneManager.LoadScene("UpgradeMenu");	
         state = GameState.UPGRADEMENU;
     }
@@ -143,17 +153,18 @@ public class GameManager : MonoBehaviour {
     private IEnumerator MoveEnemies()
     {
         yield return new WaitForSeconds(0.1f);
-        foreach(Enemy enemy in boardScript.enemies)
+        foreach (Enemy enemy in boardScript.enemies)
         {
             enemy.Move();
             yield return new WaitForSeconds(enemy.moveTime);
         }
         state = GameState.PLAYERTURN;
     }
-    
+
     public static void CheckPlayerPrefs(bool force = false)
     {
-        if (!force && PlayerPrefs.HasKey("money")) return;
+        if (!force && PlayerPrefs.HasKey("money"))
+            return;
         PlayerPrefs.SetInt("money", 100);
 
         PlayerPrefs.SetInt("attack", 10);

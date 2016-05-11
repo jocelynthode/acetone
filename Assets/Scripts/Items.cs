@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public static class Items {
+public static class Items
+{
     public enum ItemType
     {
         AD,
@@ -25,7 +26,8 @@ public static class Items {
             default:
                 throw new System.ArgumentException();
         }
-        if (collider != null) collider.GetComponent<Renderer>().enabled = false;
+        if (collider != null)
+            collider.GetComponent<Renderer>().enabled = false;
     }
 
     static void useAd()
