@@ -60,18 +60,7 @@ public abstract class MovingObject : MonoBehaviour
 
             rb2D.MovePosition(end);
 
-            animator = this.GetComponent<Animator>();
-            if (currentDir == 0 && yDir != 0)
-            {
-                animator.SetTrigger("ProfileToFace");
-                currentDir = 1;
-
-            }
-            else if (currentDir == 1 && xDir != 0)
-            {
-                animator.SetTrigger("FaceToProfile");
-                currentDir = 0;
-            }
+            checkAnim(xDir, yDir);
 
             //Return true to say that Move was successful
             return true;
@@ -144,5 +133,20 @@ public abstract class MovingObject : MonoBehaviour
         if (hp <= 0) Die();
     }
 
+    public void checkAnim(int xDir, int yDir)
+    {
+        animator = this.GetComponent<Animator>();
+        if (currentDir == 0 && yDir != 0)
+        {
+            animator.SetTrigger("ProfileToFace");
+            currentDir = 1;
+
+        }
+        else if (currentDir == 1 && xDir != 0)
+        {
+            animator.SetTrigger("FaceToProfile");
+            currentDir = 0;
+        }
+    }
     public abstract void Die();
 }

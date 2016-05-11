@@ -24,6 +24,7 @@ public class EnemyDist : Enemy {
 
         if (hit.transform == null)
         {
+            base.checkAnim(xDir, yDir);
             rb2D.MovePosition(end);
         }
     }
