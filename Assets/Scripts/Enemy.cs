@@ -7,6 +7,7 @@ public class Enemy : MovingObject {
     protected Animator animator;
     private Transform target;
     private bool skipMove;
+    private int dir = 1;
 
     // Use this for initialization
     protected override void Start ()
@@ -43,6 +44,11 @@ public class Enemy : MovingObject {
                 xDir = player.position.x > this.transform.position.x ? 1 : -1;
             }
         }
+        if (xDir != 0 && xDir != dir)
+        {
+            Flip();
+            dir = xDir;
+        }
         AttemptMove<Player>(xDir, yDir);
     }
 
@@ -52,6 +58,11 @@ public class Enemy : MovingObject {
 		animator.SetTrigger("EnemyHit");
 	}
 
+    void Flip()
+    {
+        this.animator.transform.Rotate(0, 180, 0);
+    }
+        
     protected override void OnCantMove<T>(T component)
     {
         Player player = component as Player;

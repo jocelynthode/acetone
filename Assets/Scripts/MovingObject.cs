@@ -36,18 +36,7 @@ public abstract class MovingObject : MonoBehaviour
     //Move takes parameters for x direction, y direction and a RaycastHit2D to check collision.
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
-        animator = this.GetComponent<Animator>();
-        if (currentDir == 0 && yDir != 0)
-        {
-            animator.SetTrigger("ProfileToFace");
-            currentDir = 1;
-
-        }
-        else if (currentDir == 1 && xDir != 0)
-        {
-            animator.SetTrigger("FaceToProfile");
-            currentDir = 0;
-        }
+        
         //Store start position to move from, based on objects current transform position.
         Vector2 start = transform.position;
 
@@ -70,6 +59,19 @@ public abstract class MovingObject : MonoBehaviour
             //StartCoroutine(SmoothMovement(end));
 
             rb2D.MovePosition(end);
+
+            animator = this.GetComponent<Animator>();
+            if (currentDir == 0 && yDir != 0)
+            {
+                animator.SetTrigger("ProfileToFace");
+                currentDir = 1;
+
+            }
+            else if (currentDir == 1 && xDir != 0)
+            {
+                animator.SetTrigger("FaceToProfile");
+                currentDir = 0;
+            }
 
             //Return true to say that Move was successful
             return true;
