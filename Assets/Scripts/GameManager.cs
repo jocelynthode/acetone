@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Range = Utils.Range;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -152,14 +154,55 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveEnemies()
     {
-        yield return new WaitForSeconds(0.1f);
-        foreach (Enemy enemy in boardScript.enemies)
+        var enemies = boardScript.enemies;
+
+        var originalPositions = new Dictionary<Enemy, Vector3>();
+        var destPositions = new Dictionary<Enemy, Vector3>();
+        enemies.ForEach(enemy =>
+            {
+                originalPositions.Add(enemy, enemy.transform.position);
+                enemy.Move();
+//                destPositions.Add(enemy, enemy.transform.position);
+            });
+//        enemies.ForEach(enemy => destPositions.Add(enemy, enemy.transform.position));
+        enemies.ForEach(enemy => {
+            destPositions.Add(enemy, enemy.transform.position);
+            var orig = originalPositions[enemy];
+            enemy.GetComponent<Rigidbody2D>().MovePosition(orig);
+        });
+
+        //enemies.ForEach(enemy => enemy.Move());
+//        var destPositions = enemies.Select(enemy => enemy.transform.position).ToList();
+
+        // Do enumeration
+        var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value)));
+        foreach (var coroutine in coroutines.ToList())
         {
-            enemy.Move();
-            yield return new WaitForSeconds(enemy.moveTime);
+            print("Wait on coroutine: " + coroutine);
+            yield return coroutine;
         }
+
+        // Make sure every enemy is at the right place at the end
+        foreach (var entry in destPositions)
+        {
+            if (enemies.Contains(entry.Key))
+            {
+                var rigidBody = entry.Key.GetComponent<Rigidbody2D>();
+                print("old: " + originalPositions[entry.Key] + ", new: " + entry.Value);
+                rigidBody.MovePosition(entry.Value);
+            }
+        }
+        print("End");
+        //yield return new WaitForSeconds(0.1f);
+//        foreach (Enemy enemy in boardScript.enemies)
+//        {
+//            enemy.Move();
+//            //yield return new WaitForSeconds(enemy.moveTime);
+//        }
+
         state = GameState.PLAYERTURN;
     }
+
 
     public static void CheckPlayerPrefs(bool force = false)
     {
