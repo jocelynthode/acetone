@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour {
 		level = PlayerPrefs.GetInt("startGameLevel");
 		moneyGain = 0;
         InitLevel();
-		PlayerPrefs.DeleteAll ();
     }
 
     void InitLevel()
