@@ -169,9 +169,12 @@ public class BoardManager : MonoBehaviour
         LayoutObjectAtRandom(wallTiles, wallCount);
 
         //Instantiate a random number of items based on minimum and maximum, at randomized positions.
-        LayoutObjectAtRandom(itemAdTile, itemAdCount);
-        LayoutObjectAtRandom(itemBombTile, itemBombCount);
-        LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
+        if (GameManager.instance.level > 2)
+        {
+            LayoutObjectAtRandom(itemAdTile, itemAdCount);
+            LayoutObjectAtRandom(itemBombTile, itemBombCount);
+            LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
+        }
 
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
