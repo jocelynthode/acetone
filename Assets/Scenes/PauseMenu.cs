@@ -48,8 +48,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public void MainMenu()
 	{
-		//TODO clean before loading scene
-		SceneManager.LoadScene ("StartMenu");
+		GameManager.instance.OnGameOver(false);
 	}
 
 	public void ExitPress()

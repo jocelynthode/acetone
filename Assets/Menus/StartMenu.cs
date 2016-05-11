@@ -52,7 +52,8 @@ public class StartMenu : MonoBehaviour
     public void NewGame()
     {
         PlayerPrefs.DeleteAll();
-        ContinuePress();
+		GameManager.CheckPlayerPrefs(true);
+		SceneManager.LoadScene("LevelProcedural");
     }
 
     public void NoNewGamePress()

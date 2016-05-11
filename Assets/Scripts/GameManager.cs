@@ -135,19 +135,23 @@ public class GameManager : MonoBehaviour
         Invoke("RemoveDonation", 2);
     }
 
-    public void OnGameOver()
+	public void OnGameOver(bool saveLevel = true)
     {
         state = GameState.LEVELSETUP;
         if (enemiesCoroutine != null)
             StopCoroutine(enemiesCoroutine);
         Destroy(boardScript.player.gameObject);
         //Set highestlevel attained ever
-        if (PlayerPrefs.GetInt("highestLevel") < level)
-        {
-            PlayerPrefs.SetInt("highestLevel", level);
-        }
-        SceneManager.LoadScene("UpgradeMenu");	
-        state = GameState.UPGRADEMENU;
+		if (saveLevel) {
+			if (PlayerPrefs.GetInt ("highestLevel") < level) {
+				PlayerPrefs.SetInt ("highestLevel", level);
+			}
+			SceneManager.LoadScene ("UpgradeMenu");	
+			state = GameState.UPGRADEMENU;
+		} else {
+			SceneManager.LoadScene ("StartMenu");
+			state = GameState.MENU;
+		}
     }
 
     private IEnumerator MoveEnemies()
@@ -165,7 +169,7 @@ public class GameManager : MonoBehaviour
     {
         if (!force && PlayerPrefs.HasKey("money"))
             return;
-        PlayerPrefs.SetInt("money", 100);
+        PlayerPrefs.SetInt("money", 30);
 
         PlayerPrefs.SetInt("attack", 10);
         PlayerPrefs.SetInt("defense", 5);
