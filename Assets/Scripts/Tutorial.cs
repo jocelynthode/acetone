@@ -6,13 +6,13 @@ using System.Collections;
 
 public class Tutorial : MonoBehaviour {
 
-	public Canvas tutorialPopup;
+	public Image tutorialPopup;
 	public Text tutorialText;
 	public int displayed = 0;
 
 	// Use this for initialization
 	void Awake () {
-		tutorialPopup = tutorialPopup.GetComponent<Canvas> ();
+		tutorialPopup = tutorialPopup.GetComponent<Image> ();
 		tutorialText = tutorialText.GetComponent<Text> ();
 		tutorialPopup.enabled = false;
 	}
@@ -24,6 +24,7 @@ public class Tutorial : MonoBehaviour {
 		tutorialPopup.enabled = true;
 		tutorialText.text = "To move, use WASD or the arrow keys !";
 		displayed++;
+		Invoke ("RemovePopup", 4);
 	}
 
 	public void EnemyTutorial()
@@ -33,6 +34,7 @@ public class Tutorial : MonoBehaviour {
 		tutorialText.text = "This is an enemy ! Just walk against it to kill it !";
 		tutorialPopup.enabled = true;
 		displayed++;
+		Invoke ("RemovePopup", 4);
 	}
 
 	public void ObjectTutorial()
@@ -42,6 +44,7 @@ public class Tutorial : MonoBehaviour {
 		tutorialText.text = "Walk on objects to pick them up ! Bombs kill enemies, Ads give you money and Sponsorship gives you viewers!";
 		tutorialPopup.enabled = true;
 		displayed++;
+		Invoke ("RemovePopup", 4);
 	}
 
 	public void RemovePopup()
