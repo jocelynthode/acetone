@@ -7,7 +7,7 @@ using ItemType = Items.ItemType;
 public class Player : MovingObject
 {
 
-    private Animator animator;
+    private Animator anAnimator;
     private int dir = 1;
     private int viewerBots = 0;
     public Text healthPoint;
@@ -22,7 +22,7 @@ public class Player : MovingObject
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            animator = GetComponent<Animator>();
+			anAnimator = GetComponent<Animator>();
         }
         else if (instance != this)
         {   
@@ -130,19 +130,19 @@ public class Player : MovingObject
     {
         Enemy enemy = component as Enemy;
         enemy.TakeDamage(att);
-        animator.SetTrigger("PlayerAtt");
+		anAnimator.SetTrigger("PlayerAtt");
     }
 
     public override void TakeDamage(int att)
     {
         base.TakeDamage(att);
         healthPoint.text = hp.ToString();
-        animator.SetTrigger("PlayerHit");
+		anAnimator.SetTrigger("PlayerHit");
     }
 
     void Flip()
     {
-        animator.transform.Rotate(0, 180, 0);
+		anAnimator.transform.Rotate(0, 180, 0);
     }
 
     public override void Die()
