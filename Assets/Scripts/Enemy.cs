@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Enemy : MovingObject
 {
 
-    protected Animator animator;
+    protected Animator anAnimator;
     private Transform target;
     private bool skipMove;
     private int dir = 1;
@@ -13,7 +13,7 @@ public class Enemy : MovingObject
     // Use this for initialization
     protected override void Start()
     {
-        animator = GetComponent<Animator>();
+        anAnimator = GetComponent<Animator>();
         base.Start();
         hp = 100;
         att = 1;
@@ -56,19 +56,19 @@ public class Enemy : MovingObject
     public override void TakeDamage(int att)
     {
         base.TakeDamage(att);
-        animator.SetTrigger("EnemyHit");
+        anAnimator.SetTrigger("EnemyHit");
     }
 
     void Flip()
     {
-        this.animator.transform.Rotate(0, 180, 0);
+        this.anAnimator.transform.Rotate(0, 180, 0);
     }
 
     protected override void OnCantMove<T>(T component)
     {
         Player player = component as Player;
         player.TakeDamage(att);
-        animator.SetTrigger("EnemyAttack");
+        anAnimator.SetTrigger("EnemyAttack");
     }
 
     public override void Die()

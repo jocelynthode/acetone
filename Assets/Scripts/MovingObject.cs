@@ -136,16 +136,16 @@ public abstract class MovingObject : MonoBehaviour
 
     public void checkAnim(int xDir, int yDir)
     {
-        animator = this.GetComponent<Animator>();
+		animator = this.GetComponent<Animator>();
         if (currentDir == 0 && yDir != 0)
         {
-            animator.SetTrigger("ProfileToFace");
+			animator.SetTrigger("ProfileToFace");
             currentDir = 1;
 
         }
         else if (currentDir == 1 && xDir != 0)
         {
-            animator.SetTrigger("FaceToProfile");
+			animator.SetTrigger("FaceToProfile");
             currentDir = 0;
         }
     }

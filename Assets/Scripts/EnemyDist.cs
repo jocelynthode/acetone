@@ -75,14 +75,14 @@ public class EnemyDist : Enemy
     public override void TakeDamage(int att)
     {
         base.TakeDamage(att);
-        animator.SetTrigger("EnemyHit");
+        anAnimator.SetTrigger("EnemyHit");
     }
 
     private void Attack(Player player)
     {
         DisplayLaser(transform.position, player.transform.position);
         player.TakeDamage(att);
-        animator.SetTrigger("EnemyAttack");
+        anAnimator.SetTrigger("EnemyAttack");
     }
 
     private void DisplayLaser(Vector3 own, Vector3 player)
