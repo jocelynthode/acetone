@@ -8,9 +8,10 @@ public class Tutorial : MonoBehaviour {
 
 	public Canvas tutorialPopup;
 	public Text tutorialText;
+	public int displayed = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		tutorialPopup = tutorialPopup.GetComponent<Canvas> ();
 		tutorialText = tutorialText.GetComponent<Text> ();
 		tutorialPopup.enabled = false;
@@ -18,26 +19,33 @@ public class Tutorial : MonoBehaviour {
 
 	public void MovementTutorial()
 	{
+		if (displayed > 0)
+			return;
+		tutorialPopup.enabled = true;
 		tutorialText.text = "To move, use WASD or the arrow keys !";
-		Invoke("RemovePopup", 5);
+		displayed++;
 	}
 
 	public void EnemyTutorial()
 	{
+		if (displayed > 1)
+			return;
 		tutorialText.text = "This is an enemy ! Just walk against it to kill it !";
-		Invoke("RemovePopup", 5);
+		tutorialPopup.enabled = true;
+		displayed++;
 	}
 
 	public void ObjectTutorial()
 	{
-		tutorialText.text = "Walk on the objects to pick them up ! Bombs kill enemies, Ads give you money and Sponsorship...";
-		Invoke("RemovePopup", 5);
+		if (displayed > 2)
+			return;
+		tutorialText.text = "Walk on objects to pick them up ! Bombs kill enemies, Ads give you money and Sponsorship gives you viewers!";
+		tutorialPopup.enabled = true;
+		displayed++;
 	}
 
-
-	void removePopup()
+	public void RemovePopup()
 	{
 		tutorialPopup.enabled = false;
 	}
-
 }

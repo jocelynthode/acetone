@@ -1253,8 +1253,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 27}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 1, y: 36}
+  m_SizeDelta: {x: 196, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &967722072
 MonoBehaviour:
@@ -1277,7 +1277,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1327,8 +1327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.42000002}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 297, y: 42}
+  m_AnchoredPosition: {x: 1, y: -6.5}
+  m_SizeDelta: {x: 311, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136025337
 MonoBehaviour:
@@ -1351,8 +1351,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
-    m_FontStyle: 0
+    m_FontSize: 13
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
@@ -1362,7 +1362,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Move with WASD or arrows
+  m_Text: Walk on objects to pick them up ! Bombs kill enemies, Ads give you money
+    and Sponsorship gives you viewers!
 --- !u!222 &1136025338
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1601,6 +1602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialPopup: {fileID: 1240239785}
   tutorialText: {fileID: 1136025337}
+  displayed: 0
 --- !u!1 &1246391601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,8 +2698,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 105, y: -214}
-  m_SizeDelta: {x: 332, y: 100}
+  m_AnchoredPosition: {x: 477, y: 152.5}
+  m_SizeDelta: {x: 332, y: 115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861879584
 MonoBehaviour:

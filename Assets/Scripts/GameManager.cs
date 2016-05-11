@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 		level = PlayerPrefs.GetInt("startGameLevel");
 		moneyGain = 0;
         InitLevel();
-		//TODO Check if highest level otherwise Tutorial
+		PlayerPrefs.DeleteAll ();
     }
 
     void InitLevel()
@@ -67,8 +67,6 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("money", money + moneyGain);
 			moneyGain = 0;
 		}
-
-		//TODO if level == 2 Show enemies Tutorial
 
 		moneyGainText.text = string.Format("SKILL MONEY: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
