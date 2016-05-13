@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using System;
 using GameState = GameManager.GameState;
 using ItemType = Items.ItemType;
+using System.Collections;
 
 public class Player : MovingObject
 {
-
     private Animator animator;
     private int dir = 1;
     private int viewerBots = 0;
@@ -27,6 +27,7 @@ public class Player : MovingObject
         else if (instance != this)
         {   
             Destroy(gameObject);
+            instance.StopAllCoroutines();
             instance.InitLevel();
         }
     }
@@ -119,11 +120,16 @@ public class Player : MovingObject
             }
         }
     }
-
+        
     public override void AttemptMove<T>(int xDir, int yDir)
     {
+        GameManager.instance.state = GameState.ENEMIESMOVING;
+        var oldPosition = transform.position;
         base.AttemptMove<T>(xDir, yDir);
-        GameManager.instance.OnTurnEnd();
+        var destPosition = transform.position;
+        rb2D.MovePosition(oldPosition);
+        transform.position = oldPosition;
+        StartCoroutine(SmoothMovement(destPosition));
     }
 
     protected override void OnCantMove<T>(T component)
@@ -195,5 +201,11 @@ public class Player : MovingObject
                 Items.useItem(ItemType.VIEWBOT, collider);
                 break;
         }
+    }
+
+    public override IEnumerator SmoothMovement(Vector3 end) {
+        yield return base.SmoothMovement(end);
+        rb2D.MovePosition(end);
+        GameManager.instance.OnTurnEnd();
     }
 }

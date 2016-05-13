@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2039d8be1bff2894ab5cc40b498bce94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 1
+  moveTime: 0.04
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256

@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         MENU,
         LEVELSETUP,
         PLAYERTURN,
+        PLAYERMOVING,
         ENEMIESTURN,
         ENEMIESMOVING,
         UPGRADEMENU
@@ -198,12 +199,15 @@ public class GameManager : MonoBehaviour
 
         // Do enumeration
         if (destPositions.Count == 0)
-            yield return new WaitForSeconds(Enemy.moveTime);
+        {
+            if (enemies.Count > 0)
+                yield return new WaitForSeconds(enemies[0].moveTime);
+        }
         else
         {
             var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value)));
             print(Time.time);
-            print(Player.moveTime);
+//            print(Player.instance.moveTime);
             //        yield return StartCoroutine(new WaitForSeconds(1));
             print(Time.time);
             foreach (var coroutine in coroutines.ToList())
