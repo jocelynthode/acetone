@@ -7,8 +7,8 @@ using Range = Utils.Range;
 public class BoardManager : MonoBehaviour
 {
 
-    private int columns = 10;                                         //Number of columns in our game board.
-    private int rows = 10;                                            //Number of rows in our game board.
+    private int columns = 25;                                         //Number of columns in our game board.
+    private int rows = 15;                                            //Number of rows in our game board.
 
 
     //Lower and upper limit for our random number of inner walls and items

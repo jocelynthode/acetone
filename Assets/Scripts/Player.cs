@@ -47,7 +47,7 @@ public class Player : MovingObject
     private void InitLevel()
     {
         RefreshUI();
-        transform.position = new Vector2(0, 0);
+        transform.position = new Vector2(12, 7);
     }
 
     private void RefreshUI()
