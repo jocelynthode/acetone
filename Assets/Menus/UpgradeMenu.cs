@@ -15,22 +15,21 @@ public class UpgradeMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // TODO: Maybe put this into the Upgrade class ?
-        CreateUpgradeButton("maxHealth", "Maximum Health");
-        CreateUpgradeButton("attack", "Attack");
-        CreateUpgradeButton("viewers", "Daily Giveaways");
-        CreateUpgradeButton("itemsPower", "Item Specialist");
-        CreateUpgradeButton("startGameLevel", "Starting Level");
+        CreateUpgradeButton("maxHealth");
+        CreateUpgradeButton("attack");
+        CreateUpgradeButton("viewers");
+        CreateUpgradeButton("itemsPower");
+        CreateUpgradeButton("startGameLevel");
 
         if (PlayerPrefs.GetInt("highestLevel") >= 100)
         {
-            CreateUpgradeButton("moneyGain", "Sign Sponsor");
+            CreateUpgradeButton("moneyGain");
         }
 
         RefreshMenu();
     }
 
-    void CreateUpgradeButton(string name, string prettyName)
+    void CreateUpgradeButton(string name)
     {
         var upgradesPanel = GameObject.Find("UpgradesPanel").transform;
         var panel = Instantiate(upgradePanel).transform;
@@ -39,8 +38,6 @@ public class UpgradeMenu : MonoBehaviour
         GameObject button = Instantiate(upgradeButton) as GameObject;
         button.name = name + "Button";
         button.GetComponent<Button>().onClick.AddListener(() => UpdatePref(name));
-        //button.GetComponentInChildren<Text>().text = prettyName;
-        //button.transform.Find("nameText").GetComponent<Text>().text = prettyName;
         button.transform.SetParent(panel);
 
         GameObject text = Instantiate(upgradeText) as GameObject;
@@ -63,7 +60,7 @@ public class UpgradeMenu : MonoBehaviour
             GameObject upgradeButton = GameObject.Find(item.Key);
             if (upgradeButton)
             {
-                upgradeButton.GetComponent<Text>().text = string.Format("{0}\n\n{1}", "Max Health", upgrade.Text);
+                upgradeButton.GetComponent<Text>().text = string.Format("{0}\n\n{1}", upgrade.Name, upgrade.Text);
                 var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
                 costText.text = string.Format("\n${0}", upgrade.Cost);
             }
@@ -114,12 +111,14 @@ public class UpgradeMenu : MonoBehaviour
     {
         public int Cost { get; private set; }
         public int Stat { get; private set; }
+        public string Name { get; private set; }
         public string Text { get; private set; }
 
-        public Upgrade(int cost, int stat, string name = "", string text = "")
+        public Upgrade(int cost, int stat, string name, string text = "")
         {
             Cost = cost;
             Stat = stat;
+            Name = name;
             Text = text;
         }
 
@@ -131,35 +130,35 @@ public class UpgradeMenu : MonoBehaviour
         {
             upgradeFunctions = new Dictionary<string, UpgradeFunc>();
             upgradeFunctions.Add("maxHealth", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10);
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10, "Maximum Health");
                 up.Text = string.Format("Increase maximum health from {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("attack", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10);
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10, "Attack");
                 up.Text = string.Format("Increase attack from {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("viewers", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 100);
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 100, "Daily Giveaways");
                 up.Text = string.Format("Offer giveaways to viewers to get more popular. "
                     + "This will increase the number of viewers from {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1);
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1, "Item Specialist");
                 // Improve description
                 up.Text = string.Format("Improve items: from {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10);
+                var up = new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10, "Starting Level");
                 up.Text = string.Format("Start game from level {1} instead of {0}.", baseStat, up.Stat);
                 return up;
             });
 				
             upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1);
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1, "Sign Sponsor");
                 up.Text = string.Format("Sign with sponsors to earn more money per viewer."
                     + "This will increase your number of sponsors from {0} to {1}", baseLevel, baseLevel + 1);
                 return up;
