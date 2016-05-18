@@ -163,6 +163,7 @@ public abstract class MovingObject : MonoBehaviour
 
     IEnumerator Blink()
     {
+        yield return new WaitForSeconds(0.05f);
         this.GetComponent<Renderer>().enabled = false;
         yield return new WaitForSeconds(0.05f);
         this.GetComponent<Renderer>().enabled = true;
