@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Range = Utils.Range;
+using System.Collections.Generic;
+using String = System.String;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,8 +17,6 @@ public class GameManager : MonoBehaviour
     public AudioSource cashMoneyBiatch;
     public int moneyGain;
 
-    private IEnumerator enemiesCoroutine;
-
     public BoardManager boardScript;
 
     public enum GameState
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         MENU,
         LEVELSETUP,
         PLAYERTURN,
+        PLAYERMOVING,
         ENEMIESTURN,
         ENEMIESMOVING,
         UPGRADEMENU
@@ -86,8 +88,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.ENEMIESTURN:
                 state = GameState.ENEMIESMOVING;
-                enemiesCoroutine = MoveEnemies();
-                StartCoroutine(enemiesCoroutine);
+                StartCoroutine(MoveEnemies());
                 break;
             default:
                 break;
@@ -97,8 +98,7 @@ public class GameManager : MonoBehaviour
     public void OnLevelCompletion()
     {
         state = GameState.LEVELSETUP;
-        if (enemiesCoroutine != null)
-            StopCoroutine(enemiesCoroutine);
+        StopAllCoroutines();
         level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -138,8 +138,7 @@ public class GameManager : MonoBehaviour
 	public void OnGameOver(bool saveLevel = true)
     {
         state = GameState.LEVELSETUP;
-        if (enemiesCoroutine != null)
-            StopCoroutine(enemiesCoroutine);
+        StopAllCoroutines();
         Destroy(boardScript.player.gameObject);
         //Set highestlevel attained ever
 		if (saveLevel) {
@@ -156,14 +155,49 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveEnemies()
     {
-        yield return new WaitForSeconds(0.1f);
-        foreach (Enemy enemy in boardScript.enemies)
+        var enemies = boardScript.enemies;
+
+        // 1. Play all enemies turns (in the same frame)
+        // 2. Move them back to their original position
+        // 3. Replay all movements simultaneously and smoothly
+
+        var originalPositions = new Dictionary<Enemy, Vector3>();
+        var destPositions = new Dictionary<Enemy, Vector3>();
+        enemies.ForEach(enemy =>
+            {
+                originalPositions.Add(enemy, enemy.transform.position);
+                enemy.Move();
+            });
+
+
+        foreach (var enemy in enemies) {
+            // Ignore enemies that didn't move
+            if (enemy.transform.position != originalPositions[enemy])
+            {
+                destPositions.Add(enemy, enemy.transform.position);
+                var orig = originalPositions[enemy];
+                enemy.MoveRigidbody(orig);
+            }
+        }   
+
+        // Do smooth movement
+
+        // Manually wait if there are no enemies (the wait time will be shorter)
+        if (destPositions.Count == 0)
         {
-            enemy.Move();
-            yield return new WaitForSeconds(enemy.moveTime);
+            if (enemies.Count > 0)
+                yield return new WaitForSeconds(enemies[0].moveTime);
         }
+        else
+        {
+            var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value)));
+            foreach (var coroutine in coroutines.ToList())
+                yield return coroutine;
+        }
+
         state = GameState.PLAYERTURN;
     }
+
 
     public static void CheckPlayerPrefs(bool force = false)
     {
