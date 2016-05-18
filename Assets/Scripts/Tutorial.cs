@@ -13,7 +13,7 @@ public class Tutorial : MonoBehaviour {
 	void Awake () {
 		tutorialPopup = tutorialPopup.GetComponent<Image> ();
 		tutorialText = tutorialText.GetComponent<Text> ();
-		tutorialPopup.enabled = false;
+        tutorialPopup.gameObject.SetActive(false);
 	}
 
 	public void MovementTutorial()
@@ -21,7 +21,7 @@ public class Tutorial : MonoBehaviour {
         int tutorialDisplayed = PlayerPrefs.GetInt("tutorialDisplayed");
         if (tutorialDisplayed > 0)
 			return;
-		tutorialPopup.enabled = true;
+        tutorialPopup.gameObject.SetActive(true);
 		tutorialText.text = "To move, use WASD or the arrow keys !";
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 		Invoke ("RemovePopup", 4);
@@ -33,7 +33,7 @@ public class Tutorial : MonoBehaviour {
         if (tutorialDisplayed > 1)
 			return;
 		tutorialText.text = "This is an enemy ! Just walk against it to kill it !";
-		tutorialPopup.enabled = true;
+        tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 		Invoke ("RemovePopup", 4);
 	}
@@ -44,13 +44,13 @@ public class Tutorial : MonoBehaviour {
         if (tutorialDisplayed > 2)
 			return;
 		tutorialText.text = "Walk on objects to pick them up ! Bombs kill enemies, Ads give you money and Sponsorship gives you viewers!";
-		tutorialPopup.enabled = true;
+        tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 		Invoke ("RemovePopup", 4);
 	}
 
 	public void RemovePopup()
 	{
-		tutorialPopup.enabled = false;
+        tutorialPopup.gameObject.SetActive(false);
 	}
 }
