@@ -120,15 +120,14 @@ public class Player : MovingObject
             }
         }
     }
-        
+
     public override void AttemptMove<T>(int xDir, int yDir)
     {
         GameManager.instance.state = GameState.ENEMIESMOVING;
         var oldPosition = transform.position;
         base.AttemptMove<T>(xDir, yDir);
         var destPosition = transform.position;
-        rb2D.MovePosition(oldPosition);
-        transform.position = oldPosition;
+        MoveRigidbody(oldPosition);
         StartCoroutine(SmoothMovement(destPosition));
     }
 
@@ -205,7 +204,6 @@ public class Player : MovingObject
 
     public override IEnumerator SmoothMovement(Vector3 end) {
         yield return base.SmoothMovement(end);
-        rb2D.MovePosition(end);
         GameManager.instance.OnTurnEnd();
     }
 }
