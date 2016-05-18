@@ -59,8 +59,7 @@ public class UpgradeMenu : MonoBehaviour
             GameObject upgradeButton = GameObject.Find(item.Key);
             if (upgradeButton)
             {
-                string statText = string.Format("Current: {0}        \nNext: {1}        ", stat, upgrade.Stat);
-                upgradeButton.GetComponent<Text>().text = statText;
+                upgradeButton.GetComponent<Text>().text = upgrade.Text;
                 var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
                 costText.text = string.Format("Cost: ${0}", upgrade.Cost);
             }
@@ -110,13 +109,14 @@ public class UpgradeMenu : MonoBehaviour
     public class Upgrade
     {
         public int Cost { get; private set; }
-
         public int Stat { get; private set; }
+        public string Text { get; private set; }
 
-        public Upgrade(int cost, int stat)
+        public Upgrade(int cost, int stat, string name = "", string text = "")
         {
             Cost = cost;
             Stat = stat;
+            Text = text;
         }
 
         public delegate Upgrade UpgradeFunc(int baseLevel,int baseStat);
@@ -126,25 +126,40 @@ public class UpgradeMenu : MonoBehaviour
         static Upgrade()
         {
             upgradeFunctions = new Dictionary<string, UpgradeFunc>();
-            upgradeFunctions.Add("maxHealth", (baseLevel, baseStat) =>
-                new Upgrade((baseLevel + 1) * 10, baseStat + 10)
-            );
-            upgradeFunctions.Add("attack", (baseLevel, baseStat) =>
-                new Upgrade((baseLevel + 1) * 10, baseStat + 10)
-            );
-            upgradeFunctions.Add("viewers", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 100)
-            );
-            upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
-            );
-            upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10)
-            );
+            upgradeFunctions.Add("maxHealth", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10);
+                up.Text = string.Format("Increase maximum health from {0} to {1}.", baseStat, up.Stat);
+                return up;
+            });
+            upgradeFunctions.Add("attack", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 10);
+                up.Text = string.Format("Increase attack from {0} to {1}.", baseStat, up.Stat);
+                return up;
+            });
+            upgradeFunctions.Add("viewers", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 100);
+                up.Text = string.Format("Offer giveaways to viewers to get more popular. "
+                    + "This will increase the number of viewers from {0} to {1}.", baseStat, up.Stat);
+                return up;
+            });
+            upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1);
+                // Improve description
+                up.Text = string.Format("Improve items: from {0} to {1}.", baseStat, up.Stat);
+                return up;
+            });
+            upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10);
+                up.Text = string.Format("Start game from level {1} instead of {0}.", baseStat, up.Stat);
+                return up;
+            });
 				
-            upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) =>
-				new Upgrade((baseLevel + 1) * 10, baseStat + 1)
-            );
+            upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) => {
+                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1);
+                up.Text = string.Format("Sign with sponsors to earn more money per viewer."
+                    + "This will increase your number of sponsors from {0} to {1}", baseLevel, baseLevel + 1);
+                return up;
+            });
         }
     }
 }
