@@ -130,8 +130,10 @@ public abstract class MovingObject : MonoBehaviour
     public virtual void TakeDamage(int attackPower)
     {
         hp = hp - attackPower * def;
+        StartCoroutine(Blink());
         if (hp <= 0)
             Die();
+   
     }
 
     public void checkAnim(int xDir, int yDir)
@@ -148,6 +150,13 @@ public abstract class MovingObject : MonoBehaviour
 			animator.SetTrigger("FaceToProfile");
             currentDir = 0;
         }
+    }
+    IEnumerator Blink()
+    {
+        this.GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(0.05f);
+        this.GetComponent<Renderer>().enabled = true;
+
     }
 
     public abstract void Die();
