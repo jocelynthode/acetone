@@ -139,8 +139,10 @@ public abstract class MovingObject : MonoBehaviour
         hp = hp - attackPower * def;
         StartCoroutine(Blink());
         if (hp <= 0)
+        {
+            StopAllCoroutines();
             Die();
-   
+        }
     }
 
     public void checkAnim(int xDir, int yDir)
