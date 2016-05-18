@@ -8,6 +8,7 @@ public class UpgradeMenu : MonoBehaviour
 
     public GameObject upgradeButton;
     public GameObject upgradeText;
+    public GameObject upgradePanel;
 
     Dictionary<string, Upgrade> upgrades;
 
@@ -32,17 +33,20 @@ public class UpgradeMenu : MonoBehaviour
     void CreateUpgradeButton(string name, string prettyName)
     {
         var upgradesPanel = GameObject.Find("UpgradesPanel").transform;
+        var panel = Instantiate(upgradePanel).transform;
+        panel.SetParent(upgradesPanel);
+
         GameObject button = Instantiate(upgradeButton) as GameObject;
         button.name = name + "Button";
         button.GetComponent<Button>().onClick.AddListener(() => UpdatePref(name));
-        button.GetComponentInChildren<Text>().text = prettyName;
-        button.transform.Find("nameText").GetComponent<Text>().text = prettyName;
-        button.transform.SetParent(upgradesPanel);
+        //button.GetComponentInChildren<Text>().text = prettyName;
+        //button.transform.Find("nameText").GetComponent<Text>().text = prettyName;
+        button.transform.SetParent(panel);
 
         GameObject text = Instantiate(upgradeText) as GameObject;
         text.name = name;
         text.GetComponent<Text>().text = "#" + name;
-        text.transform.SetParent(upgradesPanel);
+        text.transform.SetParent(panel);
     }
 
     void RefreshMenu()
@@ -59,9 +63,9 @@ public class UpgradeMenu : MonoBehaviour
             GameObject upgradeButton = GameObject.Find(item.Key);
             if (upgradeButton)
             {
-                upgradeButton.GetComponent<Text>().text = upgrade.Text;
+                upgradeButton.GetComponent<Text>().text = string.Format("{0}\n\n{1}", "Max Health", upgrade.Text);
                 var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
-                costText.text = string.Format("Cost: ${0}", upgrade.Cost);
+                costText.text = string.Format("\n${0}", upgrade.Cost);
             }
 
             // TODO: Disable button when not enough money
