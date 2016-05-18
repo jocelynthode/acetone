@@ -16,6 +16,7 @@ public class Player : MovingObject
     public Text money;
     public Text viewers;
     public static Player instance;
+    private bool waitOnAttackAnimation;
 
     void Awake()
     {
@@ -136,7 +137,9 @@ public class Player : MovingObject
     {
         Enemy enemy = component as Enemy;
         enemy.TakeDamage(att);
-		anAnimator.SetTrigger("PlayerAtt");
+        if (enemy.hp > 0)
+            waitOnAttackAnimation = true;
+        anAnimator.SetTrigger("PlayerAtt");
     }
 
     public override void TakeDamage(int att)
@@ -204,6 +207,12 @@ public class Player : MovingObject
 
     public override IEnumerator SmoothMovement(Vector3 end) {
         yield return base.SmoothMovement(end);
+        if (waitOnAttackAnimation == true)
+        {
+            waitOnAttackAnimation = false;
+            // TODO use actual animation time
+            yield return new WaitForSeconds(0.6f);
+        }
         GameManager.instance.OnTurnEnd();
     }
 }

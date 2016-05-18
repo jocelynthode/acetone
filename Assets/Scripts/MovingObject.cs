@@ -160,6 +160,7 @@ public abstract class MovingObject : MonoBehaviour
             currentDir = 0;
         }
     }
+
     IEnumerator Blink()
     {
         this.GetComponent<Renderer>().enabled = false;

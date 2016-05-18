@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Text levelText;
     public AudioSource cashMoneyBiatch;
     public int moneyGain;
+    public bool waitOnEnemiesAnimations;
 
     public BoardManager boardScript;
 
@@ -161,6 +162,7 @@ public class GameManager : MonoBehaviour
         // 2. Move them back to their original position
         // 3. Replay all movements simultaneously and smoothly
 
+        waitOnEnemiesAnimations = false;
         var originalPositions = new Dictionary<Enemy, Vector3>();
         var destPositions = new Dictionary<Enemy, Vector3>();
         enemies.ForEach(enemy =>
@@ -193,6 +195,12 @@ public class GameManager : MonoBehaviour
             var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value)));
             foreach (var coroutine in coroutines.ToList())
                 yield return coroutine;
+        }
+
+        if (waitOnEnemiesAnimations)
+        {
+            // TODO use actual animation time
+            yield return new WaitForSeconds(0.6f);
         }
 
         state = GameState.PLAYERTURN;

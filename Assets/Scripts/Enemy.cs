@@ -68,6 +68,7 @@ public class Enemy : MovingObject
         Player player = component as Player;
         player.TakeDamage(att);
         anAnimator.SetTrigger("EnemyAttack");
+        GameManager.instance.waitOnEnemiesAnimations = true;
     }
 
     public override void Die()

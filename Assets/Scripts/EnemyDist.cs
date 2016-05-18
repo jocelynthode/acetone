@@ -27,8 +27,7 @@ public class EnemyDist : Enemy
         if (hit.transform == null)
         {
             base.checkAnim(xDir, yDir);
-            rb2D.MovePosition(end);
-            transform.position = end;
+            MoveRigidbody(end);
         }
     }
 
@@ -84,6 +83,7 @@ public class EnemyDist : Enemy
         DisplayLaser(transform.position, player.transform.position);
         player.TakeDamage(att);
         anAnimator.SetTrigger("EnemyAttack");
+        GameManager.instance.waitOnEnemiesAnimations = true;
     }
 
     private void DisplayLaser(Vector3 own, Vector3 player)
