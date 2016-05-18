@@ -18,7 +18,6 @@ public class Enemy : MovingObject
         hp = 100;
         att = 1;
         def = 1;
-
     }
 
     public override void AttemptMove<T>(int xDir, int yDir)

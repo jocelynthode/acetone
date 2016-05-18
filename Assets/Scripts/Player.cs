@@ -14,7 +14,6 @@ public class Player : MovingObject
     public Text money;
     public Text viewers;
     public static Player instance;
-    private bool isFirstTime = true;
 
     void Awake()
     {
@@ -173,12 +172,11 @@ public class Player : MovingObject
     private void OnTriggerEnter2D(Collider2D collider)
     {
         //if first Time
-        if (!PlayerPrefs.HasKey("highestLevel") && collider.tag != "Exit" && isFirstTime == true)
+        if (collider.tag != "Exit")
         {
             GameObject tutorialPopup = GameObject.Find("TutorialPopup");
             Tutorial tutorial = tutorialPopup.GetComponent<Tutorial>();
             tutorial.ObjectTutorial();
-            isFirstTime = false;
         }
         switch (collider.tag)
         {

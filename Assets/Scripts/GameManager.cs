@@ -184,5 +184,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("startGameLevelLevel", 0);
         PlayerPrefs.SetInt("moneyGainLevel", 0);
         PlayerPrefs.SetInt("viewersLevel", 0);
+        PlayerPrefs.SetInt("tutorialDisplayed", 0);
     }
 }
