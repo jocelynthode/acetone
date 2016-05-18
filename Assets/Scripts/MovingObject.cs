@@ -4,7 +4,7 @@ using System.Collections;
 //The abstract keyword enables you to create classes and class members that are incomplete and must be implemented in a derived class.
 public abstract class MovingObject : MonoBehaviour
 {
-    public float moveTime = 0.1f;           //Time it will take object to move, in seconds.
+    public float moveTime;           //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;         //Layer on which collision will be checked.
 
     protected BoxCollider2D boxCollider;      //The BoxCollider2D component attached to this object.
@@ -17,6 +17,8 @@ public abstract class MovingObject : MonoBehaviour
     public int hp;
     public int att;
     public int def;
+
+
     //Protected, virtual functions can be overridden by inheriting classes.
     protected virtual void Start()
     {
@@ -55,10 +57,7 @@ public abstract class MovingObject : MonoBehaviour
         //Check if anything was hit
         if (hit.transform == null)
         {
-            //If nothing was hit, start SmoothMovement co-routine passing in the Vector2 end as destination
-            //StartCoroutine(SmoothMovement(end));
-
-            rb2D.MovePosition(end);
+            MoveRigidbody(end);
 
             checkAnim(xDir, yDir);
 
@@ -72,7 +71,7 @@ public abstract class MovingObject : MonoBehaviour
 
 
     //Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
-    protected IEnumerator SmoothMovement(Vector3 end)
+    virtual public IEnumerator SmoothMovement(Vector3 end)
     {
         //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
         //Square magnitude is used instead of magnitude because it's computationally cheaper.
@@ -93,6 +92,9 @@ public abstract class MovingObject : MonoBehaviour
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+
+        // Make sure unit is at the right place at the end
+        MoveRigidbody(end);
     }
 
 
@@ -121,6 +123,11 @@ public abstract class MovingObject : MonoBehaviour
             OnCantMove(hitComponent);
     }
 
+    public void MoveRigidbody(Vector3 dest) {
+        rb2D.MovePosition(dest);
+        // Manually set transform.position because it won't be set until the next Update() otherwise
+        transform.position = dest;
+    }
 
     //The abstract modifier indicates that the thing being modified has a missing or incomplete implementation.
     //OnCantMove will be overriden by functions in the inheriting classes.
