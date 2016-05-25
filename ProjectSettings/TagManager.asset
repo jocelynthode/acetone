@@ -12,6 +12,7 @@ TagManager:
   - ItemBomb
   - ItemViewbot
   - Wall
+  - ItemLadder
   layers:
   - Default
   - TransparentFX

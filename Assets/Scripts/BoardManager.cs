@@ -16,11 +16,13 @@ public class BoardManager : MonoBehaviour
     private Range itemAdCount = new Range(0, 1, 8);
     private Range itemBombCount = new Range(0, 1, 4);
     private Range itemViewbotCount = new Range(0, 1, 8);
+    private Range itemLadderCount = new Range(0, 1, 0.25f);
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
     public GameObject itemAdTile;
     public GameObject itemBombTile;
     public GameObject itemViewbotTile;
+    public GameObject itemLadderTile;
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
     public GameObject[] floorTiles;                                  //Array of floor prefabs.
     public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
@@ -247,6 +249,7 @@ public class BoardManager : MonoBehaviour
             LayoutObjectAtRandom(itemAdTile, itemAdCount);
             LayoutObjectAtRandom(itemBombTile, itemBombCount);
             LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
+            LayoutObjectAtRandom(itemLadderTile, itemLadderCount);
         }
 
         //Determine number of enemies based on current level number, based on a logarithmic progression

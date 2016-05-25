@@ -18,6 +18,7 @@ public class Player : MovingObject
     public static Player instance;
     private bool waitOnAttackAnimation;
     private int bombInventory;
+    private int ladderInventory;
 
     void Awake()
     {
@@ -42,6 +43,8 @@ public class Player : MovingObject
         hp = PlayerPrefs.GetInt("maxHealth");
         att = PlayerPrefs.GetInt("attack");
         def = PlayerPrefs.GetInt("defense");
+        bombInventory = 0;
+        ladderInventory = 0;
         InitLevel();
     }
 
@@ -59,6 +62,8 @@ public class Player : MovingObject
         money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money", 0));
         var bomb = GameObject.Find("bombText").GetComponent<Text>();
         bomb.text = "x " + bombInventory;
+        var ladder = GameObject.Find("ladderText").GetComponent<Text>();
+        ladder.text = "x " + ladderInventory;
         viewers = GameObject.Find("viewersText").GetComponent<Text>();
         viewers.supportRichText = true;
         viewers.text = string.Format("<color=red><size=16>•</size></color> {0}", TotalViewers);
@@ -203,6 +208,11 @@ public class Player : MovingObject
             case "ItemBomb":
                 collider.gameObject.SetActive(false);
                 bombInventory++;
+                RefreshUI();
+                break;
+            case "ItemLadder":
+                collider.gameObject.SetActive(false);
+                ladderInventory++;
                 RefreshUI();
                 break;
             case "ItemViewbot":
