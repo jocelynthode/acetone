@@ -32,7 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5052770
 Rigidbody2D:
   serializedVersion: 2
@@ -99,6 +98,7 @@ MonoBehaviour:
   hp: 0
   att: 0
   def: 0
+  hit: {fileID: 8231190, guid: 7eaee20685c5e9e4687b81b3a753161d, type: 2}
 --- !u!212 &21227170
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -108,15 +108,13 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
   m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
