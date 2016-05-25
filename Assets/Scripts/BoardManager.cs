@@ -213,7 +213,7 @@ public class BoardManager : MonoBehaviour
                     }
                     else if (level > 10)
                     {
-                        tileChoice = tileArray[Random.Range(0, tileArray.Length-1)];
+                        tileChoice = tileArray[Random.Range(0, 2)];
                     }
                     else
                     {

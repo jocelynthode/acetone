@@ -8,7 +8,7 @@ TagManager:
   - Enemy
   - Health
   - Food
-  - ItemAd
+  - ItemSoda
   - ItemBomb
   - ItemViewbot
   - Wall
