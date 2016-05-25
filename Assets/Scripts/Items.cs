@@ -5,7 +5,7 @@ public static class Items
 {
     public enum ItemType
     {
-        AD,
+        SODA,
         BOMB,
         VIEWBOT
     }
@@ -14,8 +14,8 @@ public static class Items
     {
         switch (item)
         {
-            case ItemType.AD:
-                useAd();
+            case ItemType.SODA:
+                useSoda();
                 break;
             case ItemType.BOMB:
                 useBomb();
@@ -30,11 +30,21 @@ public static class Items
             collider.GetComponent<Renderer>().enabled = false;
     }
 
-    static void useAd()
+    static void useSoda()
     {
-        int money = PlayerPrefs.GetInt("money");
-        int newMoney = (PlayerPrefs.GetInt("itemsPowerLevel") + 1) * 25;
-        GameManager.instance.GainMoney("Endorsement earned: ", money, newMoney);
+        Player player = GameManager.instance.boardScript.player;
+        int playerHealth = player.hp;
+        int healthGained = (PlayerPrefs.GetInt("itemsPowerLevel") + 1) * 25;
+        if (playerHealth + healthGained > PlayerPrefs.GetInt("maxHealth"))
+        {
+            player.hp = PlayerPrefs.GetInt("maxHealth");
+        }
+        else
+        {
+            player.hp = playerHealth + healthGained;
+        }
+        player.healthPoint.text = player.hp.ToString();
+        GameManager.instance.DisplayText(string.Format("{0} health regained !", healthGained));
     }
 
     static void useBomb()

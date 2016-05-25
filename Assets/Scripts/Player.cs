@@ -78,7 +78,7 @@ public class Player : MovingObject
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            Items.useItem(Items.ItemType.AD);
+            Items.useItem(Items.ItemType.SODA);
             return;
         }
 
@@ -159,11 +159,6 @@ public class Player : MovingObject
         GameManager.instance.OnGameOver();
     }
 
-    public int getHP()
-    {
-        return base.hp;
-    }
-
     public int ViewerBots
     {
         get { return viewerBots; }
@@ -193,8 +188,8 @@ public class Player : MovingObject
             case "Exit":
                 GameManager.instance.OnLevelCompletion();
                 break;
-            case "ItemAd":
-                Items.useItem(ItemType.AD, collider);
+            case "ItemSoda":
+                Items.useItem(ItemType.SODA, collider);
                 break;
             case "ItemBomb":
                 Items.useItem(ItemType.BOMB, collider);

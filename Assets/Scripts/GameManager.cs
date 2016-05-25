@@ -130,10 +130,16 @@ public class GameManager : MonoBehaviour
     public void GainMoney(string text, int oldMoney, int newMoney)
     {
         PlayerPrefs.SetInt("money", oldMoney + newMoney);
-        donationText.text = string.Format(text + "{0:C2}", newMoney);
+        DisplayText(string.Format(text + "{0:C2}", newMoney));
         Player.instance.money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
         cashMoneyBiatch.Play();
-        Invoke("RemoveDonation", 2);
+
+    }
+
+    public void DisplayText(string text, int time=2)
+    {
+        donationText.text = text;
+        Invoke("RemoveDonation", time);
     }
 
 	public void OnGameOver(bool saveLevel = true)
