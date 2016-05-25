@@ -147,6 +147,7 @@ MonoBehaviour:
   enemyTiles:
   - {fileID: 143676, guid: 09b1e5e0441e27c49aec353e1d6a3532, type: 2}
   - {fileID: 154572, guid: 1f58eff7a60867d45aaf99bef9282da2, type: 2}
+  - {fileID: 143676, guid: 332b454081105494080e904cced29ca4, type: 2}
   outerWallTiles:
   - {fileID: 156592, guid: a337095991a795547a2f818db9c073f9, type: 2}
   exit: {x: 0, y: 0}

@@ -197,7 +197,7 @@ public class BoardManager : MonoBehaviour
                 //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
                 Vector2 randomPosition = RandomPosition();
 
-                //Instantiate a Yellow
+                //Instantiate a fast enemy
                 GameObject tileChoice = tileArray[2];
                 objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
             }
