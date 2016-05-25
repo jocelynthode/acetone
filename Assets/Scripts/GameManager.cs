@@ -165,89 +165,98 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveEnemies()
     {
-        var enemies = boardScript.enemies;
+		var enemies = boardScript.enemies;
 
         // 1. Play all enemies turns (in the same frame)
         // 2. Move them back to their original position
         // 3. Replay all movements simultaneously and smoothly
 
-        waitOnEnemiesAnimations = false;
-        var originalPositions = new Dictionary<Enemy, List<Vector3>>();
-        var destPositions = new Dictionary<Enemy, List<Vector3>>();
-        enemies.ForEach(enemy =>
+//        var originalPositions = new Dictionary<Enemy, List<Vector3>>();
+//        var destPositions = new Dictionary<Enemy, List<Vector3>>();
+//		var enemiess = new Dictionary<Enemy, List<Vector3>>();
+
+		int maxActionsPerEnemy = enemies.Select(e => e.movesPerTurn).Max();
+		//List<EnemyAction>[] allActions = new List<EnemyAction>[maxActionsPerEnemy];
+		List<EnemyAction>[] allActions = Enumerable.Range(0, maxActionsPerEnemy)
+			.Select((_) => new List<EnemyAction>()).ToArray();
+        
+
+		if (enemies.Count == 0)
+			// Manually wait if there are no enemies (the wait time will be shorter)
+			yield return new WaitForSeconds(enemies[0].moveTime);
+		else
+		{
+			enemies.ForEach(enemy =>
             {
-                var origList = new List<Vector3>();
                 for (int i = 0; i < enemy.movesPerTurn; i++)
                 {
-                    origList.Add(enemy.transform.position);
+					var action = new EnemyAction();
+					action.origPosition = enemy.transform.position;
+
+					waitOnEnemiesAnimations = false;
                     enemy.Move();
+					action.destPosition = enemy.transform.position;
+
+					if (action.origPosition != action.destPosition)
+						action.type = EnemyAction.Type.Move;
+					else if (waitOnEnemiesAnimations)
+						action.type = EnemyAction.Type.Attack;
+					else
+						action.type = EnemyAction.Type.None;
+
+					if (action.type == EnemyAction.Type.Move)
+						enemy.MoveRigidbody(action.origPosition);
+					allActions[i].Add(action);
                 }
-                originalPositions.Add(enemy, origList);
+            });   
 
-            });
+			foreach (List<EnemyAction> actions in allActions)
+			{
+				//var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value[0])));
+				var coroutines = actions.Where(a => a.type == EnemyAction.Type.Move)
+					.Select(action => StartCoroutine(action.enemy.SmoothMovement(action.destPosition)));
+				foreach (var coroutine in coroutines.ToList())
+					yield return coroutine;
 
+				if (actions.Where(a => a.type == EnemyAction.Type.Attack).Count() > 0) {
+					//            // TODO use actual animation time
+					//            yield return new WaitForSeconds(0.6f);
+				}	
+			}
+		}
 
-        foreach (var enemy in enemies) {
-            // Ignore enemies that didn't move
-            if (enemy.transform.position != originalPositions[enemy][0])
-            {
-                var destList = new List<Vector3>();
-                if (originalPositions[enemy].Count > 1)
-                    destList.Add(originalPositions[enemy][1]);
-                destList.Add(enemy.transform.position);
-                var orig = originalPositions[enemy][0];
-                enemy.MoveRigidbody(orig);
-                destPositions.Add(enemy, destList);
-            }
-        }   
+		state = GameState.PLAYERTURN;
+//        // Manually wait if there are no enemies (the wait time will be shorter)
+//        if (destPositions.Count == 0)
+//        {
+//            if (enemies.Count > 0)
+//                yield return new WaitForSeconds(enemies[0].moveTime);
+//        }
+//        else
+//        {
+//            var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value[0])));
+//            foreach (var coroutine in coroutines.ToList())
+//                yield return coroutine;
+//        }
+//
+//        if (waitOnEnemiesAnimations)
+//        {
+//            // TODO use actual animation time
+//            yield return new WaitForSeconds(0.6f);
+//        }
 
-        // Do smooth movement
-
-        // Manually wait if there are no enemies (the wait time will be shorter)
-        if (destPositions.Count == 0)
-        {
-            if (enemies.Count > 0)
-                yield return new WaitForSeconds(enemies[0].moveTime);
-        }
-        else
-        {
-            var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value[0])));
-            foreach (var coroutine in coroutines.ToList())
-                yield return coroutine;
-        }
-
-        if (waitOnEnemiesAnimations)
-        {
-            // TODO use actual animation time
-            yield return new WaitForSeconds(0.6f);
-        }
-        waitOnEnemiesAnimations = false;
-
-
-        // Manually wait if there are no enemies (the wait time will be shorter)
-        if (destPositions.Count == 0)
-        {
-            if (enemies.Count > 0)
-                yield return new WaitForSeconds(enemies[0].moveTime);
-        }
-        else
-        {
-            var coroutines = destPositions.Where(entry => entry.Value.Count > 1).ToList().Select(entry => {
-                    return StartCoroutine(entry.Key.SmoothMovement(entry.Value[1]));
-            });
-            foreach (var coroutine in coroutines.ToList())
-                yield return coroutine;
-        }
-
-        if (waitOnEnemiesAnimations)
-        {
-            // TODO use actual animation time
-            yield return new WaitForSeconds(0.6f);
-        }
-
-        state = GameState.PLAYERTURN;
+        //state = GameState.PLAYERTURN;
     }
 
+	private class EnemyAction
+	{
+		public Enemy enemy { get; set; }
+		public Type type { get; set; }
+		public Vector3 origPosition { get; set; } 
+		public Vector3 destPosition { get; set; } 
+
+		public enum Type {Move, Attack, None};
+	}
 
     public static void CheckPlayerPrefs(bool force = false)
     {
