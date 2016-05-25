@@ -93,6 +93,15 @@ public class Player : MovingObject
 
         if (Input.GetKey(KeyCode.Alpha2))
         {
+            if (ladderInventory > 0)
+            {
+                ladderInventory--;
+                Items.useItem(Items.ItemType.LADDER);
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
             if (bombInventory > 0 && GameManager.instance.boardScript.enemies.Count > 0)
             {
                 GameManager.instance.OnTurnEnd();
@@ -102,15 +111,6 @@ public class Player : MovingObject
             }
             //TODO: say something if bombinventory empty or no enemy to kill ?
             return;
-        }
-
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            if (ladderInventory > 0)
-            {
-                ladderInventory--;
-                Items.useItem(Items.ItemType.LADDER);
-            }
         }
 
         if (horizontal != 0)
