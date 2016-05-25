@@ -17,6 +17,7 @@ public abstract class MovingObject : MonoBehaviour
     public int hp;
     public int att;
     public int def;
+    public int movesPerTurn = 1;
 
 
     //Protected, virtual functions can be overridden by inheriting classes.

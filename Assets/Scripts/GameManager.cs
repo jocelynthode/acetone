@@ -172,22 +172,32 @@ public class GameManager : MonoBehaviour
         // 3. Replay all movements simultaneously and smoothly
 
         waitOnEnemiesAnimations = false;
-        var originalPositions = new Dictionary<Enemy, Vector3>();
-        var destPositions = new Dictionary<Enemy, Vector3>();
+        var originalPositions = new Dictionary<Enemy, List<Vector3>>();
+        var destPositions = new Dictionary<Enemy, List<Vector3>>();
         enemies.ForEach(enemy =>
             {
-                originalPositions.Add(enemy, enemy.transform.position);
-                enemy.Move();
+                var origList = new List<Vector3>();
+                for (int i = 0; i < enemy.movesPerTurn; i++)
+                {
+                    origList.Add(enemy.transform.position);
+                    enemy.Move();
+                }
+                originalPositions.Add(enemy, origList);
+
             });
 
 
         foreach (var enemy in enemies) {
             // Ignore enemies that didn't move
-            if (enemy.transform.position != originalPositions[enemy])
+            if (enemy.transform.position != originalPositions[enemy][0])
             {
-                destPositions.Add(enemy, enemy.transform.position);
-                var orig = originalPositions[enemy];
+                var destList = new List<Vector3>();
+                if (originalPositions[enemy].Count > 1)
+                    destList.Add(originalPositions[enemy][1]);
+                destList.Add(enemy.transform.position);
+                var orig = originalPositions[enemy][0];
                 enemy.MoveRigidbody(orig);
+                destPositions.Add(enemy, destList);
             }
         }   
 
@@ -201,7 +211,30 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value)));
+            var coroutines = destPositions.Select(entry => StartCoroutine(entry.Key.SmoothMovement(entry.Value[0])));
+            foreach (var coroutine in coroutines.ToList())
+                yield return coroutine;
+        }
+
+        if (waitOnEnemiesAnimations)
+        {
+            // TODO use actual animation time
+            yield return new WaitForSeconds(0.6f);
+        }
+        waitOnEnemiesAnimations = false;
+
+
+        // Manually wait if there are no enemies (the wait time will be shorter)
+        if (destPositions.Count == 0)
+        {
+            if (enemies.Count > 0)
+                yield return new WaitForSeconds(enemies[0].moveTime);
+        }
+        else
+        {
+            var coroutines = destPositions.Where(entry => entry.Value.Count > 1).ToList().Select(entry => {
+                    return StartCoroutine(entry.Key.SmoothMovement(entry.Value[1]));
+            });
             foreach (var coroutine in coroutines.ToList())
                 yield return coroutine;
         }

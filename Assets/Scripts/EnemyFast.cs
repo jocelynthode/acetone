@@ -18,6 +18,7 @@ public class EnemyFast : MovingObject
         hp = 100;
         att = 1;
         def = 1;
+        movesPerTurn = 2;
     }
 
     public override void AttemptMove<T>(int xDir, int yDir)
