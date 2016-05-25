@@ -158,24 +158,72 @@ public class BoardManager : MonoBehaviour
         return LayoutObjectAtRandom(new GameObject[] { tile }, range);
     }
 
-    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range)
+    List<GameObject> LayoutObjectAtRandom(GameObject[] tileArray, Range range, bool instantiateEnemies = false, int level = -1)
     {
         //Choose a random number of objects to instantiate within the minimum and maximum limits
         int objectCount = range.RandomInt();
 
-
-        //Instantiate objects until the randomly chosen limit objectCount is reached
         List<GameObject> objects = new List<GameObject>();
-        for (int i = 0; i < objectCount; i++)
+        if (!instantiateEnemies)
         {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
-            Vector2 randomPosition = RandomPosition();
+            //Instantiate objects until the randomly chosen limit objectCount is reached
+            for (int i = 0; i < objectCount; i++)
+            {
+                //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
+                Vector2 randomPosition = RandomPosition();
 
-            //Choose a random tile from tileArray and assign it to tileChoice
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
+                //Choose a random tile from tileArray and assign it to tileChoice
+                GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
 
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-            objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
+                //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+                objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
+            }
+        }
+        else
+        {
+            if (level == 10)
+            {
+                //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
+                Vector2 randomPosition = RandomPosition();
+
+                //Instantiate a Yellow
+                GameObject tileChoice = tileArray[1];
+                objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
+            }
+            else if (level == 20)
+            {
+                //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
+                Vector2 randomPosition = RandomPosition();
+
+                //Instantiate a Yellow
+                GameObject tileChoice = tileArray[2];
+                objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
+            }
+            else
+            {
+                for (int i = 0; i < objectCount; i++)
+                {
+                    //Choose a position for randomPosition by getting a random position from our list of available Vector2s stored in gridPosition
+                    Vector2 randomPosition = RandomPosition();
+                    GameObject tileChoice = null;
+                    if (level > 20)
+                    {
+                        tileChoice = tileArray[Random.Range(0, tileArray.Length)];
+
+                    }
+                    else if (level > 10)
+                    {
+                        tileChoice = tileArray[Random.Range(0, tileArray.Length-1)];
+                    }
+                    else
+                    {
+                        tileChoice = tileArray[0];
+                    }
+                    //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+                    objects.Add(Instantiate(tileChoice, randomPosition, Quaternion.identity) as GameObject);
+                }
+            }
+
         }
         return objects;
     }
@@ -206,7 +254,7 @@ public class BoardManager : MonoBehaviour
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
         enemies.Clear();
-        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, new Range(enemyCount, enemyCount));
+        var enemiesObjects = LayoutObjectAtRandom(enemyTiles, new Range(enemyCount, enemyCount), true, level);
         enemiesObjects.ForEach(obj => {
             enemies.Add(obj.GetComponent<Enemy>());
         });

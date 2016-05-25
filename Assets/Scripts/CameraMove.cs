@@ -2,10 +2,9 @@
 using System.Collections;
 
 using System;
-using UnityEngine;
 
 
-public class Camera : MonoBehaviour
+public class CameraMove : MonoBehaviour
 {
     public Transform target;
     public float damping = 1;
