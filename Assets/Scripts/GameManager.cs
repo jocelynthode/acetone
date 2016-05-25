@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Range = Utils.Range;
 using System.Collections.Generic;
 using String = System.String;
+using System.Text.RegularExpressions;
 
 public class GameManager : MonoBehaviour
 {
@@ -63,10 +64,12 @@ public class GameManager : MonoBehaviour
     void InitLevel()
     {
         levelText = GameObject.Find("levelText").GetComponent<Text>();
+        int oldLevel = int.Parse(Regex.Match(levelText.text, @"\d+").Value);
         moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
         levelText.text = string.Format("Level: {0}", level);
 
-        if (level % 10 == 0)
+        //Check if we changed the tens (e.g. : From 9 to 10 or from 15 to 21
+        if (oldLevel / 10 != level / 10)
         {
             moneyGain += 3 * level; //TODO indicate this bonus
             moneyGain *= PlayerPrefs.GetInt("moneyGain", 0);
@@ -96,11 +99,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnLevelCompletion()
+    public void OnLevelCompletion(int levelToPass = 1)
     {
         state = GameState.LEVELSETUP;
         StopAllCoroutines();
-        level++;
+        level += levelToPass;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -232,6 +235,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("startGameLevelLevel", 0);
         PlayerPrefs.SetInt("moneyGainLevel", 0);
         PlayerPrefs.SetInt("viewersLevel", 0);
+        PlayerPrefs.SetInt("itemsPowerLevel", 0);
         PlayerPrefs.SetInt("tutorialDisplayed", 0);
     }
 }

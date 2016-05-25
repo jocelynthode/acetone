@@ -146,7 +146,7 @@ public class UpgradeMenu : MonoBehaviour
                 return up;
             });
             upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1, "Item Specialist");
+                var up = new Upgrade((baseLevel + 1) * 50, baseStat + 1, "Item Specialist");
                 // Improve description
                 up.Text = string.Format("Improve items: from {0} to {1}.", baseStat, up.Stat);
                 return up;

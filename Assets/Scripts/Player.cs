@@ -106,8 +106,11 @@ public class Player : MovingObject
 
         if (Input.GetKey(KeyCode.Alpha3))
         {
-            Items.useItem(Items.ItemType.VIEWBOT);
-            return;
+            if (ladderInventory > 0)
+            {
+                ladderInventory--;
+                Items.useItem(Items.ItemType.LADDER);
+            }
         }
 
         if (horizontal != 0)

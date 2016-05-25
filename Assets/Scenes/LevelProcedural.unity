@@ -396,6 +396,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 227508272}
+--- !u!4 &234068424 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 434726, guid: 821f82b662798f14bba2707bd54346da, type: 2}
+  m_PrefabInternal: {fileID: 2041168075}
 --- !u!1 &295350184
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +993,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Level: 1'
 --- !u!222 &449023894
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2767,7 +2771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd05d3d0ad3384a9487d639065ed37c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 234068424}
   damping: 0.3
   lookAheadFactor: 0.1
   lookAheadReturnSpeed: 0.5

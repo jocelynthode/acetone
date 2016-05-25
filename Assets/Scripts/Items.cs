@@ -7,7 +7,8 @@ public static class Items
     {
         SODA,
         BOMB,
-        VIEWBOT
+        VIEWBOT,
+        LADDER
     }
 
     public static void useItem(ItemType item, Collider2D collider = null)
@@ -22,6 +23,9 @@ public static class Items
                 break;
             case ItemType.VIEWBOT:
                 useViewbot();
+                break;
+            case ItemType.LADDER:
+                useLadder();
                 break;
             default:
                 throw new System.ArgumentException();
@@ -49,7 +53,7 @@ public static class Items
 
     static void useBomb()
     {
-        int i = 3;
+        int i = 3 + PlayerPrefs.GetInt("itemsPower");
         while (i > 0 && GameManager.instance.boardScript.enemies.Count > 0)
         {
             GameManager.instance.boardScript.enemies[0].Die();
@@ -60,6 +64,11 @@ public static class Items
     static void useViewbot()
     {
         Player.instance.ViewerBots += 50 + (Player.instance.TotalViewers / 2);
+    }
+
+    static void useLadder()
+    {
+        GameManager.instance.OnLevelCompletion(PlayerPrefs.GetInt("itemsPowerLevel")*2+2);
     }
 
 }
