@@ -17,6 +17,7 @@ public class Player : MovingObject
     public Text viewers;
     public static Player instance;
     private bool waitOnAttackAnimation;
+    private int bombInventory;
 
     void Awake()
     {
@@ -34,7 +35,7 @@ public class Player : MovingObject
         }
     }
 
-    // Use this for initialization
+    // Use this for initialization for a new game
     protected override void Start()
     {
         base.Start();
@@ -84,8 +85,13 @@ public class Player : MovingObject
 
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            GameManager.instance.OnTurnEnd();
-            Items.useItem(Items.ItemType.BOMB);
+            if (bombInventory > 0)
+            {
+                bombInventory--;
+                Items.useItem(Items.ItemType.BOMB);
+                GameManager.instance.OnTurnEnd();
+            }
+            //TODO: say something if bomb inventory empty ?
             return;
         }
 
@@ -192,7 +198,9 @@ public class Player : MovingObject
                 Items.useItem(ItemType.SODA, collider);
                 break;
             case "ItemBomb":
-                Items.useItem(ItemType.BOMB, collider);
+                collider.GetComponent<Renderer>().enabled = false;
+                bombInventory++;
+                RefreshUI();
                 break;
             case "ItemViewbot":
                 Items.useItem(ItemType.VIEWBOT, collider);
