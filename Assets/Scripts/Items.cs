@@ -27,7 +27,7 @@ public static class Items
                 throw new System.ArgumentException();
         }
         if (collider != null)
-            collider.GetComponent<Renderer>().enabled = false;
+            collider.gameObject.SetActive(false);
     }
 
     static void useSoda()

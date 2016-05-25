@@ -57,6 +57,8 @@ public class Player : MovingObject
         healthPoint.text = hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
         money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money", 0));
+        var bomb = GameObject.Find("bombText").GetComponent<Text>();
+        bomb.text = "x " + bombInventory;
         viewers = GameObject.Find("viewersText").GetComponent<Text>();
         viewers.supportRichText = true;
         viewers.text = string.Format("<color=red><size=16>•</size></color> {0}", TotalViewers);
@@ -85,13 +87,14 @@ public class Player : MovingObject
 
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            if (bombInventory > 0)
+            if (bombInventory > 0 && GameManager.instance.boardScript.enemies.Count > 0)
             {
+                GameManager.instance.OnTurnEnd();
                 bombInventory--;
                 Items.useItem(Items.ItemType.BOMB);
-                GameManager.instance.OnTurnEnd();
+                RefreshUI();
             }
-            //TODO: say something if bomb inventory empty ?
+            //TODO: say something if bombinventory empty or no enemy to kill ?
             return;
         }
 
@@ -198,7 +201,7 @@ public class Player : MovingObject
                 Items.useItem(ItemType.SODA, collider);
                 break;
             case "ItemBomb":
-                collider.GetComponent<Renderer>().enabled = false;
+                collider.gameObject.SetActive(false);
                 bombInventory++;
                 RefreshUI();
                 break;
