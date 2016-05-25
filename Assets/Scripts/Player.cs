@@ -19,6 +19,7 @@ public class Player : MovingObject
     private bool waitOnAttackAnimation;
     private int bombInventory;
     private int ladderInventory;
+    public AudioSource hitsound;
 
     void Awake()
     {
@@ -160,6 +161,7 @@ public class Player : MovingObject
     {
         base.TakeDamage(att);
         healthPoint.text = hp.ToString();
+        hitsound.Play();
 		anAnimator.SetTrigger("PlayerHit");
     }
 
