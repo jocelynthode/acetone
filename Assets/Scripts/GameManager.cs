@@ -177,33 +177,29 @@ public class GameManager : MonoBehaviour
         // 3. Replay all movements simultaneously and smoothly
 
         int maxActionsPerEnemy = enemies.Select(e => e.movesPerTurn).Max();
-        List<EnemyAction>[] allActions = Enumerable.Range(0, maxActionsPerEnemy)
-            .Select((_) => new List<EnemyAction>()).ToArray();
+        List<EnemyAction>[] allActions = new List<EnemyAction>[maxActionsPerEnemy];
 
-        foreach(var enemy in enemies)
+        for (int i = 0; i < maxActionsPerEnemy; i++)
         {
-            var firstPosition = enemy.transform.position;
+            allActions[i] = enemies.Where(e => e.movesPerTurn > i).Select(enemy => {
+                    var action = new EnemyAction() { enemy = enemy, origPosition = enemy.transform.position };
 
-            for (int i = 0; i < enemy.movesPerTurn; i++)
-            {
-                var action = new EnemyAction() { enemy = enemy, origPosition = enemy.transform.position };
+                    waitOnEnemiesAnimations = false;
+                    enemy.Move();
+                    action.destPosition = enemy.transform.position;
 
-                waitOnEnemiesAnimations = false;
-                enemy.Move();
-                action.destPosition = enemy.transform.position;
+                    if (action.origPosition != action.destPosition)
+                        action.type = EnemyAction.Type.Move;
+                    else if (waitOnEnemiesAnimations)
+                        action.type = EnemyAction.Type.Attack;
+                    else
+                        action.type = EnemyAction.Type.None;
 
-                if (action.origPosition != action.destPosition)
-                    action.type = EnemyAction.Type.Move;
-                else if (waitOnEnemiesAnimations)
-                    action.type = EnemyAction.Type.Attack;
-                else
-                    action.type = EnemyAction.Type.None;
+                    return action;
+            }).ToList();
+        }
 
-                allActions[i].Add(action);
-            }
-
-            enemy.MoveRigidbody(firstPosition);
-        };   
+        allActions[0].ForEach(action => action.enemy.MoveRigidbody(action.origPosition));
 
 		foreach (List<EnemyAction> actions in allActions)
 		{
