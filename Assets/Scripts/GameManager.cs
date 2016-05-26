@@ -182,20 +182,20 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < maxActionsPerEnemy; i++)
         {
             allActions[i] = enemies.Where(e => e.movesPerTurn > i).Select(enemy => {
-                    var action = new EnemyAction() { enemy = enemy, origPosition = enemy.transform.position };
+                var action = new EnemyAction() { enemy = enemy, origPosition = enemy.transform.position };
 
-                    waitOnEnemiesAnimations = false;
-                    enemy.Move();
-                    action.destPosition = enemy.transform.position;
+                waitOnEnemiesAnimations = false;
+                enemy.Move();
+                action.destPosition = enemy.transform.position;
 
-                    if (action.origPosition != action.destPosition)
-                        action.type = EnemyAction.Type.Move;
-                    else if (waitOnEnemiesAnimations)
-                        action.type = EnemyAction.Type.Attack;
-                    else
-                        action.type = EnemyAction.Type.None;
+                if (action.origPosition != action.destPosition)
+                    action.type = EnemyAction.Type.Move;
+                else if (waitOnEnemiesAnimations)
+                    action.type = EnemyAction.Type.Attack;
+                else
+                    action.type = EnemyAction.Type.None;
 
-                    return action;
+                return action;
             }).ToList();
         }
 
@@ -203,17 +203,18 @@ public class GameManager : MonoBehaviour
 
 		foreach (List<EnemyAction> actions in allActions)
 		{
-			var coroutines = actions.Where(a => a.type == EnemyAction.Type.Move)
-				.Select(action => StartCoroutine(action.enemy.SmoothMovement(action.destPosition)));
-			foreach (var coroutine in coroutines.ToList())
+            var coroutines = actions.Where(a => a.type == EnemyAction.Type.Move)
+                .Select(action => StartCoroutine(action.enemy.SmoothMovement(action.destPosition)));
+            foreach (var coroutine in coroutines.ToList())
 				yield return coroutine;
 
 			if (actions.Where(a => a.type == EnemyAction.Type.Attack).Count() > 0) {
-				            // TODO use actual animation time
-				            yield return new WaitForSeconds(0.6f);
-			}
-            // Manually wait if there are no enemies
-            // TODO WAIT
+                // TODO use actual animation time
+                yield return new WaitForSeconds(0.6f);
+            } else if (actions.Count > 0 && actions.Where(a => a.type == EnemyAction.Type.None).Count() == actions.Count) {
+                float waitTime = actions.Select(a => a.enemy.moveTime).Max();
+                yield return new WaitForSeconds(waitTime);
+            }
 		}
 
 		state = GameState.PLAYERTURN;
@@ -221,10 +222,10 @@ public class GameManager : MonoBehaviour
 
 	private class EnemyAction
 	{
-		public Enemy enemy { get; set; }
-		public Type type { get; set; }
-		public Vector3 origPosition { get; set; } 
-		public Vector3 destPosition { get; set; } 
+        public Enemy enemy;
+        public Type type;
+        public Vector3 origPosition;
+        public Vector3 destPosition;
 
 		public enum Type {Move, Attack, None};
 	}
