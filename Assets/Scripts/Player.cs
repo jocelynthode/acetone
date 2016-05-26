@@ -125,19 +125,20 @@ public class Player : MovingObject
         if (horizontal != 0 || vertical != 0)
             AttemptMove<Enemy>(horizontal, vertical);
 		
-        if (!PlayerPrefs.HasKey("highestLevel"))
+        GameObject tutorialPopup = GameObject.Find("TutorialPopup");
+        Tutorial tutorial = tutorialPopup.GetComponent<Tutorial>();
+        switch (GameManager.instance.level)
         {
-            GameObject tutorialPopup = GameObject.Find("TutorialPopup");
-            Tutorial tutorial = tutorialPopup.GetComponent<Tutorial>();
-            switch (GameManager.instance.level)
-            {
-                case 1:
-                    tutorial.MovementTutorial();
-                    break;
-                case 2:
-                    tutorial.EnemyTutorial();
-                    break;
-            }
+            case 1:
+                tutorial.MovementTutorial();
+                break;
+            case 2:
+                tutorial.EnemyTutorial();
+                break;
+            case 10:
+            case 20:
+                tutorial.EnemyOthersTutorial();
+                break;
         }
     }
 
