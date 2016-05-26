@@ -179,9 +179,11 @@ public class GameManager : MonoBehaviour
         int maxActionsPerEnemy = enemies.Select(e => e.movesPerTurn).Max();
         List<EnemyAction>[] allActions = Enumerable.Range(0, maxActionsPerEnemy)
             .Select((_) => new List<EnemyAction>()).ToArray();
-        
+
         foreach(var enemy in enemies)
         {
+            var firstPosition = enemy.transform.position;
+
             for (int i = 0; i < enemy.movesPerTurn; i++)
             {
                 var action = new EnemyAction() { enemy = enemy, origPosition = enemy.transform.position };
@@ -191,10 +193,7 @@ public class GameManager : MonoBehaviour
                 action.destPosition = enemy.transform.position;
 
                 if (action.origPosition != action.destPosition)
-                {
                     action.type = EnemyAction.Type.Move;
-                    enemy.MoveRigidbody(action.origPosition);
-                }
                 else if (waitOnEnemiesAnimations)
                     action.type = EnemyAction.Type.Attack;
                 else
@@ -202,6 +201,8 @@ public class GameManager : MonoBehaviour
 
                 allActions[i].Add(action);
             }
+
+            enemy.MoveRigidbody(firstPosition);
         };   
 
 		foreach (List<EnemyAction> actions in allActions)
