@@ -155,6 +155,7 @@ public class Player : MovingObject
     protected override void OnCantMove<T>(T component)
     {
         Enemy enemy = component as Enemy;
+        GameObject.Find("sword").GetComponent<AudioSource>().Play();
         enemy.TakeDamage(att);
         if (enemy.hp > 0)
             waitOnAttackAnimation = true;
