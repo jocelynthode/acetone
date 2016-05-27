@@ -19,7 +19,7 @@ public class Player : MovingObject
     private bool waitOnAttackAnimation;
     private int bombInventory;
     private int ladderInventory;
-    public AudioSource hitsound;
+    private AudioSource pickupSound;
 
     void Awake()
     {
@@ -165,8 +165,8 @@ public class Player : MovingObject
     {
         base.TakeDamage(att);
         healthPoint.text = hp.ToString();
-        hitsound.Play();
-		anAnimator.SetTrigger("PlayerHit");
+        GameObject.Find("playerHit").GetComponent<AudioSource>().Play();
+        anAnimator.SetTrigger("PlayerHit");
     }
 
     void Flip()
@@ -210,19 +210,23 @@ public class Player : MovingObject
                 break;
             case "ItemSoda":
                 Items.useItem(ItemType.SODA, collider);
+                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
             case "ItemBomb":
                 collider.gameObject.SetActive(false);
                 bombInventory++;
                 RefreshUI();
+                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
             case "ItemLadder":
                 collider.gameObject.SetActive(false);
                 ladderInventory++;
                 RefreshUI();
+                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
             case "ItemViewbot":
                 Items.useItem(ItemType.VIEWBOT, collider);
+                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
         }
     }
