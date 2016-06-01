@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Text levelText;
     public int moneyGain;
     public bool waitOnEnemiesAnimations;
+    private Vector3 playerLastPosition;
 
     public BoardManager boardScript;
 
@@ -109,6 +110,12 @@ public class GameManager : MonoBehaviour
     public void OnTurnEnd()
     {
         state = GameState.ENEMIESTURN;
+        var oldPosition = playerLastPosition;
+        playerLastPosition = Player.instance.transform.position;
+        // No donation if the player didn't move
+        if (oldPosition == playerLastPosition)
+            return;
+
         float prob = Random.Range(1, 100);
 
         float viewersProb = Player.instance.TotalViewers / 250.0f;
