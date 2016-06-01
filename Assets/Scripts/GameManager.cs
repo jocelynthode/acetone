@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         if (prob <= (1.0f + viewersProb))
         {
             int money = PlayerPrefs.GetInt("money");
-            int newMoney = (int)(0.1 * (new Range(10, 1500, 5f)).RandomInt());
+            int newMoney = (int)(0.1 * (new Range(10, 400, 5f)).RandomInt());
             GainMoney("New Donation: ", money, newMoney);
         }
     }
