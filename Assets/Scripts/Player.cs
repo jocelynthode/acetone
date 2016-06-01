@@ -19,7 +19,6 @@ public class Player : MovingObject
     private bool waitOnAttackAnimation;
     private int bombInventory;
     private int ladderInventory;
-    private AudioSource pickupSound;
 
     void Awake()
     {
@@ -155,7 +154,7 @@ public class Player : MovingObject
     protected override void OnCantMove<T>(T component)
     {
         Enemy enemy = component as Enemy;
-        GameObject.Find("sword").GetComponent<AudioSource>().Play();
+        Utils.PlaySound("sword");
         enemy.TakeDamage(att);
         if (enemy.hp > 0)
             waitOnAttackAnimation = true;
@@ -166,7 +165,7 @@ public class Player : MovingObject
     {
         base.TakeDamage(att);
         healthPoint.text = hp.ToString();
-        GameObject.Find("playerHit").GetComponent<AudioSource>().Play();
+        Utils.PlaySound("playerHit");
         anAnimator.SetTrigger("PlayerHit");
     }
 
@@ -208,26 +207,24 @@ public class Player : MovingObject
         {
             case "Exit":
                 GameManager.instance.OnLevelCompletion();
-                break;
+                return;
             case "ItemSoda":
                 Items.useItem(ItemType.SODA, collider);
-                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
+                Utils.PlaySound("pickup");
                 break;
             case "ItemBomb":
                 collider.gameObject.SetActive(false);
                 bombInventory++;
-                RefreshUI();
-                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
+                Utils.PlaySound("pickup");
                 break;
             case "ItemLadder":
                 collider.gameObject.SetActive(false);
                 ladderInventory++;
+                Utils.PlaySound("pickup");
                 RefreshUI();
-                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
             case "ItemViewbot":
                 Items.useItem(ItemType.VIEWBOT, collider);
-                GameObject.Find("pickup").GetComponent<AudioSource>().Play();
                 break;
         }
     }

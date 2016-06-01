@@ -32,5 +32,10 @@ public static class Utils
         }
 
     }
+
+    public static void PlaySound(string name)
+    {
+        GameObject.Find("Sound").transform.FindChild(name).GetComponent<AudioSource>().Play();
+    }
 }
 

@@ -9,7 +9,6 @@ public class Enemy : MovingObject
     private Transform target;
     private bool skipMove;
     private int dir = 1;
-    private AudioSource hitSound;
     
     // Use this for initialization
     protected override void Start()
@@ -56,7 +55,7 @@ public class Enemy : MovingObject
     public override void TakeDamage(int att)
     {
         base.TakeDamage(att);
-        GameObject.Find("ennemyHit").GetComponent<AudioSource>().Play();
+        Utils.PlaySound("ennemyHit");
         anAnimator.SetTrigger("EnemyHit");
     }
 

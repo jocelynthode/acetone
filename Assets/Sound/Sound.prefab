@@ -69,7 +69,7 @@ GameObject:
   - 4: {fileID: 4000013586819796}
   - 82: {fileID: 82000010721453428}
   m_Layer: 0
-  m_Name: LadderUseSound
+  m_Name: LadderUse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

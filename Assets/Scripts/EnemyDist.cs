@@ -88,7 +88,7 @@ public class EnemyDist : Enemy
 
     private void DisplayLaser(Vector3 own, Vector3 player)
     {
-        GameObject.Find("laser").GetComponent<AudioSource>().Play();
+        Utils.PlaySound("laser");
         line.enabled = true;
         line.SetPosition(0, own - new Vector3(0, 0.2f, 1));
         line.SetPosition(1, player - new Vector3(0, 0, 1));
