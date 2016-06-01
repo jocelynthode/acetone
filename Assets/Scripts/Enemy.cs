@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Enemy : MovingObject
 {
@@ -9,10 +10,13 @@ public class Enemy : MovingObject
     private Transform target;
     private bool skipMove;
     private int dir = 1;
-    
+    private AStar aStar;
+    public bool isSmart;
+
     // Use this for initialization
     protected override void Start()
     {
+        aStar = GetComponent<AStar>();
         anAnimator = GetComponent<Animator>();
         base.Start();
         hp = 100;
@@ -31,17 +35,27 @@ public class Enemy : MovingObject
         Transform player = GameManager.instance.boardScript.player.transform;
         int xDir = 0;
         int yDir = 0;
-        float value = UnityEngine.Random.value;
-        //TODO make the enemy choose something else if there is obstacle (RayCast)
-        if (value > 0.1f)
+        if (isSmart)
         {
-            if (Math.Abs(player.position.x - this.transform.position.x) < float.Epsilon)
+            ArrayList a = aStar.calculatePath(this.transform.position, player.position);
+            Vector3 nextPosition = (Vector3) a[0] - transform.position;
+            xDir = (int) nextPosition.x;
+            yDir = (int) nextPosition.y;
+        }
+        else
+        {
+            float value = UnityEngine.Random.value;
+            //TODO make the enemy choose something else if there is obstacle (RayCast)
+            if (value > 0.1f)
             {
-                yDir = player.position.y > this.transform.position.y ? 1 : -1;
-            }
-            else
-            {
-                xDir = player.position.x > this.transform.position.x ? 1 : -1;
+                if (Math.Abs(player.position.x - this.transform.position.x) < float.Epsilon)
+                {
+                    yDir = player.position.y > this.transform.position.y ? 1 : -1;
+                }
+                else
+                {
+                    xDir = player.position.x > this.transform.position.x ? 1 : -1;
+                }
             }
         }
         if (xDir != 0 && xDir != dir)

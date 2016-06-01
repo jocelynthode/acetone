@@ -22,7 +22,7 @@ public class AStar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		string[] names = new string[]{"Path", "BridgeBarrier", "Water", "EnemySpawn"};
+		string[] names = new string[]{"Floor", "Wall", "OuterWall", "Exit"};
 		int[] walkable = new int[]{1, 0, 0, 0};
 		//get max grid
 		int minX = 0;
@@ -82,7 +82,7 @@ public class AStar : MonoBehaviour {
 		}
 	}
 
-	public ArrayList calculatePath(GameObject startTile, GameObject endTile){
+	public ArrayList calculatePath(Vector3 startPosition, Vector3 endPosition){
 		if (map == null || map.Length == 0)
 			return null;
 		ArrayList result = new ArrayList ();
@@ -96,9 +96,9 @@ public class AStar : MonoBehaviour {
 				map[y][x].f = 0;
 				map[y][x].g = 0;
 				map[y][x].h = 0;
-				if (map[y][x].tile == startTile)
+                if (map[y][x].tile.transform.position == startPosition)
 					start = map[y][x];
-				else if (map[y][x].tile == endTile)
+                else if (map[y][x].tile.transform.position == endPosition)
 					end = map[y][x];
 			}
 		}
@@ -116,7 +116,7 @@ public class AStar : MonoBehaviour {
 			if (n == end){
 				//construct path
 				while (n != null && n != start){
-					result.Insert(0, n.tile);
+                    result.Insert(0, n.tile.transform.position);
 					n = n.parent;
 				}
 				//result.Insert(0, start.tile);
