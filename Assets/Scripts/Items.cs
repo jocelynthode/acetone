@@ -58,6 +58,7 @@ public static class Items
         {
             GameManager.instance.boardScript.enemies[0].Die();
             i = i - 1;
+            GameObject.Find("BombExplosion").GetComponent<AudioSource>().Play();
         }
     }
 
