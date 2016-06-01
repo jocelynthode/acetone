@@ -9,17 +9,6 @@ public class AStar : MonoBehaviour {
 	private GridItemSorter sorter = new GridItemSorter();
 	private ArrayList items = new ArrayList();
 
-	public static AStar instance = null;
-	
-	void Awake()
-	{
-		if (instance == null)		
-			instance = this;
-		else if(instance != this)
-			Destroy(gameObject);
-		//DontDestroyOnLoad(gameObject);
-	}
-
 	// Use this for initialization
 	void Start () {
 		string[] names = new string[]{"Floor", "Wall", "OuterWall", "Exit"};
