@@ -58,6 +58,7 @@ public static class Items
         {
             GameManager.instance.boardScript.enemies[0].Die();
             i = i - 1;
+            // http://audiosoundclips.com/8-bit-explosion-blast-sound-effects-sfx/
             GameObject.Find("BombExplosion").GetComponent<AudioSource>().Play();
         }
     }
@@ -69,7 +70,9 @@ public static class Items
 
     static void useLadder()
     {
+        GameObject.Find("LadderUseSound").GetComponent<AudioSource>().Play();
         GameManager.instance.OnLevelCompletion(PlayerPrefs.GetInt("itemsPowerLevel")*2+2);
+
     }
 
 }
