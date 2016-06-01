@@ -126,8 +126,7 @@ public class BoardManager : MonoBehaviour
                     toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
 
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector2 corresponding to current grid position in loop, cast it to GameObject.
-                GameObject instance =
-                    Instantiate(toInstantiate, new Vector2(x, y), Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(toInstantiate, new Vector2(x, y), Quaternion.identity) as GameObject;
 
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(boardHolder);
