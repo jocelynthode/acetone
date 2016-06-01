@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public Text donationText;
     public Text moneyGainText;
     public Text levelText;
-    public AudioSource cashMoneyBiatch;
     public int moneyGain;
     public bool waitOnEnemiesAnimations;
 
@@ -135,8 +134,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("money", oldMoney + newMoney);
         DisplayText(string.Format(text + "{0:C2}", newMoney));
         Player.instance.money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
-        cashMoneyBiatch.Play();
-
+        GameObject.Find("cashtill").GetComponent<AudioSource>().Play();
     }
 
     public void DisplayText(string text, int time=2)
