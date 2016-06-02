@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21226584}
   - 61: {fileID: 6114532}
   m_Layer: 0
-  m_Name: ad
+  m_Name: soda
   m_TagString: ItemSoda
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,10 +53,11 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -65,13 +66,14 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 1
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1850873965
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7316048ebb7ee584b8a527bb402dbb71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbf4096cf5dced447a606957cb142f48, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
