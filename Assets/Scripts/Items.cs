@@ -101,8 +101,8 @@ public static class Items
     {
         Canvas letter = GameObject.Find("Letter").GetComponent<Canvas>();
         int lettersRead = PlayerPrefs.GetInt("lettersRead");
-        Text letterText = GameObject.Find("Date").GetComponent<Text>();
-        Text dateText = GameObject.Find("Text").GetComponent<Text>();
+        Text letterText = GameObject.Find("Text").GetComponent<Text>();
+        Text dateText = GameObject.Find("Date").GetComponent<Text>();
 
         letterText.text = lettersText[lettersRead];
         dateText.text = lettersDate[lettersRead];

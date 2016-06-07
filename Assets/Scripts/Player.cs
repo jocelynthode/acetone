@@ -196,7 +196,7 @@ public class Player : MovingObject
     private void OnTriggerEnter2D(Collider2D collider)
     {
         //if first Time
-        if (collider.tag != "Exit")
+        if (collider.tag != "Exit" && collider.tag != "ItemLetter")
         {
             GameObject tutorialPopup = GameObject.Find("TutorialPopup");
             Tutorial tutorial = tutorialPopup.GetComponent<Tutorial>();

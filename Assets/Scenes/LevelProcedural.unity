@@ -143,6 +143,8 @@ MonoBehaviour:
   itemBombTile: {fileID: 189916, guid: 87a0588c15a23344d96aa8e203eb9438, type: 2}
   itemViewbotTile: {fileID: 135524, guid: fdfe529fc5bc55645bb8a7faea670a42, type: 2}
   itemLadderTile: {fileID: 144326, guid: d540d0bb545574716b0d0cd8acb49c08, type: 2}
+  itemLetterTile: {fileID: 1000010114897752, guid: 371261a32ae0a4441accf5d1d565d5ee,
+    type: 2}
   wallTiles:
   - {fileID: 119690, guid: 5ec9dada93cbd66489dda136428d6998, type: 2}
   floorTiles:

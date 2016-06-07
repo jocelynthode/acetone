@@ -136,12 +136,6 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    private void AddLetter()
-    {
-        //1,2,5,10,14,17,20 levels
-    }
-
-
     //RandomPosition returns a random position from our list gridPositions.
     Vector2 RandomPosition()
     {
@@ -256,6 +250,21 @@ public class BoardManager : MonoBehaviour
             LayoutObjectAtRandom(itemViewbotTile, itemViewbotCount);
             LayoutObjectAtRandom(itemLadderTile, itemLadderCount);
         }
+
+        switch(GameManager.instance.level)
+        {
+            case 1:
+            case 2:
+            case 5:
+            case 10:
+            case 14:
+            case 17:
+            case 20:
+                if(PlayerPrefs.GetInt("lettersRead") < 7)
+                    LayoutObjectAtRandom(itemLetterTile, new Range(1, 1));
+                break;
+        }
+
 
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
