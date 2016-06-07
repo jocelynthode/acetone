@@ -35,7 +35,7 @@ public class Tutorial : MonoBehaviour {
 		tutorialText.text = "This is an enemy ! Just walk against it to kill it !";
         tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 4);
+		Invoke ("RemovePopup", 8);
 	}
 
     public void EnemyOthersTutorial()
@@ -57,7 +57,7 @@ public class Tutorial : MonoBehaviour {
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
         }
         tutorialPopup.gameObject.SetActive(true);
-        Invoke ("RemovePopup", 4);
+        Invoke ("RemovePopup", 8);
     }
 
 	public void ObjectTutorial()
@@ -68,7 +68,7 @@ public class Tutorial : MonoBehaviour {
 		tutorialText.text = "Walk on objects to pick them up ! Bombs kill enemies, Soda give you some health, Sponsorship gives you viewers and ladders lets you skip levels!";
         tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 6);
+		Invoke ("RemovePopup", 8);
 	}
 
 	public void RemovePopup()
