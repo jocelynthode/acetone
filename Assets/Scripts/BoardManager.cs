@@ -7,12 +7,14 @@ using Range = Utils.Range;
 public class BoardManager : MonoBehaviour
 {
 
-    private int columns = 25;                                         //Number of columns in our game board.
-    private int rows = 15;                                            //Number of rows in our game board.
+    private int columns;                                         //Number of columns in our game board.
+    private int rows;                                            //Number of rows in our game board.
+    private Range columnsCount = new Range(15, 25, 1.5f);
+    private Range rowsCount = new Range(15, 25, 1.5f);
 
 
     //Lower and upper limit for our random number of inner walls and items
-    private Range wallCount = new Range(60, 80);
+    private Range wallCount = new Range(60, 90);
     private Range itemAdCount = new Range(0, 1, 2);
     private Range itemBombCount = new Range(0, 1, 2);
     private Range itemViewbotCount = new Range(0, 1, 4);
@@ -233,6 +235,9 @@ public class BoardManager : MonoBehaviour
     //SetupScene initializes our level and calls the previous functions to lay out the game board
     public void SetupScene(int level)
     {
+        columns = columnsCount.RandomInt();
+        rows = rowsCount.RandomInt();
+
         //Creates the outer walls and floor.
         BoardSetup();
 

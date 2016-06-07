@@ -95,7 +95,7 @@ public class Enemy : MovingObject
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
         int moneyGainCoef = PlayerPrefs.GetInt("moneyGain");
-        GameManager.instance.moneyGain += (int) (startHp * 0.3f * moneyGainCoef * KillMoneyCoef);
+        GameManager.instance.moneyGain += (int) (startHp * 0.2f * moneyGainCoef * KillMoneyCoef);
         Player.instance.RefreshUI();
         Destroy(gameObject);
     }
