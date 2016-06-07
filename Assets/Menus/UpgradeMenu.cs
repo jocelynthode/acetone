@@ -147,13 +147,15 @@ public class UpgradeMenu : MonoBehaviour
                 return up;
             });
             upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 50, baseStat + 1, "Item Specialist");
+                var cost = 200 * Mathf.Pow(5, baseLevel);
+                var up = new Upgrade((int) cost, baseStat + 1, "Item Specialist");
                 // Improve description
                 up.Text = string.Format("Improve the power of picked-up items: from level {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, (baseStat / 10) * 10 + 10, "Starting Level");
+                var cost = 100 * Mathf.Pow(5, baseLevel);
+                var up = new Upgrade((int) cost, (baseStat / 10) * 10 + 10, "Starting Level");
                 up.Text = string.Format("Start game from level {1} instead of {0}.", baseStat, up.Stat);
                 return up;
             });

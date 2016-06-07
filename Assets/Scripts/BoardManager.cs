@@ -13,10 +13,10 @@ public class BoardManager : MonoBehaviour
 
     //Lower and upper limit for our random number of inner walls and items
     private Range wallCount = new Range(60, 80);
-    private Range itemAdCount = new Range(0, 1, 8);
-    private Range itemBombCount = new Range(0, 1, 4);
-    private Range itemViewbotCount = new Range(0, 1, 8);
-    private Range itemLadderCount = new Range(0, 1, 0.25f);
+    private Range itemAdCount = new Range(0, 1, 2);
+    private Range itemBombCount = new Range(0, 1, 2);
+    private Range itemViewbotCount = new Range(0, 1, 4);
+    private Range itemLadderCount = new Range(0, 1, 3);
     public GameObject playerTile;
     public GameObject exitTile;                                     //Prefab to spawn for exit.
     public GameObject itemAdTile;
