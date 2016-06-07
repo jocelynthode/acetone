@@ -42,7 +42,6 @@ public class Player : MovingObject
         base.Start();
         hp = PlayerPrefs.GetInt("maxHealth");
         att = PlayerPrefs.GetInt("attack");
-        def = PlayerPrefs.GetInt("defense");
         bombInventory = 0;
         ladderInventory = 0;
         InitLevel();

@@ -17,9 +17,8 @@ public class Enemy : MovingObject
     {
         anAnimator = GetComponent<Animator>();
         base.Start();
-        hp = 100;
-        att = 1;
-        def = 1;
+        hp = (int) ( 60 * (1 + GameManager.instance.level / 10f) );
+        att = (int) ( 5 * (1 + GameManager.instance.level / 20f) );
     }
 
     public override void AttemptMove<T>(int xDir, int yDir)

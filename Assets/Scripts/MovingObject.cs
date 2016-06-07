@@ -16,7 +16,6 @@ public abstract class MovingObject : MonoBehaviour
 
     public int hp;
     public int att;
-    public int def;
     public int movesPerTurn = 1;
 
 
@@ -137,7 +136,7 @@ public abstract class MovingObject : MonoBehaviour
 
     public virtual void TakeDamage(int attackPower)
     {
-        hp = hp - attackPower * def;
+        hp = hp - attackPower;
         StartCoroutine(Blink());
         if (hp <= 0)
         {

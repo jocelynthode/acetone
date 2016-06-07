@@ -250,14 +250,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("money", 30);
 
         PlayerPrefs.SetInt("attack", 10);
-        PlayerPrefs.SetInt("defense", 5);
         PlayerPrefs.SetInt("maxHealth", 50);
         PlayerPrefs.SetInt("moneyGain", 0);
         PlayerPrefs.SetInt("startGameLevel", 1);
         PlayerPrefs.SetInt("viewers", 20);
 
         PlayerPrefs.SetInt("attackLevel", 0);
-        PlayerPrefs.SetInt("defenseLevel", 0);
         PlayerPrefs.SetInt("maxHealthLevel", 0);
         PlayerPrefs.SetInt("startGameLevelLevel", 0);
         PlayerPrefs.SetInt("moneyGainLevel", 0);
