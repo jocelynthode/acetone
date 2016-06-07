@@ -53,12 +53,14 @@ public class Player : MovingObject
         transform.position = new Vector2(12, 7);
     }
 
-    private void RefreshUI()
+    public void RefreshUI()
     {
         healthPoint = GameObject.Find("hpText").GetComponent<Text>();
         healthPoint.text = hp.ToString();
         money = GameObject.Find("moneyText").GetComponent<Text>();
         money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money", 0));
+        var moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
+        moneyGainText.text = string.Format("Sponsor Pay: ${0}", GameManager.instance.moneyGain);
         var bomb = GameObject.Find("bombText").GetComponent<Text>();
         bomb.text = "x " + bombInventory;
         var ladder = GameObject.Find("ladderText").GetComponent<Text>();

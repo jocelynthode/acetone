@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     private int oldLevel;
     public int level;
     public Text donationText;
-    public Text moneyGainText;
     public Text levelText;
     public int moneyGain;
     public bool waitOnEnemiesAnimations;
@@ -68,14 +67,13 @@ public class GameManager : MonoBehaviour
     {
         levelText = GameObject.Find("levelText").GetComponent<Text>();
         levelText.text = string.Format("Level: {0}", level);
-        moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
         donationText = GameObject.Find("donationText").GetComponent<Text>();
 
         //Check if we changed the tens (e.g. : From 9 to 10 or from 15 to 21
         // we don't want to pay money on first level
         if (oldLevel != 1 && oldLevel / 10 != level / 10 )
         {
-            moneyGain += (3+PlayerPrefs.GetInt("moneyGain", 0)) * level; //TODO indicate this bonus
+            moneyGain += (3+PlayerPrefs.GetInt("moneyGain")) * level; //TODO indicate this bonus
             int money = PlayerPrefs.GetInt("money");
             PlayerPrefs.SetInt("money", money + moneyGain);
             moneyGain = 0;
@@ -85,7 +83,7 @@ public class GameManager : MonoBehaviour
 
         oldLevel = level;
 
-        moneyGainText.text = string.Format("Sponsor Pay: ${0}", moneyGain);
+        Player.instance.RefreshUI();
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         aStar = new AStar();
@@ -147,8 +145,8 @@ public class GameManager : MonoBehaviour
     public void GainMoney(string text, int oldMoney, int newMoney)
     {
         PlayerPrefs.SetInt("money", oldMoney + newMoney);
-        DisplayText(string.Format(text + "{0:C2}", newMoney));
-        Player.instance.money.text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
+        DisplayText(string.Format(text + "${0}", newMoney));
+        Player.instance.RefreshUI();
         Utils.PlaySound("cashtill");
     }
 
