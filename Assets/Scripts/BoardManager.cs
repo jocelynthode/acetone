@@ -260,8 +260,7 @@ public class BoardManager : MonoBehaviour
             case 14:
             case 17:
             case 20:
-                if(PlayerPrefs.GetInt("lettersRead") < 7)
-                    LayoutObjectAtRandom(itemLetterTile, new Range(1, 1));
+                LayoutObjectAtRandom(itemLetterTile, new Range(1, 1));
                 break;
         }
 
