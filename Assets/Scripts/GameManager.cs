@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int moneyGain;
     public bool waitOnEnemiesAnimations;
     private Vector3 playerLastPosition;
+    public AStar aStar;
 
     public BoardManager boardScript;
 
@@ -81,6 +82,8 @@ public class GameManager : MonoBehaviour
         moneyGainText.text = string.Format("Sponsor Pay: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
+        aStar = new AStar();
+
         donationText = GameObject.Find("donationText").GetComponent<Text>();
         state = GameState.PLAYERTURN;
     }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AStar : MonoBehaviour {
+public class AStar {
 	private const int TILE_SIZE = 1;
 	private GridItem[][] map;
 	private int offsetX;
@@ -10,7 +10,7 @@ public class AStar : MonoBehaviour {
 	private ArrayList items = new ArrayList();
 
 	// Use this for initialization
-	void Start () {
+    public AStar () {
 		string[] names = new string[]{"Floor", "Wall", "OuterWall", "Exit"};
 		int[] walkable = new int[]{1, 0, 0, 0};
 		//get max grid
@@ -182,9 +182,4 @@ public class AStar : MonoBehaviour {
 			open.Add(n1);
 		}
 	}
-
-	void Update () {
-
-	}
-
 }

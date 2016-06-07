@@ -13,7 +13,6 @@ GameObject:
   - 212: {fileID: 21227170}
   - 95: {fileID: 9502824}
   - 114: {fileID: 11473968}
-  - 114: {fileID: 114000011135734244}
   m_Layer: 8
   m_Name: EnemyFast
   m_TagString: Enemy
@@ -146,14 +145,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143676}
   m_IsPrefabParent: 1
---- !u!114 &114000011135734244
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 143676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dadca7da981ee04d9aef6134141cbd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

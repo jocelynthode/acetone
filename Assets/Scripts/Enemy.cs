@@ -10,13 +10,11 @@ public class Enemy : MovingObject
     private Transform target;
     private bool skipMove;
     private int dir = 1;
-    private AStar aStar;
     public bool isSmart;
 
     // Use this for initialization
     protected override void Start()
     {
-        aStar = GetComponent<AStar>();
         anAnimator = GetComponent<Animator>();
         base.Start();
         hp = 100;
@@ -37,6 +35,7 @@ public class Enemy : MovingObject
         int yDir = 0;
         if (isSmart)
         {
+            AStar aStar = GameManager.instance.aStar;
             ArrayList a = aStar.calculatePath(this.transform.position, player.position);
             Vector3 nextPosition = (Vector3) a[0] - transform.position;
             xDir = (int) nextPosition.x;
