@@ -23,6 +23,7 @@ public class BoardManager : MonoBehaviour
     public GameObject itemBombTile;
     public GameObject itemViewbotTile;
     public GameObject itemLadderTile;
+    public GameObject itemLetterTile;
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
     public GameObject[] floorTiles;                                  //Array of floor prefabs.
     public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
@@ -133,6 +134,11 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+    }
+
+    private void AddLetter()
+    {
+        //1,2,5,10,14,17,20 levels
     }
 
 

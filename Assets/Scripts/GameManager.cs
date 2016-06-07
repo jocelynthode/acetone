@@ -262,5 +262,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("viewersLevel", 0);
         PlayerPrefs.SetInt("itemsPowerLevel", 0);
         PlayerPrefs.SetInt("tutorialDisplayed", 0);
+        PlayerPrefs.SetInt("lettersRead", 0);
     }
 }

@@ -8,8 +8,28 @@ public static class Items
         SODA,
         BOMB,
         VIEWBOT,
-        LADDER
+        LADDER,
+        LETTER
     }
+
+    static string[] lettersText = {
+        "Fuck yeah! Today I received my new PC! It should be good enough for streaming!\nI can finally try to become a streamer and hopefully leave my useless job...",
+        "Today I got my first viewers! I can already feel the subscribe button coming to me! On the other hand my boss couldn't stop\nchewing on me today! What a bitch! Once I hit 1000 viewers consistently I'm done with this job!",
+        "I couldn't stream today, I'm sure I'll lose all the progress I made since I started streaming. This bitch, making me work on\nChristmas eve... Please let me quit this dead end of a job!",
+        "I forgot to keep my diary up to date.. My stream is literally taking me all my free time. I still can't quit my job! These people watching me\ndon't deserve me! I'm giving them everything and nobody is donating or subscribing! What a bunch of losers",
+        "I didn't go to my job this morning, I wasn't feeling well. I keep having these big headaches. I also woke up in front of my neighbor's house\nand I have no memories on how I got there...",
+        "Everyone is a fucking tool! My boss won't give me a raise and makes me work every fucking day of the week! My viewers aren't even helping me \nlive my dream! Maybe I should pay a visit to some of them, I know where they live! \n\nStill I'm a bit worried about my absences, maybe I should go check a doctor.",
+        "What the fuck! I woke up in one of my viewer's home! I don't remember how but there's blood everywhere! This can't be me! I thought about it\nbut it was just a joke, I didn't mean it! I can already hear the sirens coming to my house and everything is again turning white I don't feel my le..."
+    };
+    static string[] lettersDate = {
+        "21 September 2013",
+        "02 November 2014",
+        "24 December 2013",
+        "02 May 2014",
+        "15 May 2014",
+        "15 June 2014",
+        "02 September 2014" 
+    };
 
     public static void useItem(ItemType item, Collider2D collider = null)
     {
@@ -26,6 +46,9 @@ public static class Items
                 break;
             case ItemType.LADDER:
                 useLadder();
+                break;
+            case ItemType.LETTER:
+                useLetter();
                 break;
             default:
                 throw new System.ArgumentException();
@@ -74,4 +97,16 @@ public static class Items
         GameManager.instance.OnLevelCompletion(PlayerPrefs.GetInt("itemsPowerLevel")*2+2);
     }
 
+    static void useLetter()
+    {
+        Canvas letter = GameObject.Find("Letter").GetComponent<Canvas>();
+        int lettersRead = PlayerPrefs.GetInt("lettersRead");
+        Text letterText = GameObject.Find("Date").GetComponent<Text>();
+        Text dateText = GameObject.Find("Text").GetComponent<Text>();
+
+        letterText.text = lettersText[lettersRead];
+        dateText.text = lettersDate[lettersRead];
+        PlayerPrefs.SetInt("lettersRead", lettersRead+1);
+        letter.enabled = true;
+    }
 }

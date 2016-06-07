@@ -225,6 +225,11 @@ public class Player : MovingObject
                 break;
             case "ItemViewbot":
                 Items.useItem(ItemType.VIEWBOT, collider);
+                Utils.PlaySound("pickup");
+                break;
+            case "ItemLetter":
+                Items.useItem(ItemType.LETTER, collider);
+                Utils.PlaySound("pickup");
                 break;
         }
     }
