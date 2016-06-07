@@ -32,7 +32,7 @@ public class Tutorial : MonoBehaviour {
         int tutorialDisplayed = PlayerPrefs.GetInt("tutorialDisplayed");
         if (tutorialDisplayed > 1)
 			return;
-		tutorialText.text = "This is an enemy ! Just walk against it to kill it !";
+        tutorialText.text = "This is an enemy ! Just walk against it to kill it ! The more ennemies you kill the more money you earn but WATCH OUT you receive money only after 10 levels";
         tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 		Invoke ("RemovePopup", 8);
