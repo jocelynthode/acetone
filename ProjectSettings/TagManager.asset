@@ -15,6 +15,7 @@ TagManager:
   - ItemLadder
   - Floor
   - OuterWall
+  - ItemLetter
   layers:
   - Default
   - TransparentFX
