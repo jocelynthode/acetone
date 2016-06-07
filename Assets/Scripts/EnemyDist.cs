@@ -6,7 +6,7 @@ public class EnemyDist : Enemy
 {
     private LineRenderer line;
 
-    public virtual float KillMoneyCoef { get { return 2; } }
+    public override float KillMoneyCoef { get { return 2; } }
 
     protected override void Start()
     {
