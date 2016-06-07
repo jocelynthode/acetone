@@ -48,12 +48,12 @@ public static class Items
             player.hp = playerHealth + healthGained;
         }
         player.healthPoint.text = player.hp.ToString();
-        GameManager.instance.DisplayText(string.Format("{0} health regained !", healthGained));
+        GameManager.instance.DisplayText(string.Format("{0}HP regained!", healthGained));
     }
 
     static void useBomb()
     {
-        int i = 3 + PlayerPrefs.GetInt("itemsPower");
+        int i = 3 + PlayerPrefs.GetInt("itemsPowerLevel");
         while (i > 0 && GameManager.instance.boardScript.enemies.Count > 0)
         {
             GameManager.instance.boardScript.enemies[0].Die();

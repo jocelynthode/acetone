@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    private int oldLevel;
     public int level;
     public Text donationText;
     public Text moneyGainText;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         level = PlayerPrefs.GetInt("startGameLevel");
+        oldLevel = level;
         moneyGain = 0;
         InitLevel();
     }
@@ -65,9 +67,9 @@ public class GameManager : MonoBehaviour
     void InitLevel()
     {
         levelText = GameObject.Find("levelText").GetComponent<Text>();
-        int oldLevel = int.Parse(Regex.Match(levelText.text, @"\d+").Value);
-        moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
         levelText.text = string.Format("Level: {0}", level);
+        moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
+        donationText = GameObject.Find("donationText").GetComponent<Text>();
 
         //Check if we changed the tens (e.g. : From 9 to 10 or from 15 to 21
         // we don't want to pay money on first level
@@ -78,13 +80,16 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("money", money + moneyGain);
             moneyGain = 0;
         }
+        if (level - oldLevel > 1)
+            DisplayText(String.Format("{0} levels skipped!", level - oldLevel));
+
+        oldLevel = level;
 
         moneyGainText.text = string.Format("Sponsor Pay: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         aStar = new AStar();
 
-        donationText = GameObject.Find("donationText").GetComponent<Text>();
         state = GameState.PLAYERTURN;
     }
 
