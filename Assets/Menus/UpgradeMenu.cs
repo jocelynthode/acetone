@@ -103,6 +103,7 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt(name + "Level", level + 1);
         PlayerPrefs.Save();
 
+        Utils.PlaySound("cashtill");
         RefreshMenu();
     }
 
