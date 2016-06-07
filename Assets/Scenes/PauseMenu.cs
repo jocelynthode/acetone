@@ -53,8 +53,7 @@ public class PauseMenu : MonoBehaviour {
             SceneManager.LoadScene("StartMenu");
             GameManager.instance.state = GameManager.GameState.MENU;
         }
-
-        GameManager.instance.OnGameOver(false);
+        else GameManager.instance.OnGameOver(false);
 	}
 
 	public void ExitPress()
