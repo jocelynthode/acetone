@@ -10,14 +10,21 @@ public class Enemy : MovingObject
     private Transform target;
     private bool skipMove;
     private int dir = 1;
+    protected int startHp;
     public bool isSmart;
+
+    public virtual float KillMoneyCoef {
+        get {
+            return isSmart ? 4 : 1;
+        }
+    }
 
     // Use this for initialization
     protected override void Start()
     {
         anAnimator = GetComponent<Animator>();
         base.Start();
-        hp = (int) ( 60 * (1 + GameManager.instance.level / 10f) );
+        hp = startHp = (int) ( 60 * (1 + GameManager.instance.level / 10f) );
         att = (int) ( 5 * (1 + GameManager.instance.level / 20f) );
     }
 
@@ -87,9 +94,8 @@ public class Enemy : MovingObject
     public override void Die()
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
-        int moneyGain = PlayerPrefs.GetInt("moneyGain");
-        moneyGain = (moneyGain == 0 ? 1 : moneyGain);
-        GameManager.instance.moneyGain += 15*moneyGain;
+        int moneyGainCoef = PlayerPrefs.GetInt("moneyGain");
+        GameManager.instance.moneyGain += (int) (startHp * 0.2f * moneyGainCoef * KillMoneyCoef);
         GameManager.instance.moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
         GameManager.instance.moneyGainText.text = string.Format("Sponsor Pay: ${0}", GameManager.instance.moneyGain);
         Destroy(gameObject);
