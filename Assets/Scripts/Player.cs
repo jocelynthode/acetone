@@ -216,6 +216,7 @@ public class Player : MovingObject
                 collider.gameObject.SetActive(false);
                 bombInventory++;
                 Utils.PlaySound("pickup");
+                RefreshUI();
                 break;
             case "ItemLadder":
                 collider.gameObject.SetActive(false);
