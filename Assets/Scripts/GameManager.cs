@@ -69,16 +69,16 @@ public class GameManager : MonoBehaviour
         levelText.text = string.Format("Level: {0}", level);
 
         //Check if we changed the tens (e.g. : From 9 to 10 or from 15 to 21
-        if (oldLevel / 10 != level / 10)
+        // we don't want to pay money on first level
+        if (oldLevel != 1 && oldLevel / 10 != level / 10 )
         {
-            moneyGain += 3 * level; //TODO indicate this bonus
-            moneyGain *= PlayerPrefs.GetInt("moneyGain", 0);
+            moneyGain += (3+PlayerPrefs.GetInt("moneyGain", 0)) * level; //TODO indicate this bonus
             int money = PlayerPrefs.GetInt("money");
             PlayerPrefs.SetInt("money", money + moneyGain);
             moneyGain = 0;
         }
 
-        moneyGainText.text = string.Format("SKILL MONEY: ${0}", moneyGain);
+        moneyGainText.text = string.Format("Sponsor Pay: ${0}", moneyGain);
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         donationText = GameObject.Find("donationText").GetComponent<Text>();

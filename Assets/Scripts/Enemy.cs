@@ -89,9 +89,11 @@ public class Enemy : MovingObject
     public override void Die()
     {
         GameManager.instance.boardScript.enemies.Remove(gameObject.GetComponent<Enemy>());
-        GameManager.instance.moneyGain += 15;
+        int moneyGain = PlayerPrefs.GetInt("moneyGain");
+        moneyGain = (moneyGain == 0 ? 1 : moneyGain);
+        GameManager.instance.moneyGain += 15*moneyGain;
         GameManager.instance.moneyGainText = GameObject.Find("moneyGainText").GetComponent<Text>();
-        GameManager.instance.moneyGainText.text = string.Format("SKILL MONEY: ${0}", GameManager.instance.moneyGain);
+        GameManager.instance.moneyGainText.text = string.Format("Sponsor Pay: ${0}", GameManager.instance.moneyGain);
         Destroy(gameObject);
     }
 
