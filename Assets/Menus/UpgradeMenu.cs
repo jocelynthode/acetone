@@ -57,15 +57,15 @@ public class UpgradeMenu : MonoBehaviour
             Upgrade upgrade = item.Value(level, stat);
             upgrades.Add(item.Key, upgrade);
 
-            GameObject upgradeButton = GameObject.Find(item.Key);
-            if (upgradeButton)
+            GameObject upgradeText = GameObject.Find(item.Key);
+            if (upgradeText)
             {
-                upgradeButton.GetComponent<Text>().text = string.Format("{0}\n\n{1}", upgrade.Name, upgrade.Text);
-                var costText = GameObject.Find(item.Key + "Button").transform.Find("costText").GetComponent<Text>();
+                upgradeText.GetComponent<Text>().text = string.Format("{0}\n\n{1}", upgrade.Name, upgrade.Text);
+                var upgradeButton = GameObject.Find(item.Key + "Button");
+                var costText = upgradeButton.transform.Find("costText").GetComponent<Text>();
                 costText.text = string.Format("\n${0}", upgrade.Cost);
+                upgradeButton.GetComponent<Button>().interactable = (PlayerPrefs.GetInt("money") >= upgrade.Cost);
             }
-
-            // TODO: Disable button when not enough money
         }
 
         GameObject.Find("moneyText").GetComponent<Text>().text = string.Format("Money: ${0}", PlayerPrefs.GetInt("money"));
