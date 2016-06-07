@@ -48,7 +48,13 @@ public class PauseMenu : MonoBehaviour {
 
 	public void MainMenu()
 	{
-		GameManager.instance.OnGameOver(false);
+        if (SceneManager.GetActiveScene().name == "UpgradeMenu")
+        {
+            SceneManager.LoadScene("StartMenu");
+            GameManager.instance.state = GameManager.GameState.MENU;
+        }
+
+        GameManager.instance.OnGameOver(false);
 	}
 
 	public void ExitPress()
