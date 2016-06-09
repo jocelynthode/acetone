@@ -47,13 +47,13 @@ public class Tutorial : MonoBehaviour {
         {
             if (tutorialDisplayed > 3)
                 return;
-            tutorialText.text = "Beware! The Yellah can attack you from a far distance!";
+            tutorialText.text = "Beware! The Yellah can attack you from a far distance! They also earn you twice as much money.";
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 
         } 
         else if (GameManager.instance.level == 20)
         {
-            tutorialText.text = "Beware! The Redah is twice as fast as you are!";
+            tutorialText.text = "Beware! The Redah is twice as fast as you are! Sponsors will pay a lot for their death.";
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
         }
         tutorialPopup.gameObject.SetActive(true);
