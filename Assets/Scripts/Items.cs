@@ -89,7 +89,7 @@ public static class Items
 
     static void useViewbot()
     {
-        Player.instance.ViewerBots += 50 + (Player.instance.TotalViewers / 2);
+        Player.instance.ViewerBots += 50 + (PlayerPrefs.GetInt("viewers") / 2);
     }
 
     static void useLadder()

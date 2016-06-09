@@ -155,7 +155,8 @@ public class UpgradeMenu : MonoBehaviour
 				
             upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) => {
                 var nextStat = baseStat + 30;
-                var up = new Upgrade((baseLevel + 1) * 100, nextStat, "Sign with Sponsor");
+                var cost = (baseLevel + 1) * 100 * Mathf.Pow(1.1f, baseLevel + 1);
+                var up = new Upgrade((int) cost, nextStat, "Sign with Sponsor");
                 up.Text = string.Format("Sign with sponsors to earn more money per kill. Total bonus increases from {0:F1}x to {1:F1}x.",
                     baseStat / 100f, nextStat / 100f);
                 return up;
