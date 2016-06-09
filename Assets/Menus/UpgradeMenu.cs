@@ -161,9 +161,9 @@ public class UpgradeMenu : MonoBehaviour
             });
 				
             upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) => {
-                var up = new Upgrade((baseLevel + 1) * 10, baseStat + 1, "Sign Sponsor");
-                up.Text = string.Format("Sign with sponsors to earn more money per viewer."
-                    + "This will increase your number of sponsors from {0} to {1}", baseLevel, baseLevel + 1);
+                var increase = 15f / baseStat;
+                var up = new Upgrade((baseLevel + 1) * 100, baseStat + 30, "Sign with Sponsor");
+                up.Text = string.Format("Sign with a sponsor to earn {0:P0} more money per enemy killed.", increase);
                 return up;
             });
         }
