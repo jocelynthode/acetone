@@ -147,7 +147,7 @@ public class UpgradeMenu : MonoBehaviour
                 return up;
             });
             upgradeFunctions.Add("startGameLevel", (baseLevel, baseStat) => {
-                var cost = 100 * Mathf.Pow(5, baseLevel);
+                var cost = 100 * Mathf.Pow(4, baseLevel);
                 var up = new Upgrade((int) cost, (baseStat / 10) * 10 + 10, "Starting Level");
                 up.Text = string.Format("Start game from level {1} instead of {0}.", baseStat, up.Stat);
                 return up;
