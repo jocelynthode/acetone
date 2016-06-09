@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour {
 	public Button continueText;
 	public Button mainMenuText;
 	public Button exitText;
+    private Text muteText;
+    private AudioSource music;
 
 	// Use this for initialization
 	void Start () {
@@ -20,9 +22,13 @@ public class PauseMenu : MonoBehaviour {
 		continueText = continueText.GetComponent<Button> ();
 		mainMenuText = mainMenuText.GetComponent<Button> ();
 		exitText = exitText.GetComponent<Button> ();
-		quitMenu.enabled = false;
+        muteText = GameObject.Find("MuteButton").GetComponent<Text>();
+        music = GameObject.Find("Sound").transform.FindChild("acetone").GetComponent<AudioSource>();
+        quitMenu.enabled = false;
 		mainMenu.enabled = false;
 		pauseMenu.enabled = false;
+
+        UpdateMuteText();
 	}
 
 	public void ContinuePress()
@@ -40,8 +46,13 @@ public class PauseMenu : MonoBehaviour {
 
     public void MutePress()
     {
-        GameObject.Find("Sound").transform.FindChild("acetone").GetComponent<AudioSource>().mute = !GameObject.Find("Sound").transform.FindChild("acetone").GetComponent<AudioSource>().mute;
+        music.mute = !music.mute;
+        UpdateMuteText();
+    }
 
+    public void UpdateMuteText()
+    {
+        muteText.text = music.mute ? "Unmute Music" : "Mute Music";
     }
 
 	public void NoMainMenuPress()
