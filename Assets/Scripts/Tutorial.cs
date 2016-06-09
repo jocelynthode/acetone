@@ -22,9 +22,9 @@ public class Tutorial : MonoBehaviour {
         if (tutorialDisplayed > 0)
 			return;
         tutorialPopup.gameObject.SetActive(true);
-		tutorialText.text = "To move, use WASD or the arrow keys !";
+		tutorialText.text = "To move, use WASD or the arrow keys!";
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 4);
+		Invoke ("RemovePopup", 5);
 	}
 
 	public void EnemyTutorial()
@@ -32,10 +32,10 @@ public class Tutorial : MonoBehaviour {
         int tutorialDisplayed = PlayerPrefs.GetInt("tutorialDisplayed");
         if (tutorialDisplayed > 1)
 			return;
-        tutorialText.text = "This is an enemy ! Just walk against it to kill it ! The more ennemies you kill the more money you earn but WATCH OUT you receive money only after 10 levels";
+        tutorialText.text = "This is an enemy! Just walk against it to fight it! Sponsors pay you for every enemy killed, but the payout is only every 10 levels.";
         tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 8);
+		Invoke ("RemovePopup", 12);
 	}
 
     public void EnemyOthersTutorial()
@@ -47,13 +47,13 @@ public class Tutorial : MonoBehaviour {
         {
             if (tutorialDisplayed > 3)
                 return;
-            tutorialText.text = "Beware ! The Yellah can attack you from a far distance !";
+            tutorialText.text = "Beware! The Yellah can attack you from a far distance!";
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 
         } 
         else if (GameManager.instance.level == 20)
         {
-            tutorialText.text = "Beware ! The Redah is twice as fast as you are !";
+            tutorialText.text = "Beware! The Redah is twice as fast as you are!";
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
         }
         tutorialPopup.gameObject.SetActive(true);
@@ -65,10 +65,10 @@ public class Tutorial : MonoBehaviour {
         int tutorialDisplayed = PlayerPrefs.GetInt("tutorialDisplayed");
         if (tutorialDisplayed > 2)
 			return;
-		tutorialText.text = "Walk on objects to pick them up ! Bombs kill enemies, Soda give you some health, Sponsorship gives you viewers and ladders lets you skip levels!";
+		tutorialText.text = "Walk on items to pick them up! Bombs kill enemies, Bananes heal you, View bots bring you more viewers and Ladders let you skip levels!";
         tutorialPopup.gameObject.SetActive(true);
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 8);
+		Invoke ("RemovePopup", 12);
 	}
 
 	public void RemovePopup()
