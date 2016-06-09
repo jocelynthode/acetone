@@ -21,7 +21,7 @@ public class UpgradeMenu : MonoBehaviour
         CreateUpgradeButton("itemsPower");
         CreateUpgradeButton("startGameLevel");
 
-        if (PlayerPrefs.GetInt("highestLevel") >= 100)
+        if (PlayerPrefs.GetInt("highestLevel") >= 15)
         {
             CreateUpgradeButton("moneyGain");
         }
