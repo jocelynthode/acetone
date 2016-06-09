@@ -84,6 +84,14 @@ public class Player : MovingObject
             instance.Die();
             return;
         }
+        if (Input.GetKey(KeyCode.Alpha5))
+        {
+            // Debug
+            var money = PlayerPrefs.GetInt("money");
+            PlayerPrefs.SetInt("money", money + 30);
+            RefreshUI();
+            return;
+        }
 
         if (Input.GetKey(KeyCode.Alpha1))
         {
