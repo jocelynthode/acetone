@@ -82,13 +82,6 @@ public class UpgradeMenu : MonoBehaviour
         SceneManager.LoadScene("LevelProcedural");
     }
 
-    public void Reset()
-    {
-        PlayerPrefs.DeleteAll();
-        GameManager.CheckPlayerPrefs(true);
-        RefreshMenu();
-    }
-
     public void UpdatePref(string name)
     {
         int level = PlayerPrefs.GetInt(name + "Level");
