@@ -143,7 +143,7 @@ public class UpgradeMenu : MonoBehaviour
             upgradeFunctions.Add("viewers", (baseLevel, baseStat) => {
                 var up = new Upgrade((baseLevel + 1) * 10, baseStat + 100, "Daily Giveaways");
                 up.Text = string.Format("Offer giveaways to viewers to get more popular. "
-                    + "This will increase the number of viewers from {0} to {1}.", baseStat, up.Stat);
+                    + "This increases the number of viewers from {0} to {1}.", baseStat, up.Stat);
                 return up;
             });
             upgradeFunctions.Add("itemsPower", (baseLevel, baseStat) => {
@@ -161,9 +161,10 @@ public class UpgradeMenu : MonoBehaviour
             });
 				
             upgradeFunctions.Add("moneyGain", (baseLevel, baseStat) => {
-                var increase = 15f / baseStat;
-                var up = new Upgrade((baseLevel + 1) * 100, baseStat + 30, "Sign with Sponsor");
-                up.Text = string.Format("Sign with a sponsor to earn {0:P0} more money per enemy killed.", increase);
+                var nextStat = baseStat + 30;
+                var up = new Upgrade((baseLevel + 1) * 100, nextStat, "Sign with Sponsor");
+                up.Text = string.Format("Sign with sponsors to earn more money per kill. Total bonus increases from {0:F1}x to {1:F1}x.",
+                    baseStat / 100f, nextStat / 100f);
                 return up;
             });
         }
