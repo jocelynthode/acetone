@@ -38,6 +38,12 @@ public class PauseMenu : MonoBehaviour {
 		exitText.enabled = false;
 	}
 
+    public void MutePress()
+    {
+        GameObject.Find("Sound").transform.FindChild("acetone").GetComponent<AudioSource>().mute = !GameObject.Find("Sound").transform.FindChild("acetone").GetComponent<AudioSource>().mute;
+
+    }
+
 	public void NoMainMenuPress()
 	{
 		mainMenu.enabled = false;
