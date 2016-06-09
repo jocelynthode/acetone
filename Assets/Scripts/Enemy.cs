@@ -43,6 +43,8 @@ public class Enemy : MovingObject
         {
             AStar aStar = GameManager.instance.aStar;
             ArrayList a = aStar.calculatePath(this.transform.position, player.position);
+            if (a.Count == 0)
+                return;  // Give up moving, the enemy is stuck because of the board layout.
             Vector3 nextPosition = (Vector3) a[0] - transform.position;
             xDir = (int) nextPosition.x;
             yDir = (int) nextPosition.y;
