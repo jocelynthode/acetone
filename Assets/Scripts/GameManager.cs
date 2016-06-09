@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
 
         oldLevel = level;
 
-        Player.instance.RefreshUI();
         boardScript = GetComponent<BoardManager>();
         boardScript.SetupScene(level);
         aStar = new AStar();
@@ -96,6 +95,11 @@ public class GameManager : MonoBehaviour
     {
         switch (state)
         {
+            case GameState.PLAYERTURN:
+                // Make sure money is updated after level change.
+                // We can't do it in InitLevel() because player.instance may not be set yet.
+                Player.instance.RefreshUI();
+                break;
             case GameState.ENEMIESTURN:
                 state = GameState.ENEMIESMOVING;
                 StartCoroutine(MoveEnemies());
