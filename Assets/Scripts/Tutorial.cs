@@ -51,7 +51,7 @@ public class Tutorial : MonoBehaviour {
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
 
         } 
-        else if (GameManager.instance.level == 20)
+        else if (GameManager.instance.level >= 20)
         {
             tutorialText.text = "Beware! The Redah is twice as fast as you are! Sponsors will pay a lot for their death.";
             PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);

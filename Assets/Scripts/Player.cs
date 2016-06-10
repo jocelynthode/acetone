@@ -144,10 +144,11 @@ public class Player : MovingObject
                 tutorial.EnemyTutorial();
                 break;
             case 10:
-            case 20:
                 tutorial.EnemyOthersTutorial();
                 break;
         }
+        if (GameManager.instance.level >= 20)
+            tutorial.EnemyOthersTutorial();
     }
 
     public override void AttemptMove<T>(int xDir, int yDir)
