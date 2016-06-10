@@ -22,9 +22,9 @@ public class Tutorial : MonoBehaviour {
         if (tutorialDisplayed > 0)
 			return;
         tutorialPopup.gameObject.SetActive(true);
-		tutorialText.text = "To move, use WASD or the arrow keys!";
+		tutorialText.text = "To move, use WASD or the arrow keys!\nPress ESC for more controls and options.";
         PlayerPrefs.SetInt("tutorialDisplayed", tutorialDisplayed + 1);
-		Invoke ("RemovePopup", 5);
+		Invoke ("RemovePopup", 8);
 	}
 
 	public void EnemyTutorial()

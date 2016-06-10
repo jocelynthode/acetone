@@ -79,27 +79,27 @@ public class Player : MovingObject
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.Alpha7))
         {
             instance.Die();
             return;
         }
-        if (Input.GetKey(KeyCode.Alpha5))
+        if (Input.GetKey(KeyCode.Alpha8))
         {
-            // Debug
+            // For debug
+            Items.useItem(Items.ItemType.SODA);
+            return;
+        }
+        if (Input.GetKey(KeyCode.Alpha9))
+        {
+            // For debug
             var money = PlayerPrefs.GetInt("money");
             PlayerPrefs.SetInt("money", money + 30);
             RefreshUI();
             return;
         }
 
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            Items.useItem(Items.ItemType.SODA);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.Alpha1) || Input.GetKey(KeyCode.Keypad1))
         {
             if (ladderInventory > 0)
             {
@@ -108,7 +108,7 @@ public class Player : MovingObject
             }
         }
 
-        if (Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.Keypad2))
         {
             if (bombInventory > 0 && GameManager.instance.boardScript.enemies.Count > 0)
             {
